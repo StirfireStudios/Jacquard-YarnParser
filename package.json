@@ -1,12 +1,14 @@
 {
   "name": "jacquard-yarnparser",
-  "version" : "0.1.0",
+  "version": "0.1.0",
   "description": "a JS parser for Yarn into an intermediate format",
-  "main": "parser.js",
+  "main": "main.js",
   "repository": "https://github.com/StirfireStudios/Jacquard-yarnparser",
   "author": "Stirfire Studios",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "commander": "^2.15.1"
+  },
   "dependencies": {
     "antlr4": "^4.7.1"
   },
