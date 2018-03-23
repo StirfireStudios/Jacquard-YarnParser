@@ -2,6 +2,38 @@
 
 lexer grammar YarnLexer;
 
+// Fragments so we can have mIxEdCaSe
+
+fragment A : [aA]; // match either an 'a' or 'A'
+fragment B : [bB];
+fragment C : [cC];
+fragment D : [dD];
+fragment E : [eE];
+fragment F : [fF];
+fragment G : [gG];
+fragment H : [hH];
+fragment I : [iI];
+fragment J : [jJ];
+fragment K : [kK];
+fragment L : [lL];
+fragment M : [mM];
+fragment N : [nN];
+fragment O : [oO];
+fragment P : [pP];
+fragment Q : [qQ];
+fragment R : [rR];
+fragment S : [sS];
+fragment T : [tT];
+fragment U : [uU];
+fragment V : [vV];
+fragment W : [wW];
+fragment X : [xX];
+fragment Y : [yY];
+fragment Z : [zZ];
+
+fragment LOWERCASE  : [a-z] ;
+fragment UPPERCASE  : [A-Z] ;
+
 // ----------------------
 // Default mode
 // handles headers and pushes into body mode
@@ -29,10 +61,10 @@ UNKNOWN : . ;
 // Title mode
 // for handling the title of the node
 // pops when it hits the end of the line
-// A title is allowed to be anything excluding a space or newline
+// A title is allowed to be anything up to the newline
 mode Title;
 TITLE_WS : (' ' | '\t') -> skip ;
-TITLE_TEXT : ~('\n' | ' ' | '\t')+ -> popMode ;
+TITLE_TEXT : ~'\n'+ -> popMode ;
 
 // ----------------------
 // Tag mode
@@ -41,7 +73,7 @@ TITLE_TEXT : ~('\n' | ' ' | '\t')+ -> popMode ;
 // currently this is just the same as the Header Text
 // but will likely change so better to set it up now
 mode Tags;
-TAG_TEXT : ~('\n')+ -> popMode ;
+TAG_TEXT :  ~'\n'* -> popMode ;
 
 // ----------------------
 // Header Text mode
@@ -66,22 +98,14 @@ TEXT_STRING : '"' .*? '"' ;
 
 SHORTCUT_ENTER : ('->' | '-> ') -> pushMode(Shortcuts);
 
-// currently using \a and \v as the indent and dedent symbols
-// these play the role that { and } play in many other languages
-// not sure if this is the best idea, feels like it might break
-// but at this stage the yarn file has gone through the preprocessor so it shouldnt really matter
-// have ruled out people using \a and \v as normal text, not likely to cause issue but worth pointing out
-
-//INDENT : '{' ;
-//DEDENT : '}' ;
-INDENT : '\u0007';
-DEDENT : '\u000B';
+INDENT : '\u001D';
+DEDENT : '\u001E';
 
 COMMAND_IF : COMMAND_OPEN KEYWORD_IF -> pushMode(Command) ;
 //COMMAND_ELSE : COMMAND_OPEN KEYWORD_ELSE -> pushMode(Command) ;
-COMMAND_ELSE : COMMAND_OPEN KEYWORD_ELSE COMMAND_CLOSE | '<<else>>' | '<<ELSE>>' ;
+COMMAND_ELSE : COMMAND_OPEN KEYWORD_ELSE COMMAND_CLOSE | '<<' E L S E '>>' ;
 COMMAND_ELSE_IF : COMMAND_OPEN KEYWORD_ELSE_IF -> pushMode(Command) ;
-COMMAND_ENDIF : COMMAND_OPEN ('endif' | 'ENDIF') '>>' ;
+COMMAND_ENDIF : COMMAND_OPEN E N D I F '>>' ;
 COMMAND_SET : COMMAND_OPEN KEYWORD_SET -> pushMode(Command) ;
 COMMAND_FUNC : COMMAND_OPEN ID '(' -> pushMode(Command) ;
 
@@ -102,7 +126,7 @@ BODY_GOBBLE : . -> more, pushMode(Text);
 // is zero or more as it will always have the first symbol passed by BODY_GOBBLE
 mode Text;
 
-TEXT : ~('\n'|'\u0007'|'\u000B'|'#')* -> popMode;
+TEXT : ~('\n'|'\u001D'|'\u001E'|'#')* -> popMode;
 
 // ----------------------
 // Shortcut mode
@@ -111,8 +135,8 @@ TEXT : ~('\n'|'\u0007'|'\u000B'|'#')* -> popMode;
 mode Shortcuts;
 
 // these 3 commented out bits work but use a semantic predicate
-fragment CHEVRON : '<' ~('<'|'#'|'\n'|'\u0007'|'\u000B') ;
-fragment PARTIAL : (~('<'|'#'|'\n'|'\u0007'|'\u000B') | CHEVRON)+ ;
+fragment CHEVRON : '<' ~('<'|'#'|'\n'|'\u001D'|'\u001E') ;
+fragment PARTIAL : (~('<'|'#'|'\n'|'\u001D'|'\u001E') | CHEVRON)+ ;
 SHORTCUT_TEXT : (PARTIAL | PARTIAL* '<' {_input.LA(1) != '<'}?) -> popMode ;
 
 // this is the bit I am trying to get working based on what was said on SO
@@ -137,29 +161,29 @@ COMMAND_STRING : STRING ;
 
 // adding a space after the keywords to get around the issue of
 //<<iffy>> being detected as an if statement
-KEYWORD_IF : ('if' | 'IF') ' ' ;
-KEYWORD_ELSE : ('else' | 'ELSE') ' ' ;
-KEYWORD_ELSE_IF : ('elseif' | 'ELSEIF') ' ' ;
-//KEYWORD_FUNC : 'func' | 'FUNC' ;
-KEYWORD_SET : ('set' | 'SET') ' ' ;
+KEYWORD_IF : I F ' ' ;
+KEYWORD_ELSE : E L S E ' ' ;
+KEYWORD_ELSE_IF : E L S E I F ' ' ;
+//KEYWORD_FUNC : F U N C ;
+KEYWORD_SET : S E T ' ' ;
 
-KEYWORD_TRUE  : 'true' | 'TRUE' ;
-KEYWORD_FALSE : 'false' | 'FALSE' ;
+KEYWORD_TRUE  : T R U E ;
+KEYWORD_FALSE : F A L S E;
 
-KEYWORD_NULL : 'null' | 'NULL' ;
+KEYWORD_NULL : N U L L | N I L ;
 
-KEYWORD_TO : 'to' | 'TO' | '=' ;
+KEYWORD_TO : T O | '=' ;
 // All the operators YarnSpinner currently supports
-OPERATOR_LOGICAL_LESS_THAN_EQUALS : '<=' | 'lte' | 'LTE' ;
-OPERATOR_LOGICAL_GREATER_THAN_EQUALS : '>=' | 'gte' | 'GTE' ;
-OPERATOR_LOGICAL_EQUALS : '==' | 'IS' | 'is' | 'eq' | 'EQ' ;
-OPERATOR_LOGICAL_LESS : '<' | 'lt' | 'LT' ;
-OPERATOR_LOGICAL_GREATER : '>' | 'gt' | 'GT' ;
-OPERATOR_LOGICAL_NOT_EQUALS : '!=' | 'neq' | 'NEQ' ;
-OPERATOR_LOGICAL_AND : 'and' | 'AND' | '&&' ;
-OPERATOR_LOGICAL_OR : 'or' | 'OR' | '||' ;
-OPERATOR_LOGICAL_XOR : 'xor' | 'XOR' | '^' ;
-OPERATOR_LOGICAL_NOT : 'not' | 'NOT' | '!' ;
+OPERATOR_LOGICAL_LESS_THAN_EQUALS : '<=' | L T E ;
+OPERATOR_LOGICAL_GREATER_THAN_EQUALS : '>=' | G T E ;
+OPERATOR_LOGICAL_EQUALS : '==' | I S | E Q ;
+OPERATOR_LOGICAL_LESS : '<' | L T ;
+OPERATOR_LOGICAL_GREATER : '>' | G T  ;
+OPERATOR_LOGICAL_NOT_EQUALS : '!=' | N E Q ;
+OPERATOR_LOGICAL_AND : A N D | '&&' ;
+OPERATOR_LOGICAL_OR : O R | '||' ;
+OPERATOR_LOGICAL_XOR : X O R | '^' ;
+OPERATOR_LOGICAL_NOT : N O T | '!' ;
 OPERATOR_MATHS_ADDITION_EQUALS : '+=' ;
 OPERATOR_MATHS_SUBTRACTION_EQUALS : '-=' ;
 OPERATOR_MATHS_MULTIPLICATION_EQUALS : '*=' ;

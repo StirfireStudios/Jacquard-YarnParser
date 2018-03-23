@@ -2,7 +2,7 @@
 
 parser grammar YarnParser;
 
-options { tokenVocab=YarnSpinnerLexer; }
+options { tokenVocab=YarnLexer; }
 
 dialogue : node+ EOF;
 
