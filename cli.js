@@ -29,6 +29,7 @@ if (program.args.length < 1) {
 
 if (program.preprocessOnly != null) {
   const filename = program.preprocessOnly
+  console.log(`filename: ${filename}\n`)
   try {
     config.preprocessFS = FileIO.OpenFileWriteStream(filename);
     config.preprocessOnly = true;
@@ -45,7 +46,7 @@ let yarnText = null
 try {
 	yarnText = FileIO.ReadEntireFile(config.filename)
 } catch(err) {
-  console.error(`Could not read ${filename} - ${err}`);
+  console.error(`Could not read ${config.filename} - ${err}`);
 }
 
 if (!config.ready) {
@@ -60,7 +61,7 @@ parser = YarnParser();
 parser.preprocessOnly = config.preprocessOnly
 
 if (!parser.parse(yarnText)) {
-  console.err(`Could not parse ${filename} - ${parser.error}`)
+  console.error(`Could not parse ${config.filename} - ${parser.error}`)
 }
 
 if (config.preprocessOnly) {

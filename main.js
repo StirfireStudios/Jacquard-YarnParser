@@ -11,9 +11,9 @@ function parse(yarnString) {
 	return true;
 }
 
-export default function(yarnString, options) {
+module.exports = function(yarnString, options) {
 	const parser = {
-		preprocessOnly = false
+		preprocessOnly: false
 	}
 
 	parser.parse = parse.bind(parser)
