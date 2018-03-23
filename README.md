@@ -13,6 +13,8 @@ We use the ANTLR parser that @mcjones wrote for Yarnspinner for the most part, b
 
 #### PreProcessor Pseudocode
 
+(the implemented JS preprocessor is [here](preprocessor.js))
+
 Because of the difficulties of parsing indented languages in ANTLR we pre-process the text file before passing it into the ANTLR parser. We add invisible shortcut start and shortcut end characters. These characters are `0x1D` and `0x1E`
 
 Newlines can be either `\n` or `\r\n` to be aware of that (you can convert into `\n` if you wish)
