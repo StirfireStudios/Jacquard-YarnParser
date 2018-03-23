@@ -3,7 +3,9 @@ tags:
 colorID: 0
 position: 545,274
 ---
-Basic Node, has information and a node link.
+Basic Node, has information and a node link. 
+
+<<set $ifBranch to true>>
 
 [[Named Options]]
 
@@ -43,6 +45,7 @@ Here we have single nested options.
    You Picked Option 1! (this had no tabs)
 -> Option 2
 	You picked Option 2! (this had tabs)
+-> <<flying man>> he flies! <<no more flyingman>>
 
 Here we have Nested Options
 -> Option 1

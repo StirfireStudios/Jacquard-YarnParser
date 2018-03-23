@@ -96,7 +96,7 @@ BODY_CLOSE : '===' -> popMode ;
 
 TEXT_STRING : '"' .*? '"' ;
 
-SHORTCUT_ENTER : ('->' | '-> ') -> pushMode(Shortcuts);
+SHORTCUT_ENTER : ('->' | '-> ') ;
 
 INDENT : '\u001D';
 DEDENT : '\u001E';
@@ -127,25 +127,6 @@ BODY_GOBBLE : . -> more, pushMode(Text);
 mode Text;
 
 TEXT : ~('\n'|'\u001D'|'\u001E'|'#')* -> popMode;
-
-// ----------------------
-// Shortcut mode
-// Handles any form of text except the delimiters or <<
-// currently uses a semantic predicate to handle << which I don't like and would like to change
-mode Shortcuts;
-
-// these 3 commented out bits work but use a semantic predicate
-fragment CHEVRON : '<' ~('<'|'#'|'\n'|'\u001D'|'\u001E') ;
-fragment PARTIAL : (~('<'|'#'|'\n'|'\u001D'|'\u001E') | CHEVRON)+ ;
-SHORTCUT_TEXT : (PARTIAL | PARTIAL* '<' {_input.LA(1) != '<'}?) -> popMode ;
-
-// this is the bit I am trying to get working based on what was said on SO
-//SHORTCUT_TEXT : CHAR+ -> popMode;
-
-//SHORTCUT_COMMAND : '<<' -> popMode, pushMode(Command);
-//SHORTCUT_COMMAND : '<<' -> popMode, pushMode(Command);
-//CHEVRON : '<' -> type(SHORTCUT_TEXT) ;
-//fragment CHAR : ~('<'|'#'|'\n'|'\u0007'|'\u000B') ;
 
 // ----------------------
 // Command mode

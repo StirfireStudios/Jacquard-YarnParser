@@ -7,6 +7,9 @@
 /antlr/*
 !/antlr/*.g4
 
+## Preprocessed yarn
+/preprocessed.yarn.txt
+
 ## JAVASCRIPT
 ## --
 

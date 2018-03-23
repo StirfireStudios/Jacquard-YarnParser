@@ -1,10 +1,12 @@
+'use strict';
+
 const preprocessor = require('./preprocessor')
 
 function parse(yarnString) {
 	try {
-		this.processedString = preprocessor(yarnString)
+		this.processedString = preprocessor(yarnString, this.preprocessDebug);
 	} catch(err) {
-		this.error = err
+		this.error = err;
 		return false;
 	}
 
@@ -13,10 +15,11 @@ function parse(yarnString) {
 
 module.exports = function(yarnString, options) {
 	const parser = {
-		preprocessOnly: false
-	}
+    preprocessOnly: false,
+    preprocessDebug: false
+	};
 
-	parser.parse = parse.bind(parser)
+	parser.parse = parse.bind(parser);
 
 	return parser;
 }

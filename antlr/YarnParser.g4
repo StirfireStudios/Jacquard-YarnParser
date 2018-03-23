@@ -21,7 +21,7 @@ header_line : HEADER_NAME ':' HEADER_TEXT NEWLINE ;
 body : BODY_ENTER statement* BODY_CLOSE ;
 
 statement
-    : shortcut_statement
+    : shortcut
     | if_statement
     | set_statement
     | option_statement
@@ -30,10 +30,7 @@ statement
     | line_statement
     ;
 
-shortcut_statement : shortcut+ ;
-shortcut : SHORTCUT_ENTER shortcut_text shortcut_conditional? hashtag_block? (INDENT statement* DEDENT)? ;
-shortcut_conditional : COMMAND_IF expression COMMAND_CLOSE ;
-shortcut_text : SHORTCUT_TEXT ;
+shortcut : SHORTCUT_ENTER INDENT statement* DEDENT ;
 
 if_statement : if_clause (else_if_clause)* (else_clause)? COMMAND_ENDIF (hashtag_block)? ;
 if_clause : COMMAND_IF expression COMMAND_CLOSE statement* ;
