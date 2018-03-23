@@ -33,8 +33,9 @@ It's probably a good idea to use a stack as the way of storing the whitspace enc
         - the whitespace found is the same or longer than the current whitespace encountered
     - and 
         - the next characters are `->`
-      1. Insert a shortcut start character before the next newline (`0x1E`)
-      2. push the whitespace found at 2 and that we need to emit "close option" onto the stack
+    - then
+        1. Insert a shortcut start character before the next newline (`0x1E`)
+        2. push the whitespace found at 2 and that we need to emit "close option" onto the stack
   3. Output the line and return to 2 above
 
 

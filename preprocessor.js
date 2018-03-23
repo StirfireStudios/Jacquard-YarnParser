@@ -1,5 +1,5 @@
-const SHORTCUT_START = "{"
-const SHORTCUT_END = "}"
+const SHORTCUT_START = '\u001D'
+const SHORTCUT_END = '\u001E'
 
 function processLine(lines) {
   const line = lines.shift();
