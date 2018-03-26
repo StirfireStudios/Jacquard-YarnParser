@@ -63,8 +63,8 @@ UNKNOWN : . ;
 // pops when it hits the end of the line
 // A title is allowed to be anything up to the newline
 mode Title;
-TITLE_WS : (' ' | '\t') -> skip ;
-TITLE_TEXT : ~'\n'+ -> popMode ;
+TITLE_TEXT : ~'\n'+ ;
+TITLE_TAG_END : '\n' -> popMode;
 
 // ----------------------
 // Tag mode
@@ -73,15 +73,17 @@ TITLE_TEXT : ~'\n'+ -> popMode ;
 // currently this is just the same as the Header Text
 // but will likely change so better to set it up now
 mode Tags;
-TAG_TEXT :  ~'\n'* -> popMode ;
+TAG_TEXT : ~('\n' | ',')+ ;
+TAG_DELIMIT : ',' ;
+HEADER_TAG_END : '\n' -> popMode;
 
 // ----------------------
 // Header Text mode
 // for grabbing all the non-title/tag header text
 // pops when it hits the end of a line
 mode HeaderText;
-HEADER_WS : (' ' | '\t') -> skip ;
-HEADER_TEXT : ~('\n')+ -> popMode;
+HEADER_TEXT : ~('\n')+;
+HEADER_END : '\n' -> popMode;
 
 // ----------------------
 // Body mode
@@ -89,6 +91,7 @@ HEADER_TEXT : ~('\n')+ -> popMode;
 
 mode Body;
 
+BLANK_STATEMENT : ('\n\n') ;
 WS_IN_BODY : (' ' | '\t' | '\n')+ -> skip ; // skip spaces, tabs, newlines
 COMMENT : '//' .*? '\n' -> skip ;
 

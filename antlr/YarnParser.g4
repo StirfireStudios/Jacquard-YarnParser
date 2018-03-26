@@ -14,9 +14,10 @@ node: header body NEWLINE*;
 // or doing it with some code, the in code option seems the best here
 // at least according to https://stackoverflow.com/questions/14934081/antlr4-matching-all-input-alternatives-exaclty-once
 header : header_title (header_tag | header_line)* ;
-header_title : HEADER_TITLE TITLE_TEXT NEWLINE ;
-header_tag : HEADER_TAGS TAG_TEXT NEWLINE ;
-header_line : HEADER_NAME ':' HEADER_TEXT NEWLINE ;
+header_title : HEADER_TITLE TITLE_TEXT TITLE_TAG_END ;
+header_tag_name : TAG_TEXT TAG_DELIMIT? ;
+header_tag : HEADER_TAGS header_tag_name* HEADER_TAG_END ;
+header_line : HEADER_NAME ':' HEADER_TEXT HEADER_END ;
 
 body : BODY_ENTER statement* BODY_CLOSE ;
 
@@ -25,9 +26,10 @@ statement
     | if_statement
     | set_statement
     | option_statement
-	| function_statement
+	| func_call_statement
     | action_statement
     | line_statement
+	| blank_statement
     ;
 
 shortcut : SHORTCUT_ENTER INDENT statement* DEDENT ;
@@ -48,14 +50,15 @@ option_statement
 	| '[[' OPTION_TEXT ']]')
 	(hashtag_block)? ;
 
-function : FUNC_ID '(' expression? (COMMA expression)* ')' ;
+func_call : FUNC_ID '(' expression? (COMMA expression)* ')' ;
 // this is messy
-function_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CLOSE ;
+func_call_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CLOSE ;
 // this isn't ideal but works quite well
 action_statement : ACTION ;
 
 text : TEXT | TEXT_STRING ;
 line_statement : text (hashtag_block)? ;
+blank_statement : BLANK_STATEMENT ;
 
 hashtag_block : hashtag+ ;
 hashtag : HASHTAG ;
@@ -83,7 +86,7 @@ value
     | KEYWORD_FALSE  #valueFalse
 	| variable		 #valueVar
 	| COMMAND_STRING #valueString
-	| function		 #valueFunc
+	| func_call		 #valueFunc
     | KEYWORD_NULL   #valueNull
     ;
 variable
