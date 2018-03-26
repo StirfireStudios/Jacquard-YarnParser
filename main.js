@@ -1,6 +1,7 @@
 'use strict';
 
 const preprocessor = require('./preprocessor')
+const parser = require('./parser')
 
 function parse(yarnString) {
 	try {
@@ -10,13 +11,21 @@ function parse(yarnString) {
 		return false;
 	}
 
+  if (this.preprocessOnly) {
+    return true;
+  }
+
+  parsedData = parser(this.processedString);
+
 	return true;
 }
 
-module.exports = function(yarnString, options) {
+module.exports = function() {
 	const parser = {
-    preprocessOnly: false,
-    preprocessDebug: false
+	  preprocessOnly: false,
+    preprocessDebug: false,
+    outputNodes: [],
+    error: null
 	};
 
 	parser.parse = parse.bind(parser);
