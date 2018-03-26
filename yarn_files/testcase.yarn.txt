@@ -1,18 +1,19 @@
 title: Basic
-tags:
+tags: frog people, frog, people
 colorID: 0
 position: 545,274
 ---
 Basic Node, has information and a node link. 
 
 <<set $ifBranch to true>>
+<<if no if>>
 
 [[Named Options]]
 
 [[This should never be reached]]
 ===
 title: Named Options
-tags:
+tags: people, frog
 colorID: 0
 position: 856,356
 ---
@@ -62,9 +63,9 @@ Here we have Nested Options
 	-> SubOption b
 		You Picked b!
 
-[[If Statement Options|IfStatements]]
+[[If Statement Options|If Statements]]
 ===
-title: IfStatements
+title: If Statements
 tags:
 colorID: 0
 position: 1170,404

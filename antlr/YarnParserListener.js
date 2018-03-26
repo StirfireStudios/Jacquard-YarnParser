@@ -47,6 +47,15 @@ YarnParserListener.prototype.exitHeader_title = function(ctx) {
 };
 
 
+// Enter a parse tree produced by YarnParser#header_tag_name.
+YarnParserListener.prototype.enterHeader_tag_name = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#header_tag_name.
+YarnParserListener.prototype.exitHeader_tag_name = function(ctx) {
+};
+
+
 // Enter a parse tree produced by YarnParser#header_tag.
 YarnParserListener.prototype.enterHeader_tag = function(ctx) {
 };
@@ -146,21 +155,21 @@ YarnParserListener.prototype.exitOption_statement = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#function.
-YarnParserListener.prototype.enterFunction = function(ctx) {
+// Enter a parse tree produced by YarnParser#func_call.
+YarnParserListener.prototype.enterFunc_call = function(ctx) {
 };
 
-// Exit a parse tree produced by YarnParser#function.
-YarnParserListener.prototype.exitFunction = function(ctx) {
+// Exit a parse tree produced by YarnParser#func_call.
+YarnParserListener.prototype.exitFunc_call = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#function_statement.
-YarnParserListener.prototype.enterFunction_statement = function(ctx) {
+// Enter a parse tree produced by YarnParser#func_call_statement.
+YarnParserListener.prototype.enterFunc_call_statement = function(ctx) {
 };
 
-// Exit a parse tree produced by YarnParser#function_statement.
-YarnParserListener.prototype.exitFunction_statement = function(ctx) {
+// Exit a parse tree produced by YarnParser#func_call_statement.
+YarnParserListener.prototype.exitFunc_call_statement = function(ctx) {
 };
 
 
@@ -188,6 +197,15 @@ YarnParserListener.prototype.enterLine_statement = function(ctx) {
 
 // Exit a parse tree produced by YarnParser#line_statement.
 YarnParserListener.prototype.exitLine_statement = function(ctx) {
+};
+
+
+// Enter a parse tree produced by YarnParser#blank_statement.
+YarnParserListener.prototype.enterBlank_statement = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#blank_statement.
+YarnParserListener.prototype.exitBlank_statement = function(ctx) {
 };
 
 

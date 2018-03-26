@@ -6,21 +6,28 @@ const YarnParser = require('./antlr/YarnParser');
 const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 
 function contextWithMessage(ctx, message) {
+  const positions = {};
+  
+  if (ctx.isErrorNode !== undefined && ctx.isErrorNode()) {
+    positions.start = {line: ctx.symbol.line, column: ctx.symbol.column };
+    positions.end = {line: ctx.symbol.line, column: ctx.symbol.column };
+  } else {
+    positions.start =  {line: ctx.start.line, column: ctx.start.column };
+    positions.end =  {line: ctx.stop.line, column: ctx.stop.column };
+  }
+
   return {
-    lines: {
-      start: ctx.start.line,
-      end: ctx.stop.line
-    },
+    positions: positions,
     message: message
   }
 }
 
-function addError(ctx, string) {
-	this.errors.push(contextWithMessage(ctx, string));
+function addError(listener, ctx, string) {
+	listener.errors.push(contextWithMessage(ctx, string));
 }
 
-function addWarning(ctx, string) {
-	this.warnings.push(contextWithMessage(ctx, string));
+function addWarning(listener, ctx, string) {
+	listener.warnings.push(contextWithMessage(ctx, string));
 }
 
 function YarnListener() {
@@ -28,7 +35,7 @@ function YarnListener() {
 	this.warnings = [];
   this.nodesByName = {};
   this.nodesByTag = {};
-	this.currentNode = null;
+	this._node = null;
 	BaseListener.call(this);
 }
 
@@ -36,45 +43,70 @@ YarnListener.prototype = Object.create(BaseListener.prototype);
 YarnListener.prototype.constructor = YarnListener;
 
 YarnListener.prototype.visitErrorNode = function(node) {
-	console.log("ERROR!");
+  node.parentCtx.children.forEach((child) => {
+    if (child.isErrorNode === undefined) return;
+    if (!child.isErrorNode()) return;
+    addError(this, child, child.toString());
+  });
 };
 
 YarnListener.prototype.enterNode = function(ctx) {
-	if (this.currentNode != null) {
-    addWarning.call(this, ctx, "entering without prior exit");
+	if (this._node != null) {
+    addWarning(this, ctx, "entering without prior exit");
 	}
 
-	this.currentNode = {
-		title: null,
-		tags: null,
+	this._node = {
+    title: null,
+    attributes: {},
+		tags: [],
     statements: [],
     linkedNodeNames: []
 	};
 };
 
 YarnListener.prototype.exitHeader_title = function(ctx) {
-	this.currentNode.title = ctx.getChild(1).getText().trim();
+	this._node.title = ctx.getChild(1).getText().trim();
 }
 
-YarnListener.prototype.exitHeader_tag = function(ctx) {
-  if (ctx.getChildren()) {
+YarnListener.prototype.exitHeader_tag_name = function(ctx) {
+  const tagName = ctx.getChild(0).toString().trim();
+  this._node.tags.push(tagName);
+};
 
+YarnListener.prototype.exitHeader_line = function(ctx) {
+  const attrName = ctx.getChild(0).getText().trim();
+  if (ctx.children.length < 4) {
+    addWarning.call(this, ctx, `Couldn't find value for header ${attrName}`);
+    return;
   }
-	this.currentNode.title = ctx.getChild(1).getText().trim();
-}
+  const attrValue = ctx.getChild(2).getText().trim();
+
+  if (this._node.attributes[attrName] != null) {
+    addWarning.call(this, ctx, "Attemping to set attribute ${attrName} twice");
+    return;
+  }
+
+  this._node.attributes[attrName] = attrValue;
+};
 
 YarnListener.prototype.exitNode = function(ctx) {
-	if (this.currentNode.title == null) {
-    addError.call(this, ctx, "title has not been supplied");
+	if (this._node.title == null) {
+    addError(this, ctx, "title has not been supplied");
 	} else {
-		this.nodesByName[this.currentNode.title] = this.currentNode;
-	}
+		this.nodesByName[this._node.title] = this._node;
+    this._node.tags.forEach((tagName) => {
+      if (this.nodesByTag[tagName] == null) {
+        this.nodesByTag[tagName] = {};
+      }
+      this.nodesByTag[tagName][this._node.title] = this._node;
+    })
+  }
 
-	if (this.currentNode.statements.length === 0) {
-    addWarning.call(this, ctx, "Blank node!");
+	if (this._node.statements.length === 0) {
+    addWarning(this, ctx, "Blank node!");
   }
   
-  this.currentNode = null;
+  this._node = null;
 };
 
 module.exports = function(data) {
@@ -82,10 +114,11 @@ module.exports = function(data) {
 	const lexer = new YarnLexer.YarnLexer(chars);
 	const tokens = new antlr4.CommonTokenStream(lexer);
 	const parser = new YarnParser.YarnParser(tokens);
-	parser.buildParseTrees = true;
+  parser.buildParseTrees = true;
 	const tree = parser.dialogue();
 	const listener = new YarnListener();
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
-	console.log("DATA");
+  delete(listener._node);
+  return listener;
 }
