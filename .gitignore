@@ -6,6 +6,7 @@
 ## ANTLR stuff
 /antlr/*
 !/antlr/*.g4
+!/antlr/*.js
 
 ## Preprocessed yarn
 /preprocessed.yarn.txt
