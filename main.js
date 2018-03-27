@@ -15,8 +15,8 @@ function parse(yarnString) {
     return true;
   }
 
-  parsedData = parser(this.processedString);
-
+  const parsedData = parser(this.processedString);
+  console.log(JSON.stringify(parsedData.nodesByName));
 	return true;
 }
 
@@ -32,3 +32,5 @@ module.exports = function() {
 
 	return parser;
 }
+
+module.exports.statementTypes = require('./statementTypes');

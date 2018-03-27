@@ -5,6 +5,8 @@ const YarnLexer = require('./antlr/YarnLexer');
 const YarnParser = require('./antlr/YarnParser');
 const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 
+const statementTypes = require('./statementTypes');
+
 function contextWithMessage(ctx, message) {
   const positions = {};
   
@@ -35,7 +37,8 @@ function YarnListener() {
 	this.warnings = [];
   this.nodesByName = {};
   this.nodesByTag = {};
-	this._node = null;
+  this._node = null;
+  this._statements = null;
 	BaseListener.call(this);
 }
 
@@ -50,6 +53,9 @@ YarnListener.prototype.visitErrorNode = function(node) {
   });
 };
 
+/* Node Visitors
+ */
+
 YarnListener.prototype.enterNode = function(ctx) {
 	if (this._node != null) {
     addWarning(this, ctx, "entering without prior exit");
@@ -61,9 +67,35 @@ YarnListener.prototype.enterNode = function(ctx) {
 		tags: [],
     statements: [],
     linkedNodeNames: []
-	};
+  };
+  
+  this._statements = this._node.statements;
 };
 
+YarnListener.prototype.exitNode = function(ctx) {
+	if (this._node.title == null) {
+    addError(this, ctx, "title has not been supplied");
+	} else {
+		this.nodesByName[this._node.title] = this._node;
+    this._node.tags.forEach((tagName) => {
+      if (this.nodesByTag[tagName] == null) {
+        this.nodesByTag[tagName] = {};
+      }
+      this.nodesByTag[tagName][this._node.title] = this._node;
+    })
+  }
+
+	if (this._node.statements.length === 0) {
+    addWarning(this, ctx, "Blank node!");
+  }
+  
+  this._node = null;
+};
+/* End Node Visitors
+ */
+
+/* Header visitors
+ */
 YarnListener.prototype.exitHeader_title = function(ctx) {
 	this._node.title = ctx.getChild(1).getText().trim();
 }
@@ -88,26 +120,44 @@ YarnListener.prototype.exitHeader_line = function(ctx) {
 
   this._node.attributes[attrName] = attrValue;
 };
+/* End visitors
+ */
 
-YarnListener.prototype.exitNode = function(ctx) {
-	if (this._node.title == null) {
-    addError(this, ctx, "title has not been supplied");
-	} else {
-		this.nodesByName[this._node.title] = this._node;
-    this._node.tags.forEach((tagName) => {
-      if (this.nodesByTag[tagName] == null) {
-        this.nodesByTag[tagName] = {};
-      }
-      this.nodesByTag[tagName][this._node.title] = this._node;
-    })
-  }
+/* Statement Visitors
+ */
+YarnListener.prototype.exitLine_statement = function(ctx) {
+  const text = ctx.children.map(function(textNode) {
+    return textNode.children[0].toString();  
+  }).join("\n");
 
-	if (this._node.statements.length === 0) {
-    addWarning(this, ctx, "Blank node!");
+  this._statements.push({
+    type: statementTypes.Line,
+    text: text
+  })
+};
+
+YarnListener.prototype.exitBlank_statement = function(ctx) {
+  // we will need to do something if the previous statement is an option. 
+};
+
+YarnListener.prototype.exitOption_statement = function(ctx) {
+  const statement = {};
+  if (ctx.children.length == 3) {
+    statement.type = statementTypes.NodeLink;
+    statement.node = ctx.getChild(1).getText();
+  } else {
+    statement.type = statementTypes.NodeLinkWithText;
+    statement.node = ctx.getChild(3).getText();
+    statement.text = ctx.getChild(1).getText();
   }
   
-  this._node = null;
+  if (!this._node.linkedNodeNames.includes(statement.node)) {
+    this._node.linkedNodeNames.push(statement.node);
+  }
+  this._statements.push(statement);
 };
+/* End Statement Visitors
+ */
 
 module.exports = function(data) {
 	const chars = new antlr4.InputStream(data)

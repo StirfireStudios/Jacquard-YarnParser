@@ -5,8 +5,10 @@ position: 545,274
 ---
 Basic Node, has information and a node link. 
 
+This
+should be one statement.
+
 <<set $ifBranch to true>>
-<<if no if>>
 
 [[Named Options]]
 
@@ -21,6 +23,8 @@ Here we have the normal named options syntax, which doesn't allow for anything o
 
 [[If Branches|If Branch]]
 [[Shortcut Options|Shortcut Options]]
+This text should never appear
+[[Shouldn't be included above|This should never be reached]]
 ===
 title: If Branch
 tags:

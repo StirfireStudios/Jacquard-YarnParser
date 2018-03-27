@@ -57,7 +57,7 @@ func_call_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CL
 action_statement : ACTION ;
 
 text : TEXT | TEXT_STRING ;
-line_statement : text (hashtag_block)? ;
+line_statement : (text (hashtag_block)?)+ ;
 blank_statement : BLANK_STATEMENT ;
 
 hashtag_block : hashtag+ ;
