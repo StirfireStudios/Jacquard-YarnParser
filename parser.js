@@ -163,12 +163,35 @@ YarnListener.prototype.enterElse_clause = function(ctx) {
   this._statements = clause.statements;
 };
 
+YarnListener.prototype.exitAction_statement = function(ctx) {
+  const actionText = ctx.getChild(0).getText()
+  this._statements.push({
+    type: statementTypes.Action,
+    action: actionText.substring(2, actionText.length - 2).trim(),
+  })
+};
+
 YarnListener.prototype.exitBlank_statement = function(ctx) {
   const lastStatement = this._statements[this._statements.length - 1];
   if (lastStatement.type == statementTypes.Blank) return;
   this._statements.push({
     type: statementTypes.Blank
   });
+};
+
+YarnListener.prototype.exitFunc_call_statement = function(ctx) {
+  const funcText = ctx.getChild(0).getText();
+  const args = [];
+  for(let i = 1; i < ctx.getChildCount(); i++) {
+    const node = ctx.getChild(i);
+    if (node.getChildCount() === 0) continue;
+    args.push(expressionGenerator(node));
+  }
+  this._statements.push({
+    type: statementTypes.Function,
+    name: funcText.substring(2, funcText.length - 1).trim(),
+    args: args,
+  })
 };
 
 YarnListener.prototype.exitIf_statement = function(ctx) {

@@ -72,14 +72,26 @@ function generateNumberValue(expressionNode) {
   return expression;
 }
 
+function generateStringExpression(expressionNode) {
+  let stringVal = expressionNode.getText();
+  if (stringVal.startsWith('"')) stringVal = stringVal.substr(1);
+  if (stringVal.endsWith('"')) stringVal = stringVal.substr(0, stringVal.length - 1);
+
+  return {
+    type: types.Static,
+    valueType: types.StaticTypes.String,
+    value: stringVal,
+  }
+}
+
 function generateFunctionExpression(expressionNode) {
   const expression = {type: types.Function}
   expression.name = expressionNode.getChild(0).getText();
-  expression.arguments = [];
+  expression.args = [];
   for(let i = 1; i < expressionNode.children.length; i++) {
     const subNode = expressionNode.getChild(i);
     if (subNode.getChildCount() == 0) continue;
-    expression.arguments.push(generateExpression(subNode));
+    expression.args.push(generateExpression(subNode));
   }
   return expression;
 }
@@ -88,6 +100,8 @@ function generateFunctionExpression(expressionNode) {
 function generateValueExpression(expressionNode) {
   if (expressionNode instanceof YarnParser.VariableContext) {
     return { type: types.Variable, variable: expressionNode.getChild(0).getText().trim() }
+  } else if (expressionNode instanceof YarnParser.ValueStringContext) {
+    return generateStringExpression(expressionNode.getChild(0));
   } else if (expressionNode instanceof YarnParser.ValueFuncContext) {
     return generateFunctionExpression(expressionNode.getChild(0));
   } else if (expressionNode instanceof YarnParser.ExpValueContext) {
