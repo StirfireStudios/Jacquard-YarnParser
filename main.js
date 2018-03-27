@@ -33,4 +33,4 @@ module.exports = function() {
 	return parser;
 }
 
-module.exports.statementTypes = require('./statementTypes');
+module.exports.StatementTypes = require('./statementTypes');

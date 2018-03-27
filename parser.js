@@ -6,6 +6,7 @@ const YarnParser = require('./antlr/YarnParser');
 const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 
 const statementTypes = require('./statementTypes');
+const expressionGenerator = require('./parser/expressionGenerator');
 
 function contextWithMessage(ctx, message) {
   const positions = {};
@@ -125,6 +126,14 @@ YarnListener.prototype.exitHeader_line = function(ctx) {
 
 /* Statement Visitors
  */
+YarnListener.prototype.exitBlank_statement = function(ctx) {
+  const lastStatement = this._statements[this._statements.length - 1];
+  if (lastStatement.type == statementTypes.Blank) return;
+  this._statements.push({
+    type: statementTypes.Blank
+  });
+};
+
 YarnListener.prototype.exitLine_statement = function(ctx) {
   const text = ctx.children.map(function(textNode) {
     return textNode.children[0].toString();  
@@ -134,10 +143,6 @@ YarnListener.prototype.exitLine_statement = function(ctx) {
     type: statementTypes.Line,
     text: text
   })
-};
-
-YarnListener.prototype.exitBlank_statement = function(ctx) {
-  // we will need to do something if the previous statement is an option. 
 };
 
 YarnListener.prototype.exitOption_statement = function(ctx) {
@@ -154,6 +159,19 @@ YarnListener.prototype.exitOption_statement = function(ctx) {
   if (!this._node.linkedNodeNames.includes(statement.node)) {
     this._node.linkedNodeNames.push(statement.node);
   }
+
+  this._statements.push(statement);
+};
+
+YarnListener.prototype.exitSet_statement = function(ctx) {
+  const statement = {type: statementTypes.Evaluate}
+  if (ctx.children.length == 5) {
+    const variable = ctx.getChild(1).getChild(0).toString().trim();
+    statement.expression = expressionGenerator(ctx.getChild(3), variable);
+  } else if (ctx.children.length == 3) {
+    statement.expression = expressionGenerator(ctx.getChild(1));
+  }
+
   this._statements.push(statement);
 };
 /* End Statement Visitors

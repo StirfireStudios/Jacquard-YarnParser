@@ -3,12 +3,14 @@ tags: frog people, frog, people
 colorID: 0
 position: 545,274
 ---
-Basic Node, has information and a node link. 
+Basic Node, has information and a node link.
 
 This
 should be one statement.
 
-<<set $ifBranch to true>>
+<< set $ifBranch to (1+2) && func2(2+3) && false >>
+<< set $ifBranch to func2(1, 2 + 3) >> 
+<< set $test += $test2 + 2 + false + 2.4 + null >>
 
 [[Named Options]]
 
@@ -21,8 +23,8 @@ position: 856,356
 ---
 Here we have the normal named options syntax, which doesn't allow for anything other than a node-jump
 
-[[If Branches|If Branch]]
-[[Shortcut Options|Shortcut Options]]
+[[ If Branches|If Branch ]]
+[[ Shortcut Options|Shortcut Options ]]
 This text should never appear
 [[Shouldn't be included above|This should never be reached]]
 ===
@@ -32,7 +34,7 @@ colorID: 0
 position: 1170,404
 ---
 Here we have an if test on $ifBranch to be true and if that's true we display a thing (also the if has a capital I and the else is ElSe)
-<<If $ifBranch>>
+<< If $ifBranch>>
 	$ifBranch was true, also this should display without leading tabs.
 <<ElSe>>
 	$ifBranch was FALSE D: D:
@@ -54,7 +56,7 @@ Here we have single nested options.
 
 Here we have Nested Options
 -> Option 1
-  These are nested with spaces! 
+  These are nested with spaces!
   -> SubOption a
     You picked a!
   -> SubOption b

@@ -69,13 +69,32 @@ expression
 	: '(' expression ')' #expParens
 	| <assoc=right>'-' expression #expNegative
 	| <assoc=right>OPERATOR_LOGICAL_NOT expression #expNot
-	| expression op=('*' | '/' | '%') expression #expMultDivMod
-	| expression op=('+' | '-') expression #expAddSub
-	| expression op=(OPERATOR_LOGICAL_LESS_THAN_EQUALS | OPERATOR_LOGICAL_GREATER_THAN_EQUALS | OPERATOR_LOGICAL_LESS | OPERATOR_LOGICAL_GREATER ) expression #expComparison
-	| expression op=(OPERATOR_LOGICAL_EQUALS | OPERATOR_LOGICAL_NOT_EQUALS) expression #expEquality
-	| variable op=('*=' | '/=' | '%=') expression #expMultDivModEquals
-	| variable op=('+=' | '-=') expression #expPlusMinusEquals
-	| expression op=(OPERATOR_LOGICAL_AND | OPERATOR_LOGICAL_OR | OPERATOR_LOGICAL_XOR) expression #expAndOrXor
+	| expression op=(
+		OPERATOR_MATHS_MULTIPLICATION | 
+		OPERATOR_MATHS_DIVISION |
+		OPERATOR_MATHS_MODULUS) expression #expMultDivMod
+	| expression op=(
+		OPERATOR_MATHS_ADDITION| 
+		OPERATOR_MATHS_SUBTRACTION) expression #expAddSub
+	| expression op=(
+		OPERATOR_LOGICAL_LESS_THAN_EQUALS | 
+		OPERATOR_LOGICAL_GREATER_THAN_EQUALS | 
+		OPERATOR_LOGICAL_LESS | 
+		OPERATOR_LOGICAL_GREATER) expression #expComparison
+	| expression op=(
+		OPERATOR_LOGICAL_EQUALS | 
+		OPERATOR_LOGICAL_NOT_EQUALS) expression #expEquality
+	| variable op=(
+		OPERATOR_MATHS_MULTIPLICATION_EQUALS | 
+		OPERATOR_MATHS_DIVISION_EQUALS | 
+		OPERATOR_MATHS_MODULUS_EQUALS) expression #expMultDivModEquals
+	| variable op=(
+		OPERATOR_MATHS_ADDITION_EQUALS | 
+		OPERATOR_MATHS_SUBTRACTION_EQUALS) expression #expPlusMinusEquals
+	| expression op=(
+		OPERATOR_LOGICAL_AND | 
+		OPERATOR_LOGICAL_OR | 
+		OPERATOR_LOGICAL_XOR) expression #expAndOrXor
 	| value #expValue
     ;
 
