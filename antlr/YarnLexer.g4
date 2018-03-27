@@ -99,7 +99,7 @@ BODY_CLOSE : '===' -> popMode ;
 
 TEXT_STRING : '"' .*? '"' ;
 
-SHORTCUT_ENTER : ('->' | '-> ') ;
+SHORTCUT_ENTER : '->' ' '* ;
 
 INDENT : '\u001D';
 DEDENT : '\u001E';
@@ -129,7 +129,9 @@ BODY_GOBBLE : . -> more, pushMode(Text);
 // is zero or more as it will always have the first symbol passed by BODY_GOBBLE
 mode Text;
 
-TEXT : ~('\n'|'\u001D'|'\u001E'|'#')* -> popMode;
+TEXT : ( ~('\n'|'\u001D'|'\u001E'|'#'|'<') | '<' ~'<' )* -> popMode;
+
+//JUNK : ( ~'*' | ( '*'+ ~[/*]) )* '*'* ;
 
 // ----------------------
 // Command mode
