@@ -1,7 +1,5 @@
 'use strict';
 
-const antlr4 = require('antlr4')
-
 const types = require('../expressionTypes');
 const YarnParser = require('../antlr/YarnParser').YarnParser;
 

@@ -126,12 +126,58 @@ YarnListener.prototype.exitHeader_line = function(ctx) {
 
 /* Statement Visitors
  */
+YarnListener.prototype.enterIf_statement = function(ctx) {
+  const statement = { 
+    type: statementTypes.Conditional, 
+    clauses: [], 
+    previousStatements: this._statements,
+    previousConditional: this._conditional,
+  };
+  this._conditional = statement;
+  this._statements.push(statement);
+};
+
+YarnListener.prototype.enterIf_clause = function(ctx) {
+  const clause = {
+    test: expressionGenerator(ctx.getChild(1)),
+    statements: []
+  }
+  this._conditional.clauses.push(clause);
+  this._statements = clause.statements;
+};
+
+YarnListener.prototype.enterElse_if_clause = function(ctx) {
+  const clause = {
+    test: expressionGenerator(ctx.getChild(1)),
+    statements: []
+  }
+  this._conditional.clauses.push(clause);
+  this._statements = clause.statements;
+};
+
+YarnListener.prototype.enterElse_clause = function(ctx) {
+  const clause = {
+    statements: []
+  }
+  this._conditional.clauses.push(clause);
+  this._statements = clause.statements;
+};
+
 YarnListener.prototype.exitBlank_statement = function(ctx) {
   const lastStatement = this._statements[this._statements.length - 1];
   if (lastStatement.type == statementTypes.Blank) return;
   this._statements.push({
     type: statementTypes.Blank
   });
+};
+
+YarnListener.prototype.exitIf_statement = function(ctx) {
+  const statement = this._conditional;
+  this._statements = statement.previousStatements;
+  this._conditional = statement.previousConditional;
+
+  delete(statement.previousConditional);
+  delete(statement.previousStatements);
 };
 
 YarnListener.prototype.exitLine_statement = function(ctx) {

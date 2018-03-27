@@ -8,10 +8,8 @@ Basic Node, has information and a node link.
 This
 should be one statement.
 
-<< set $ifBranch to (1+2) && func2(2+3) && false >>
-<< set $ifBranch to func2(1, 2 + 3) >> 
-<< set $test += $test2 + 2 + false + 2.4 + null >>
 
+<< set $ifBranch to true >>
 [[Named Options]]
 
 [[This should never be reached]]
