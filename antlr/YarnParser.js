@@ -2565,6 +2565,18 @@ ExpMultDivModContext.prototype.expression = function(i) {
         return this.getTypedRuleContext(ExpressionContext,i);
     }
 };
+
+ExpMultDivModContext.prototype.OPERATOR_MATHS_MULTIPLICATION = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_MULTIPLICATION, 0);
+};
+
+ExpMultDivModContext.prototype.OPERATOR_MATHS_DIVISION = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_DIVISION, 0);
+};
+
+ExpMultDivModContext.prototype.OPERATOR_MATHS_MODULUS = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_MODULUS, 0);
+};
 ExpMultDivModContext.prototype.enterRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.enterExpMultDivMod(this);
@@ -2596,6 +2608,18 @@ ExpMultDivModEqualsContext.prototype.variable = function() {
 
 ExpMultDivModEqualsContext.prototype.expression = function() {
     return this.getTypedRuleContext(ExpressionContext,0);
+};
+
+ExpMultDivModEqualsContext.prototype.OPERATOR_MATHS_MULTIPLICATION_EQUALS = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_MULTIPLICATION_EQUALS, 0);
+};
+
+ExpMultDivModEqualsContext.prototype.OPERATOR_MATHS_DIVISION_EQUALS = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_DIVISION_EQUALS, 0);
+};
+
+ExpMultDivModEqualsContext.prototype.OPERATOR_MATHS_MODULUS_EQUALS = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_MODULUS_EQUALS, 0);
 };
 ExpMultDivModEqualsContext.prototype.enterRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
@@ -2754,6 +2778,14 @@ ExpPlusMinusEqualsContext.prototype.variable = function() {
 ExpPlusMinusEqualsContext.prototype.expression = function() {
     return this.getTypedRuleContext(ExpressionContext,0);
 };
+
+ExpPlusMinusEqualsContext.prototype.OPERATOR_MATHS_ADDITION_EQUALS = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_ADDITION_EQUALS, 0);
+};
+
+ExpPlusMinusEqualsContext.prototype.OPERATOR_MATHS_SUBTRACTION_EQUALS = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_SUBTRACTION_EQUALS, 0);
+};
 ExpPlusMinusEqualsContext.prototype.enterRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.enterExpPlusMinusEquals(this);
@@ -2788,6 +2820,14 @@ ExpAddSubContext.prototype.expression = function(i) {
     } else {
         return this.getTypedRuleContext(ExpressionContext,i);
     }
+};
+
+ExpAddSubContext.prototype.OPERATOR_MATHS_ADDITION = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_ADDITION, 0);
+};
+
+ExpAddSubContext.prototype.OPERATOR_MATHS_SUBTRACTION = function() {
+    return this.getToken(YarnParser.OPERATOR_MATHS_SUBTRACTION, 0);
 };
 ExpAddSubContext.prototype.enterRule = function(listener) {
     if(listener instanceof YarnParserListener ) {

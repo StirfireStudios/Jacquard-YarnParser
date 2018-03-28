@@ -163,6 +163,18 @@ YarnListener.prototype.enterElse_clause = function(ctx) {
   this._statements = clause.statements;
 };
 
+YarnListener.prototype.enterShortcut = function(ctx) {
+  const statement = {
+    type: statementTypes.Shortcut,
+    previousStatements: this._statements,
+    previousShortcut: this._shortcut,
+    statements: []
+  }
+  this._shortcut = statement;
+  this._statements.push(statement);
+  this._statements = statement.statements;
+};
+
 YarnListener.prototype.exitAction_statement = function(ctx) {
   const actionText = ctx.getChild(0).getText()
   this._statements.push({
@@ -242,6 +254,15 @@ YarnListener.prototype.exitSet_statement = function(ctx) {
   }
 
   this._statements.push(statement);
+};
+
+YarnListener.prototype.exitShortcut = function(ctx) {
+  const statement = this._shortcut;
+  this._statements = statement.previousStatements;
+  this._shortcut = statement.previousShortcut;
+
+  delete(statement.previousShortcut);
+  delete(statement.previousStatements);
 };
 /* End Statement Visitors
  */
