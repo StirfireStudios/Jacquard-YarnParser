@@ -8,15 +8,26 @@ const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 const statementTypes = require('./statementTypes');
 const expressionGenerator = require('./parser/expressionGenerator');
 
+function positionFromSymbol(symbol) {
+  return {
+    start: {line: ctx.symbol.line, column: ctx.symbol.column },
+    end: {line: ctx.symbol.line, column: ctx.symbol.column }
+  }
+}
+
+function positionFromNode(node) {
+  return {
+    start: {line: node.start.line, column: node.start.column},
+    end: {line: node.stop.line, column: node.stop.column}
+  }  
+}
+
 function contextWithMessage(ctx, message) {
-  const positions = {};
-  
+  let positions = null;
   if (ctx.isErrorNode !== undefined && ctx.isErrorNode()) {
-    positions.start = {line: ctx.symbol.line, column: ctx.symbol.column };
-    positions.end = {line: ctx.symbol.line, column: ctx.symbol.column };
+    positions = positionFromSymbol(ctx.symbol);
   } else {
-    positions.start =  {line: ctx.start.line, column: ctx.start.column };
-    positions.end =  {line: ctx.stop.line, column: ctx.stop.column };
+    positions = positionFromNode(ctx);
   }
 
   return {
@@ -132,6 +143,7 @@ YarnListener.prototype.enterIf_statement = function(ctx) {
     clauses: [], 
     previousStatements: this._statements,
     previousConditional: this._conditional,
+    position: positionFromNode(ctx),
   };
   this._conditional = statement;
   this._statements.push(statement);
@@ -140,7 +152,8 @@ YarnListener.prototype.enterIf_statement = function(ctx) {
 YarnListener.prototype.enterIf_clause = function(ctx) {
   const clause = {
     test: expressionGenerator(ctx.getChild(1)),
-    statements: []
+    statements: [],
+    position: positionFromNode(ctx),
   }
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
@@ -149,7 +162,8 @@ YarnListener.prototype.enterIf_clause = function(ctx) {
 YarnListener.prototype.enterElse_if_clause = function(ctx) {
   const clause = {
     test: expressionGenerator(ctx.getChild(1)),
-    statements: []
+    statements: [],
+    position: positionFromNode(ctx),
   }
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
@@ -157,7 +171,8 @@ YarnListener.prototype.enterElse_if_clause = function(ctx) {
 
 YarnListener.prototype.enterElse_clause = function(ctx) {
   const clause = {
-    statements: []
+    statements: [],
+    position: positionFromNode(ctx),
   }
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
@@ -168,7 +183,8 @@ YarnListener.prototype.enterShortcut = function(ctx) {
     type: statementTypes.Shortcut,
     previousStatements: this._statements,
     previousShortcut: this._shortcut,
-    statements: []
+    statements: [],
+    position: positionFromNode(ctx)
   }
   this._shortcut = statement;
   this._statements.push(statement);
@@ -180,6 +196,7 @@ YarnListener.prototype.exitAction_statement = function(ctx) {
   this._statements.push({
     type: statementTypes.Action,
     action: actionText.substring(2, actionText.length - 2).trim(),
+    position: positionFromNode(ctx),
   })
 };
 
@@ -187,7 +204,8 @@ YarnListener.prototype.exitBlank_statement = function(ctx) {
   const lastStatement = this._statements[this._statements.length - 1];
   if (lastStatement.type == statementTypes.Blank) return;
   this._statements.push({
-    type: statementTypes.Blank
+    type: statementTypes.Blank,
+    position: positionFromNode(ctx),
   });
 };
 
@@ -203,6 +221,7 @@ YarnListener.prototype.exitFunc_call_statement = function(ctx) {
     type: statementTypes.Function,
     name: funcText.substring(2, funcText.length - 1).trim(),
     args: args,
+    position: positionFromNode(ctx),
   })
 };
 
@@ -222,7 +241,8 @@ YarnListener.prototype.exitLine_statement = function(ctx) {
 
   this._statements.push({
     type: statementTypes.Line,
-    text: text
+    text: text,
+    position: positionFromNode(ctx),
   })
 };
 
@@ -241,6 +261,8 @@ YarnListener.prototype.exitOption_statement = function(ctx) {
     this._node.linkedNodeNames.push(statement.node);
   }
 
+  statement.position = positionFromNode(ctx);
+
   this._statements.push(statement);
 };
 
@@ -253,6 +275,7 @@ YarnListener.prototype.exitSet_statement = function(ctx) {
     statement.expression = expressionGenerator(ctx.getChild(1));
   }
 
+  statement.position = positionFromNode(ctx);
   this._statements.push(statement);
 };
 
@@ -278,5 +301,8 @@ module.exports = function(data) {
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
   delete(listener._node);
+  delete(listener._statements);
+  delete(listener._conditional);
+  delete(listener._shortcut);
   return listener;
 }
