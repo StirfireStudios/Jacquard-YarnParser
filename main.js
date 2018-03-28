@@ -2,12 +2,13 @@
 
 const preprocessor = require('./preprocessor')
 const parser = require('./parser')
+const optionGroupProcessor = require('./optionGroupProcessor')
 
 function parse(yarnString) {
 	try {
 		this.processedString = preprocessor(yarnString, this.preprocessDebug);
 	} catch(err) {
-		this.error = err;
+		this.errors.push({message: err.toString()});
 		return false;
 	}
 
@@ -15,8 +16,15 @@ function parse(yarnString) {
     return true;
   }
 
-  const parsedData = parser(this.processedString);
-  console.log(JSON.stringify(parsedData.nodesByName));
+	const parsedData = parser(this.processedString);
+	this.errors = parsedData.errors;
+	this.warnings = parsedData.warnings;
+	this.nodesByName = parsedData.nodesByName;
+	this.nodesByTag = parsedData.nodesByTag;
+	optionGroupProcessor(Object.values(this.nodesByName));
+
+	console.log(JSON.stringify(this.nodesByName));
+
 	return true;
 }
 
@@ -25,7 +33,8 @@ module.exports = function() {
 	  preprocessOnly: false,
     preprocessDebug: false,
     outputNodes: [],
-    error: null
+		errors: [],
+		warnings: []
 	};
 
 	parser.parse = parse.bind(parser);
