@@ -63,8 +63,8 @@ UNKNOWN : . ;
 // pops when it hits the end of the line
 // A title is allowed to be anything up to the newline
 mode Title;
-TITLE_WS : (' ' | '\t') -> skip ;
-TITLE_TEXT : ~'\n'+ -> popMode ;
+TITLE_TEXT : ~'\n'+ ;
+TITLE_TAG_END : '\n' -> popMode;
 
 // ----------------------
 // Tag mode
@@ -73,15 +73,17 @@ TITLE_TEXT : ~'\n'+ -> popMode ;
 // currently this is just the same as the Header Text
 // but will likely change so better to set it up now
 mode Tags;
-TAG_TEXT :  ~'\n'* -> popMode ;
+TAG_TEXT : ~('\n' | ',')+ ;
+TAG_DELIMIT : ',' ;
+HEADER_TAG_END : '\n' -> popMode;
 
 // ----------------------
 // Header Text mode
 // for grabbing all the non-title/tag header text
 // pops when it hits the end of a line
 mode HeaderText;
-HEADER_WS : (' ' | '\t') -> skip ;
-HEADER_TEXT : ~('\n')+ -> popMode;
+HEADER_TEXT : ~('\n')+;
+HEADER_END : '\n' -> popMode;
 
 // ----------------------
 // Body mode
@@ -89,6 +91,7 @@ HEADER_TEXT : ~('\n')+ -> popMode;
 
 mode Body;
 
+BLANK_STATEMENT : ('\n\n') ;
 WS_IN_BODY : (' ' | '\t' | '\n')+ -> skip ; // skip spaces, tabs, newlines
 COMMENT : '//' .*? '\n' -> skip ;
 
@@ -96,7 +99,7 @@ BODY_CLOSE : '===' -> popMode ;
 
 TEXT_STRING : '"' .*? '"' ;
 
-SHORTCUT_ENTER : ('->' | '-> ') -> pushMode(Shortcuts);
+SHORTCUT_ENTER : '->' ' '* ;
 
 INDENT : '\u001D';
 DEDENT : '\u001E';
@@ -126,26 +129,9 @@ BODY_GOBBLE : . -> more, pushMode(Text);
 // is zero or more as it will always have the first symbol passed by BODY_GOBBLE
 mode Text;
 
-TEXT : ~('\n'|'\u001D'|'\u001E'|'#')* -> popMode;
+TEXT : ( ~('\n'|'\u001D'|'\u001E'|'#'|'<') | '<' ~'<' )* -> popMode;
 
-// ----------------------
-// Shortcut mode
-// Handles any form of text except the delimiters or <<
-// currently uses a semantic predicate to handle << which I don't like and would like to change
-mode Shortcuts;
-
-// these 3 commented out bits work but use a semantic predicate
-fragment CHEVRON : '<' ~('<'|'#'|'\n'|'\u001D'|'\u001E') ;
-fragment PARTIAL : (~('<'|'#'|'\n'|'\u001D'|'\u001E') | CHEVRON)+ ;
-SHORTCUT_TEXT : (PARTIAL | PARTIAL* '<' {_input.LA(1) != '<'}?) -> popMode ;
-
-// this is the bit I am trying to get working based on what was said on SO
-//SHORTCUT_TEXT : CHAR+ -> popMode;
-
-//SHORTCUT_COMMAND : '<<' -> popMode, pushMode(Command);
-//SHORTCUT_COMMAND : '<<' -> popMode, pushMode(Command);
-//CHEVRON : '<' -> type(SHORTCUT_TEXT) ;
-//fragment CHAR : ~('<'|'#'|'\n'|'\u0007'|'\u000B') ;
+//JUNK : ( ~'*' | ( '*'+ ~[/*]) )* '*'* ;
 
 // ----------------------
 // Command mode

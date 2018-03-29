@@ -2,8 +2,9 @@
 
 This is a antlr-based javascript parser for the Yarn syntax, intended for use in the Jacquard editor.
 
-## API
+## Usage
 
+Install `jacquard-yarnparser` via your favourite javascript package tool.
 
 ## Building/Developing
 

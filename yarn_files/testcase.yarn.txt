@@ -1,23 +1,30 @@
 title: Basic
-tags:
+tags: frog people, frog, people
 colorID: 0
 position: 545,274
 ---
 Basic Node, has information and a node link.
 
+This
+should be one statement.
+
+
+<< set $ifBranch to true >>
 [[Named Options]]
 
 [[This should never be reached]]
 ===
 title: Named Options
-tags:
+tags: people, frog
 colorID: 0
 position: 856,356
 ---
 Here we have the normal named options syntax, which doesn't allow for anything other than a node-jump
 
-[[If Branches|If Branch]]
-[[Shortcut Options|Shortcut Options]]
+[[ If Branches|If Branch ]]
+[[ Shortcut Options|Shortcut Options ]]
+This text should never appear
+[[Shouldn't be included above|This should never be reached]]
 ===
 title: If Branch
 tags:
@@ -25,7 +32,7 @@ colorID: 0
 position: 1170,404
 ---
 Here we have an if test on $ifBranch to be true and if that's true we display a thing (also the if has a capital I and the else is ElSe)
-<<If $ifBranch>>
+<< If $ifBranch>>
 	$ifBranch was true, also this should display without leading tabs.
 <<ElSe>>
 	$ifBranch was FALSE D: D:
@@ -43,10 +50,11 @@ Here we have single nested options.
    You Picked Option 1! (this had no tabs)
 -> Option 2
 	You picked Option 2! (this had tabs)
+-> <<flying man>> he flies! <<no more flyingman>>
 
 Here we have Nested Options
 -> Option 1
-  These are nested with spaces! 
+  These are nested with spaces!
   -> SubOption a
     You picked a!
   -> SubOption b
@@ -59,9 +67,9 @@ Here we have Nested Options
 	-> SubOption b
 		You Picked b!
 
-[[If Statement Options|IfStatements]]
+[[If Statement Options|If Statements]]
 ===
-title: IfStatements
+title: If Statements
 tags:
 colorID: 0
 position: 1170,404

@@ -14,26 +14,25 @@ node: header body NEWLINE*;
 // or doing it with some code, the in code option seems the best here
 // at least according to https://stackoverflow.com/questions/14934081/antlr4-matching-all-input-alternatives-exaclty-once
 header : header_title (header_tag | header_line)* ;
-header_title : HEADER_TITLE TITLE_TEXT NEWLINE ;
-header_tag : HEADER_TAGS TAG_TEXT NEWLINE ;
-header_line : HEADER_NAME ':' HEADER_TEXT NEWLINE ;
+header_title : HEADER_TITLE TITLE_TEXT TITLE_TAG_END ;
+header_tag_name : TAG_TEXT TAG_DELIMIT? ;
+header_tag : HEADER_TAGS header_tag_name* HEADER_TAG_END ;
+header_line : HEADER_NAME ':' HEADER_TEXT HEADER_END ;
 
 body : BODY_ENTER statement* BODY_CLOSE ;
 
 statement
-    : shortcut_statement
+    : shortcut
     | if_statement
     | set_statement
     | option_statement
-	| function_statement
+	| func_call_statement
     | action_statement
     | line_statement
+	| blank_statement
     ;
 
-shortcut_statement : shortcut+ ;
-shortcut : SHORTCUT_ENTER shortcut_text shortcut_conditional? hashtag_block? (INDENT statement* DEDENT)? ;
-shortcut_conditional : COMMAND_IF expression COMMAND_CLOSE ;
-shortcut_text : SHORTCUT_TEXT ;
+shortcut : SHORTCUT_ENTER INDENT statement* DEDENT ;
 
 if_statement : if_clause (else_if_clause)* (else_clause)? COMMAND_ENDIF (hashtag_block)? ;
 if_clause : COMMAND_IF expression COMMAND_CLOSE statement* ;
@@ -51,14 +50,15 @@ option_statement
 	| '[[' OPTION_TEXT ']]')
 	(hashtag_block)? ;
 
-function : FUNC_ID '(' expression? (COMMA expression)* ')' ;
+func_call : FUNC_ID '(' expression? (COMMA expression)* ')' ;
 // this is messy
-function_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CLOSE ;
+func_call_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CLOSE ;
 // this isn't ideal but works quite well
 action_statement : ACTION ;
 
 text : TEXT | TEXT_STRING ;
-line_statement : text (hashtag_block)? ;
+line_statement : (text (hashtag_block)?)+ ;
+blank_statement : BLANK_STATEMENT ;
 
 hashtag_block : hashtag+ ;
 hashtag : HASHTAG ;
@@ -69,13 +69,32 @@ expression
 	: '(' expression ')' #expParens
 	| <assoc=right>'-' expression #expNegative
 	| <assoc=right>OPERATOR_LOGICAL_NOT expression #expNot
-	| expression op=('*' | '/' | '%') expression #expMultDivMod
-	| expression op=('+' | '-') expression #expAddSub
-	| expression op=(OPERATOR_LOGICAL_LESS_THAN_EQUALS | OPERATOR_LOGICAL_GREATER_THAN_EQUALS | OPERATOR_LOGICAL_LESS | OPERATOR_LOGICAL_GREATER ) expression #expComparison
-	| expression op=(OPERATOR_LOGICAL_EQUALS | OPERATOR_LOGICAL_NOT_EQUALS) expression #expEquality
-	| variable op=('*=' | '/=' | '%=') expression #expMultDivModEquals
-	| variable op=('+=' | '-=') expression #expPlusMinusEquals
-	| expression op=(OPERATOR_LOGICAL_AND | OPERATOR_LOGICAL_OR | OPERATOR_LOGICAL_XOR) expression #expAndOrXor
+	| expression op=(
+		OPERATOR_MATHS_MULTIPLICATION | 
+		OPERATOR_MATHS_DIVISION |
+		OPERATOR_MATHS_MODULUS) expression #expMultDivMod
+	| expression op=(
+		OPERATOR_MATHS_ADDITION| 
+		OPERATOR_MATHS_SUBTRACTION) expression #expAddSub
+	| expression op=(
+		OPERATOR_LOGICAL_LESS_THAN_EQUALS | 
+		OPERATOR_LOGICAL_GREATER_THAN_EQUALS | 
+		OPERATOR_LOGICAL_LESS | 
+		OPERATOR_LOGICAL_GREATER) expression #expComparison
+	| expression op=(
+		OPERATOR_LOGICAL_EQUALS | 
+		OPERATOR_LOGICAL_NOT_EQUALS) expression #expEquality
+	| variable op=(
+		OPERATOR_MATHS_MULTIPLICATION_EQUALS | 
+		OPERATOR_MATHS_DIVISION_EQUALS | 
+		OPERATOR_MATHS_MODULUS_EQUALS) expression #expMultDivModEquals
+	| variable op=(
+		OPERATOR_MATHS_ADDITION_EQUALS | 
+		OPERATOR_MATHS_SUBTRACTION_EQUALS) expression #expPlusMinusEquals
+	| expression op=(
+		OPERATOR_LOGICAL_AND | 
+		OPERATOR_LOGICAL_OR | 
+		OPERATOR_LOGICAL_XOR) expression #expAndOrXor
 	| value #expValue
     ;
 
@@ -86,7 +105,7 @@ value
     | KEYWORD_FALSE  #valueFalse
 	| variable		 #valueVar
 	| COMMAND_STRING #valueString
-	| function		 #valueFunc
+	| func_call		 #valueFunc
     | KEYWORD_NULL   #valueNull
     ;
 variable

@@ -10,6 +10,7 @@ const YarnParser = require('./main')
 program
   .version(package.version)
   .option("--preprocessOnly <filename>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
+  .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
   .arguments('<infile>')
   .parse(process.argv);
 
@@ -18,7 +19,8 @@ const config = {
   outputHelp: false,
   filename: null,
   preprocessOnly: false,
-  preprocessFS: null
+  preprocessFS: null,
+  preprocessDebug: false
 }
 
 if (program.args.length < 1) {
@@ -33,6 +35,7 @@ if (program.preprocessOnly != null) {
   try {
     config.preprocessFS = FileIO.OpenFileWriteStream(filename);
     config.preprocessOnly = true;
+    config.preprocessDebug = program.debugPreprocess
   } catch (err) {
     console.error(`Could not open ${filename} for writing - ${err}`);
     config.ready = false;
@@ -59,6 +62,7 @@ if (!config.ready) {
 
 parser = YarnParser();
 parser.preprocessOnly = config.preprocessOnly
+parser.preprocessDebug = config.preprocessDebug
 
 if (!parser.parse(yarnText)) {
   console.error(`Could not parse ${config.filename} - ${parser.error}`)
