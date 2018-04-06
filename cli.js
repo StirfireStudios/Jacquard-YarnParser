@@ -5,7 +5,7 @@ const FileIO = require('./FileIO');
 const package = require('./package.json')
 const program = require('commander');
 
-const YarnParser = require('./main')
+const YarnParser = require('./src/index')
 
 program
   .version(package.version)

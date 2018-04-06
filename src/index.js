@@ -4,12 +4,6 @@ const preprocessor = require('./preprocessor')
 const parser = require('./parser')
 const optionGroupProcessor = require('./optionGroupProcessor')
 
-/**
- * This adds 
- * @param {*} yarnString 
- * @param {*} bodyOnly 
- * @param {*} fileID 
- */
 function parse(yarnString, bodyOnly, fileID) {
 	try {
 		this.processedString = preprocessor(yarnString, this.preprocessDebug);

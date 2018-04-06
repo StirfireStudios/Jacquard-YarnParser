@@ -4,9 +4,9 @@
 ## See https://help.github.com/ignore-files/ for more about ignoring files
 
 ## ANTLR stuff
-/antlr/*
-!/antlr/*.g4
-!/antlr/*.js
+/src/antlr/*
+!/src/antlr/*.g4
+!/src/antlr/*.js
 
 ## Preprocessed yarn
 /preprocessed.yarn.txt
