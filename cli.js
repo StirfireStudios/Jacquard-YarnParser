@@ -60,7 +60,7 @@ if (!config.ready) {
   }
 }
 
-parser = YarnParser();
+parser = new YarnParser();
 parser.preprocessOnly = config.preprocessOnly
 parser.preprocessDebug = config.preprocessDebug
 

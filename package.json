@@ -13,6 +13,8 @@
     "antlr4": "^4.7.1"
   },
   "scripts": {
-    "parse": "node cli.js"
+    "parse": "node cli.js",
+    "serveDoc": "documentation serve --watch src/** -f html",
+    "buildDoc": "documentation build src/** -f md -o docs"
   }
 }

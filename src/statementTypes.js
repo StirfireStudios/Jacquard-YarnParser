@@ -1,5 +1,8 @@
 'use strict';
 
+/** An Action node 
+ * @memberof StatementTypes
+ */
 const Action = "Action";
 const Function = "Function";
 const Line = "LineStatement";
@@ -12,6 +15,10 @@ const Evaluate = "Expression";
 const Blank = "Blank";
 const Conditional = "Conditional";
 
+/**
+ * Statement Types. Available as a static property on the main parser object.
+ * @namespace StatementTypes
+ */
 module.exports = {
 	Action,
 	Blank,
