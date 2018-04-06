@@ -65,8 +65,11 @@ parser = new YarnParser({
   preprocessDebug: config.preprocessDebug
 });
 
-if (!parser.parse(yarnText, false, config.filename)) {
-  console.error(`Could not parse ${config.filename} - ${parser.error}`)
+if (parser.parse(yarnText, false, config.filename)) {
+  console.error(`Could not parse ${config.filename}`)
+  parser.errors().forEach((error) => {
+    console.error(`Error: ${error.message}`);
+  })
 }
 
 if (config.preprocessOnly) {

@@ -1,6 +1,6 @@
 'use strict';
 
-const statementTypes = require('./statementTypes');
+const statementTypes = require('./statements/types');
 
 function statementResetsOptionGroup(statement) {
   switch(statement.type) {

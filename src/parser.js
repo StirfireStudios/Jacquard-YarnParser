@@ -7,7 +7,7 @@ const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 
 const Location = require('./parser/location');
 const ParserMessage = require('./parser/message');
-const statementTypes = require('./statementTypes');
+const statementTypes = require('./statements/types');
 const expressionGenerator = require('./parser/expressionGenerator');
 
 function addError(listener, ctx, string) {

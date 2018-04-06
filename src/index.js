@@ -131,6 +131,22 @@ class Parser {
 	}
 
 	/**
+	 * Get the error list from the parser
+	 * @return {array} an array of {@link ParserMessage|ParserMessages}
+	 */
+	get errors() {
+		return privateProps.get(this).errors;
+	}
+
+	/**
+	 * Get the warning list from the parser
+	 * @return {array} an array of {@link ParserMessage|ParserMessages}
+	 */
+	get warnings() {
+		return privateProps.get(this).warnings;
+	}
+	
+	/**
 	 * Reset this parser, removing all parsed information
 	 */
 	reset() {
@@ -143,6 +159,6 @@ class Parser {
  * StatementTypes constant values
  * @static
  */
-Parser.StatementTypes = require('./statementTypes');
+Parser.StatementTypes = require('./statements/types');
 
 module.exports = Parser;
