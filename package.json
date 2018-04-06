@@ -15,6 +15,6 @@
   "scripts": {
     "parse": "node cli.js",
     "serveDoc": "documentation serve --watch src/** -f html",
-    "buildDoc": "documentation build src/** -f md -o docs"
+    "buildDoc": "documentation build src/** -f html -o docs"
   }
 }

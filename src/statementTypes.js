@@ -1,9 +1,14 @@
 'use strict';
 
-/** An Action node 
+/** An Action node
+ * An arbitrary text string that is an engine action.
+ * @property {string} value the action to run
  * @memberof StatementTypes
  */
 const Action = "Action";
+/** A Execute Function node 
+ * @memberof StatementTypes
+ */
 const Function = "Function";
 const Line = "LineStatement";
 const NodeLink = "NodeLink";
@@ -16,7 +21,7 @@ const Blank = "Blank";
 const Conditional = "Conditional";
 
 /**
- * Statement Types. Available as a static property on the main parser object.
+ * Statement Types. See @parser for where these are accessed.
  * @namespace StatementTypes
  */
 module.exports = {

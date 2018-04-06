@@ -60,11 +60,12 @@ if (!config.ready) {
   }
 }
 
-parser = new YarnParser();
-parser.preprocessOnly = config.preprocessOnly
-parser.preprocessDebug = config.preprocessDebug
+parser = new YarnParser({
+  preprocessOnly: config.preprocessOnly,
+  preprocessDebug: config.preprocessDebug
+});
 
-if (!parser.parse(yarnText)) {
+if (!parser.parse(yarnText, false, config.filename)) {
   console.error(`Could not parse ${config.filename} - ${parser.error}`)
 }
 

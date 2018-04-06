@@ -6,6 +6,8 @@ This is a antlr-based javascript parser for the Yarn syntax, intended for use in
 
 Install `jacquard-yarnparser` via your favourite javascript package tool.
 
+API Docs are [here](https://stirfirestudios.github.io/Jacquard-YarnParser/#parser)
+
 ## Building/Developing
 
 ### How it works

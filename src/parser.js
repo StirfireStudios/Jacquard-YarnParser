@@ -5,50 +5,23 @@ const YarnLexer = require('./antlr/YarnLexer');
 const YarnParser = require('./antlr/YarnParser');
 const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 
+const Location = require('./parser/location');
+const ParserMessage = require('./parser/message');
 const statementTypes = require('./statementTypes');
 const expressionGenerator = require('./parser/expressionGenerator');
 
-function positionFromSymbol(symbol) {
-  return {
-    start: {line: ctx.symbol.line, column: ctx.symbol.column },
-    end: {line: ctx.symbol.line, column: ctx.symbol.column }
-  }
-}
-
-function positionFromNode(node) {
-  return {
-    start: {line: node.start.line, column: node.start.column},
-    end: {line: node.stop.line, column: node.stop.column}
-  }  
-}
-
-function contextWithMessage(ctx, message) {
-  let positions = null;
-  if (ctx.isErrorNode !== undefined && ctx.isErrorNode()) {
-    positions = positionFromSymbol(ctx.symbol);
-  } else {
-    positions = positionFromNode(ctx);
-  }
-
-  return {
-    positions: positions,
-    message: message
-  }
-}
-
 function addError(listener, ctx, string) {
-	listener.errors.push(contextWithMessage(ctx, string));
+	listener.errors.push(ParserMessage.FromANTLRContext(ctx, string));
 }
 
 function addWarning(listener, ctx, string) {
-	listener.warnings.push(contextWithMessage(ctx, string));
+	listener.warnings.push(ParserMessage.FromANTLRContext(ctx, string));
 }
 
 function YarnListener() {
 	this.errors = [];
 	this.warnings = [];
   this.nodesByName = {};
-  this.nodesByTag = {};
   this._node = null;
   this._statements = null;
 	BaseListener.call(this);
@@ -89,12 +62,6 @@ YarnListener.prototype.exitNode = function(ctx) {
     addError(this, ctx, "title has not been supplied");
 	} else {
 		this.nodesByName[this._node.title] = this._node;
-    this._node.tags.forEach((tagName) => {
-      if (this.nodesByTag[tagName] == null) {
-        this.nodesByTag[tagName] = {};
-      }
-      this.nodesByTag[tagName][this._node.title] = this._node;
-    })
   }
 
 	if (this._node.statements.length === 0) {
@@ -143,7 +110,7 @@ YarnListener.prototype.enterIf_statement = function(ctx) {
     clauses: [], 
     previousStatements: this._statements,
     previousConditional: this._conditional,
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   };
   this._conditional = statement;
   this._statements.push(statement);
@@ -153,7 +120,7 @@ YarnListener.prototype.enterIf_clause = function(ctx) {
   const clause = {
     test: expressionGenerator(ctx.getChild(1)),
     statements: [],
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   }
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
@@ -163,7 +130,7 @@ YarnListener.prototype.enterElse_if_clause = function(ctx) {
   const clause = {
     test: expressionGenerator(ctx.getChild(1)),
     statements: [],
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   }
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
@@ -172,7 +139,7 @@ YarnListener.prototype.enterElse_if_clause = function(ctx) {
 YarnListener.prototype.enterElse_clause = function(ctx) {
   const clause = {
     statements: [],
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   }
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
@@ -184,7 +151,7 @@ YarnListener.prototype.enterShortcut = function(ctx) {
     previousStatements: this._statements,
     previousShortcut: this._shortcut,
     statements: [],
-    position: positionFromNode(ctx)
+    location: Location.FromANTLRNode(ctx),
   }
   this._shortcut = statement;
   this._statements.push(statement);
@@ -196,7 +163,7 @@ YarnListener.prototype.exitAction_statement = function(ctx) {
   this._statements.push({
     type: statementTypes.Action,
     action: actionText.substring(2, actionText.length - 2).trim(),
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   })
 };
 
@@ -207,7 +174,7 @@ YarnListener.prototype.exitBlank_statement = function(ctx) {
   }
   this._statements.push({
     type: statementTypes.Blank,
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   });
 };
 
@@ -223,7 +190,7 @@ YarnListener.prototype.exitFunc_call_statement = function(ctx) {
     type: statementTypes.Function,
     name: funcText.substring(2, funcText.length - 1).trim(),
     args: args,
-    position: positionFromNode(ctx),
+    location: Location.FromANTLRNode(ctx),
   })
 };
 
@@ -244,7 +211,7 @@ YarnListener.prototype.exitLine_statement = function(ctx) {
   this._statements.push({
     type: statementTypes.Line,
     text: text,
-    position: positionFromNode(ctx),
+    
   })
 };
 
@@ -263,7 +230,7 @@ YarnListener.prototype.exitOption_statement = function(ctx) {
     this._node.linkedNodeNames.push(statement.node);
   }
 
-  statement.position = positionFromNode(ctx);
+  statement.location = Location.FromANTLRNode(ctx);
 
   this._statements.push(statement);
 };
@@ -277,7 +244,7 @@ YarnListener.prototype.exitSet_statement = function(ctx) {
     statement.expression = expressionGenerator(ctx.getChild(1));
   }
 
-  statement.position = positionFromNode(ctx);
+  statement.location = Location.FromANTLRNode(ctx);
   this._statements.push(statement);
 };
 
@@ -292,13 +259,18 @@ YarnListener.prototype.exitShortcut = function(ctx) {
 /* End Statement Visitors
  */
 
-module.exports = function(data) {
+module.exports = function(data, body) {
 	const chars = new antlr4.InputStream(data)
 	const lexer = new YarnLexer.YarnLexer(chars);
 	const tokens = new antlr4.CommonTokenStream(lexer);
 	const parser = new YarnParser.YarnParser(tokens);
   parser.buildParseTrees = true;
-	const tree = parser.dialogue();
+  let tree = null;
+  if (body) {
+    tree = parser.body();
+  } else {
+    tree = parser.dialogue();
+  }
 	const listener = new YarnListener();
 	antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
