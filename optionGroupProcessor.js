@@ -18,6 +18,7 @@ function closeGroup(context) {
   if (groupStatements.length === 1) {
     context.statements.push(groupStatements[0]);
   } else {
+    context.closedOptions = true;
     context.statements.push(context.group);
   }
   context.group = {type: null, statements: []};
@@ -33,16 +34,29 @@ function handleGroupMember(context, statement, type) {
   context.group.statements.push(statement);
 }
 
-function handleConditional(context, statement) {
-//   statement.clauses.forEach(statement)
+function handleConditional(context, statement, errors) {
+  statement.clauses.forEach(function(clause) {
+    clause.context = {statements:[], group: {type:null, statements:[]}}
+    clause.statements = processStatements(clause.statements, errors, clause.context);
+    if (clause.context.group.type === context.group.type || context.group.type === null) {
+      context.group.type = clause.context.group.type;
+      context.group.statements = context.group.statements.concat(clause.context.group.statements);
+    }
+  });
+  if (context.group.type === null) {
+    context.statements.push(statement);
+  } else {
+    
+  }
 }
 
-function processStatements(statements, context) {
+function processStatements(statements, errors, context) {
   let contextValid = context != null;
   if (!contextValid) {
     context = {
       statements: [],
-      group: {type: null, statements: []}
+      group: {type: null, statements: []},
+      closedOptions: false
     };
   }
 
@@ -54,19 +68,19 @@ function processStatements(statements, context) {
       handleGroupMember(context, statement, statementTypes.NodeLinkGroup);
     } else if (statement.type == statementTypes.Shortcut) {
       handleGroupMember(context, statement, statementTypes.ShortcutGroup);
-      statement.statements = processStatements(statement.statements);
+      statement.statements = processStatements(statement.statements, errors);
     } else if (statement.type == statementTypes.Conditional) {
-      handleConditional(context, statement);
+      handleConditional(context, statement, errors);
     } else {
       context.statements.push(statement);
     }
   }
-  if (contextValid) closeGroup(context);
+  if (!contextValid) closeGroup(context);
   return context.statements;
 }
 
-module.exports = function(nodes) {
+module.exports = function(nodes, errors) {
 	nodes.forEach(function(node) {
-    node.statements = processStatements(node.statements);
+    node.statements = processStatements(node.statements, errors);
 	});
 }

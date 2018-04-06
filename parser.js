@@ -201,8 +201,10 @@ YarnListener.prototype.exitAction_statement = function(ctx) {
 };
 
 YarnListener.prototype.exitBlank_statement = function(ctx) {
-  const lastStatement = this._statements[this._statements.length - 1];
-  if (lastStatement.type == statementTypes.Blank) return;
+  if (this._statements.length > 0) {
+    const lastStatement = this._statements[this._statements.length - 1];
+    if (lastStatement.type == statementTypes.Blank) return;
+  }
   this._statements.push({
     type: statementTypes.Blank,
     position: positionFromNode(ctx),

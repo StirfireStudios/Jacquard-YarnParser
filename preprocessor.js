@@ -31,7 +31,7 @@ function processLine(lines) {
   const whitespaceLength = whitespace.length;
   const postWhitespace = matches[2];
 
-  if (state.inOption) {
+  if (state.inOption && postWhitespace.length > 0) {
     if (whitespaceLength < state.whitespaceLength || state.whitespace === whitespace) {
       this.output.push(this.output.pop() + endInstruction(this.debug))
       this.indentStack.shift();
