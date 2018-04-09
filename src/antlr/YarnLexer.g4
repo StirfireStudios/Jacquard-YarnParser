@@ -30,11 +30,9 @@ fragment Z : [zZ];
 fragment LOWERCASE : [a-z] ;
 fragment UPPERCASE : [A-Z] ;
 fragment DIGIT : [0-9] ;
-fragment LETTER : [a-zA-Z0-9_$] ;
+fragment LETTER : [a-zA-Z] ;
+fragment LETTER_NUMBER : LETTER | NUMBER | [_] ;
 fragment NOT_SPECIAL_MARKER : '<' ~'<' | '>' ~'>' | '[' ~'[' | ']' ~']' ;
-
-fragment PREPROCESS_INDENT : '\u001D' ;
-fragment PREPROCESS_ENDENT : '\u001E' ;
 
 OPTION_START : '[[' ;
 OPTION_END : ']]' ;
@@ -42,11 +40,12 @@ OPTION_END : ']]' ;
 COMMAND_START : '<<' ;
 COMMAND_END : '>>' ;
 
-SHORTCUT_START : '->' ;
+SHORTCUT_START : '->' [ \t]* '\u001D' ;
+SHORTCUT_END : '\u001E' ;
 
-TEXT : LETTER (~[:\r\n<>[\]] | NOT_SPECIAL_MARKER)* ;
+TEXT : LETTER_NUMBER (~[:\r\n<>[\]] | NOT_SPECIAL_MARKER)* ;
 
-HASHTAG : '#' TEXT ;
+HASHTAG : '#' ~[\r\n]+ ;
 
 WS : [ \t] -> skip ;
 NEWLINE : '\r'? '\n' -> skip;
@@ -62,25 +61,20 @@ BODY_WS : [ \t\r\n] -> skip ;
 BODY_END : '===' -> popMode ;
 BODY_COMMENT : COMMENT -> skip ;
 BODY_HASHTAG : HASHTAG -> type(HASHTAG) ;
-BODY_TEXT : LETTER (~[\r\n<>[\]] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+BODY_TEXT : (LETTER_NUMBER | '$') (~[\r\n<>[\]#\u001D\u001E] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 
 BODY_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 BODY_OPTION_START : OPTION_START -> type(OPTION_START), pushMode(Option);
-BODY_SHORTCUT_START : SHORTCUT_START PREPROCESS_INDENT -> type(SHORTCUT_START), pushMode(Shortcut) ;
+
+BODY_SHORTCUT_START : SHORTCUT_START -> type(SHORTCUT_START) ;
+BODY_SHORTCUT_END : SHORTCUT_END -> type(SHORTCUT_END);
 
 mode Option ;
 BODY_OPTION_END : OPTION_END -> type(OPTION_END), popMode ;
 OPTION_WS : [ \t] -> skip ;
 OPTION_SEPARATOR : '|' ;
-OPTION_TEXT : LETTER (~[\r\n|<>[\]] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+OPTION_TEXT : LETTER_NUMBER (~[\r\n|<>[\]] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 OPTION_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
-
-mode Shortcut ;
-SHORTCUT_START2 : SHORTCUT_START PREPROCESS_INDENT -> type(SHORTCUT_START), pushMode(Shortcut) ;
-SHORTCUT_END : PREPROCESS_ENDENT -> popMode ;
-SHORTCUT_WS : [ \t\r\n] -> skip;
-SHORTCUT_TEXT : LETTER (~[\r\n<>[\]\u001E] | NOT_SPECIAL_MARKER )* -> type(TEXT) ;
-SHORTCUT_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 
 mode Command ;
 BODY_COMMAND_END : COMMAND_END -> type(COMMAND_END), popMode ;
@@ -120,7 +114,7 @@ KEYWORD_TRUE : T R U E ;
 KEYWORD_FALSE : F A L S E ;
 KEYWORD_NULL : N U L L | N I L ;
 
-VARIABLE : '$' LETTER+ ;
+VARIABLE : '$' LETTER_NUMBER+ ;
 
 NUMBER : '-'? DIGIT+('.'DIGIT+)? ;
 
