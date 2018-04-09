@@ -32,7 +32,7 @@ fragment UPPERCASE : [A-Z] ;
 fragment DIGIT : [0-9] ;
 fragment LETTER : [a-zA-Z] ;
 fragment LETTER_NUMBER : LETTER | NUMBER | [_] ;
-fragment NOT_SPECIAL_MARKER : '<' ~'<' | '>' ~'>' | '[' ~'[' | ']' ~']' ;
+fragment NOT_SPECIAL_MARKER : '<' ~'<' | '>' ~'>' | '[' ~'[' | ']' ~']' | '/' ~[*/] ;
 
 OPTION_START : '[[' ;
 OPTION_END : ']]' ;
@@ -49,7 +49,8 @@ HASHTAG : '#' ~[\r\n]+ ;
 
 WS : [ \t] -> skip ;
 NEWLINE : '\r'? '\n' -> skip;
-COMMENT : '//' ~[\r\n]* '\r'? '\n' -> skip ;
+COMMENT : '//' ~[\r\n\u001D\u001E]* -> skip ;
+BLOCK_COMMENT : '/*' .*? '*/' -> skip ;
 
 SEPARATOR : ':' ;
 
@@ -60,8 +61,9 @@ BODY_BLANKLINE : NEWLINE NEWLINE ;
 BODY_WS : [ \t\r\n] -> skip ;
 BODY_END : '===' -> popMode ;
 BODY_COMMENT : COMMENT -> skip ;
+BODY_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
 BODY_HASHTAG : HASHTAG -> type(HASHTAG) ;
-BODY_TEXT : (LETTER_NUMBER | '$') (~[\r\n<>[\]#\u001D\u001E] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+BODY_TEXT : (LETTER_NUMBER | '$') (~[\r\n<>[\]#/\u001D\u001E] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 
 BODY_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 BODY_OPTION_START : OPTION_START -> type(OPTION_START), pushMode(Option);
@@ -72,13 +74,15 @@ BODY_SHORTCUT_END : SHORTCUT_END -> type(SHORTCUT_END);
 mode Option ;
 BODY_OPTION_END : OPTION_END -> type(OPTION_END), popMode ;
 OPTION_WS : [ \t] -> skip ;
+OPTION_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
 OPTION_SEPARATOR : '|' ;
-OPTION_TEXT : LETTER_NUMBER (~[\r\n|<>[\]] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+OPTION_TEXT : LETTER_NUMBER (~[\r\n|<>[\]/] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 OPTION_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 
 mode Command ;
 BODY_COMMAND_END : COMMAND_END -> type(COMMAND_END), popMode ;
 COMMAND_WS : [ \t] -> skip ;
+COMMAND_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
 
 LBRACKET : '(' ;
 RBRACKET : ')' ;
@@ -120,4 +124,4 @@ NUMBER : '-'? DIGIT+('.'DIGIT+)? ;
 
 STRING : '"' ~[\r\n]* '"' ;
 
-COMMAND_TEXT : LETTER (~[ \t|<>[\](),] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+COMMAND_TEXT : LETTER (~[ \t|<>[\](),/] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
