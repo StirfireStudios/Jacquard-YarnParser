@@ -1,113 +1,95 @@
-// Basic Parser grammar for Yarn
-
 parser grammar YarnParser;
 
 options { tokenVocab=YarnLexer; }
 
-dialogue : node+ EOF;
+dialogue : node* EOF;
 
-node: header body NEWLINE*;
+node : header+ body ;
 
-// this is wrong, this means you have to have a title (correct)
-// but can have any number (including 0) of the others (also correct)
-// we only want 0-1 of each in any order but to do this means writing them out
-// or doing it with some code, the in code option seems the best here
-// at least according to https://stackoverflow.com/questions/14934081/antlr4-matching-all-input-alternatives-exaclty-once
-header : header_title (header_tag | header_line)* ;
-header_title : HEADER_TITLE TITLE_TEXT TITLE_TAG_END ;
-header_tag_name : TAG_TEXT TAG_DELIMIT? ;
-header_tag : HEADER_TAGS header_tag_name* HEADER_TAG_END ;
-header_line : HEADER_NAME ':' HEADER_TEXT HEADER_END ;
+header : headerName=TEXT SEPARATOR headerValue=TEXT? ;
 
-body : BODY_ENTER statement* BODY_CLOSE ;
+body : BODY_START (statement | option_group)* BODY_END ;
 
 statement
-    : shortcut
-    | if_statement
-    | set_statement
-    | option_statement
-	| func_call_statement
-    | action_statement
-    | line_statement
-	| blank_statement
+    : line_statement # line
+    | blank_statement # blank
+    | if_statement # if
     ;
 
-shortcut : SHORTCUT_ENTER INDENT statement* DEDENT ;
-
-if_statement : if_clause (else_if_clause)* (else_clause)? COMMAND_ENDIF (hashtag_block)? ;
-if_clause : COMMAND_IF expression COMMAND_CLOSE statement* ;
-else_if_clause : COMMAND_ELSE_IF expression COMMAND_CLOSE statement* ;
-else_clause : COMMAND_ELSE statement* ;
-
-// this is a hack until I can work out exactly what the rules for setting are
-set_statement
-    : COMMAND_SET variable KEYWORD_TO* expression COMMAND_CLOSE
-    | COMMAND_SET expression COMMAND_CLOSE
+ostatement
+    : option_with_text # option
+    | shortcut_statement # option
+    | of_statement # optionIf
     ;
 
-option_statement
-	: ('[[' OPTION_TEXT '|' OPTION_LINK ']]'
-	| '[[' OPTION_TEXT ']]')
-	(hashtag_block)? ;
+option_group : (ostatement+ | option_link) hashtag=HASHTAG*;
+option_link : OPTION_START optionNodeName=TEXT OPTION_END ;
+option_with_text : OPTION_START optionText=TEXT OPTION_SEPARATOR optionNodeName=TEXT OPTION_END ;
 
-func_call : FUNC_ID '(' expression? (COMMA expression)* ')' ;
-// this is messy
-func_call_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CLOSE ;
-// this isn't ideal but works quite well
-action_statement : ACTION ;
+if_statement : if_clause statement* else_if_clause* else_clause? endif_clause hashtag=HASHTAG*;
+if_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END statements=statement*;
+else_if_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END statements=statement* ;
+else_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=statement*;
 
-text : TEXT | TEXT_STRING ;
-line_statement : (text (hashtag_block)?) ;
-blank_statement : BLANK_STATEMENT ;
+of_statement : of_clause statement* else_of_clause* oelse_clause? endif_clause ;
+of_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END statements=ostatement*;
+else_of_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END statements=ostatement* ;
+oelse_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=ostatement*;
 
-hashtag_block : hashtag+ ;
-hashtag : HASHTAG ;
+endif_clause : COMMAND_START KEYWORD_ENDIF COMMAND_END ;
 
-// this feel a bit crude
-// need to work on this
+shortcut_statement : SHORTCUT_START shortcut_option+ SHORTCUT_END ;
+shortcut_option : (TEXT | command_statement) ostatement* ;
+
+set_command : COMMAND_START KEYWORD_SET? VARIABLE KEYWORD_TO expression COMMAND_END ;
+
+command_statement
+    : set_command # set
+    | COMMAND_START (function_command | TEXT | expression)+ COMMAND_END # command
+    ;
+
+function_command : func=TEXT LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
+
+line_statement : ((TEXT HASHTAG*) | command_statement)+ ;
+
+blank_statement : BODY_BLANKLINE ;
+
 expression
-	: '(' expression ')' #expParens
-	| <assoc=right>'-' expression #expNegative
-	| <assoc=right>OPERATOR_LOGICAL_NOT expression #expNot
-	| expression op=(
-		OPERATOR_MATHS_MULTIPLICATION | 
-		OPERATOR_MATHS_DIVISION |
-		OPERATOR_MATHS_MODULUS) expression #expMultDivMod
-	| expression op=(
-		OPERATOR_MATHS_ADDITION| 
-		OPERATOR_MATHS_SUBTRACTION) expression #expAddSub
-	| expression op=(
-		OPERATOR_LOGICAL_LESS_THAN_EQUALS | 
-		OPERATOR_LOGICAL_GREATER_THAN_EQUALS | 
-		OPERATOR_LOGICAL_LESS | 
-		OPERATOR_LOGICAL_GREATER) expression #expComparison
-	| expression op=(
-		OPERATOR_LOGICAL_EQUALS | 
-		OPERATOR_LOGICAL_NOT_EQUALS) expression #expEquality
-	| variable op=(
-		OPERATOR_MATHS_MULTIPLICATION_EQUALS | 
-		OPERATOR_MATHS_DIVISION_EQUALS | 
-		OPERATOR_MATHS_MODULUS_EQUALS) expression #expMultDivModEquals
-	| variable op=(
-		OPERATOR_MATHS_ADDITION_EQUALS | 
-		OPERATOR_MATHS_SUBTRACTION_EQUALS) expression #expPlusMinusEquals
-	| expression op=(
-		OPERATOR_LOGICAL_AND | 
-		OPERATOR_LOGICAL_OR | 
-		OPERATOR_LOGICAL_XOR) expression #expAndOrXor
-	| value #expValue
+    : value # valueExpression
+    | LBRACKET expression RBRACKET # groupedExpression
+    | MINUS expression # negativeExpression
+    | NOT expression # notExpression
+    | left=expression operand right=expression #opExpression
+    | function_command # function
     ;
 
-// can add in support for more values in here
-value
-    : BODY_NUMBER	 #valueNumber
-    | KEYWORD_TRUE   #valueTrue
-    | KEYWORD_FALSE  #valueFalse
-	| variable		 #valueVar
-	| COMMAND_STRING #valueString
-	| func_call		 #valueFunc
-    | KEYWORD_NULL   #valueNull
+operand
+    : PLUS
+    | MINUS
+    | MULTIPLY
+    | DIVIDE
+    | MODULO
+    | EQ
+    | GT
+    | LT
+    | NEQ
+    | GTE
+    | LTE
+    | AND
+    | OR
+    | XOR
+    | ADD_EQUALS
+    | MINUS_EQUALS
+    | MULTIPLY_EQUALS
+    | DIVIDE_EQUALS
+    | MODULO_EQUALS
     ;
-variable
-    : VAR_ID
+
+value
+    : NUMBER # number
+    | STRING # string
+    | VARIABLE # variable
+    | KEYWORD_TRUE # trueConstant
+    | KEYWORD_FALSE # falseConstant
+    | KEYWORD_NULL # nullConstant
     ;
