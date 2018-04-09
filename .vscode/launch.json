@@ -10,8 +10,8 @@
 			"name": "CLI Debug",
 			"program": "${workspaceFolder}/cli.js"
 			"args": [
-				"yarn_files/testcase.yarn.txt"//,
-//				"--preprocessOnly", "preprocessed.yarn.txt"
+				"yarn_files",
+				"--preprocessOnly", "preprocessed_yarn_files"
 //				,"--debugPreprocess"
 			]
  		}

@@ -9,7 +9,7 @@
 !/src/antlr/*.js
 
 ## Preprocessed yarn
-/preprocessed.yarn.txt
+/preprocessed_yarn_files/*
 
 ## JAVASCRIPT
 ## --

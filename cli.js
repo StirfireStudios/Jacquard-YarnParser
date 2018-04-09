@@ -5,44 +5,58 @@ const FileIO = require('./FileIO');
 const package = require('./package.json')
 const program = require('commander');
 
-const YarnParser = require('./src/index')
+const YarnParser = require('./src/index');
 
 program
   .version(package.version)
-  .option("--preprocessOnly <filename>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
+  .option("--preprocessOnly <filename/directory>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
   .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
-  .arguments('<infile>')
+  .arguments('<infile/indir>')
   .parse(process.argv);
 
 const config = {
   ready: true,
   outputHelp: false,
-  filename: null,
+  inputIsDir: false,
+  inputFiles: [],
+  preprocessOutput: [],
   preprocessOnly: false,
-  preprocessFS: null,
-  preprocessDebug: false
+  preprocessDebug: program.debugPreprocess,
 }
 
 if (program.args.length < 1) {
   console.error('Input file not specified');
   config.ready = false;
   config.outputHelp = true;
-}
-
-if (program.preprocessOnly != null) {
-  const filename = program.preprocessOnly
-  console.log(`filename: ${filename}\n`)
-  try {
-    config.preprocessFS = FileIO.OpenFileWriteStream(filename);
-    config.preprocessOnly = true;
-    config.preprocessDebug = program.debugPreprocess
-  } catch (err) {
-    console.error(`Could not open ${filename} for writing - ${err}`);
-    config.ready = false;
+} else {
+  const path = program.args[0]
+  const fileType = FileIO.PathType(path)
+  switch(fileType) {
+    case FileIO.FileType.None:
+      console.error(`input file doesn't exist`);
+      config.ready = false;
+      break;
+    case FileIO.FileType.Other:
+      console.err(`input file is not a directory or file`);
+      config.ready = false;
+      break;
+    case FileIO.FileType.File:
+      config.files = [args[0]]
+      config.inputIsDir = false;
+    case FileIO.FileType.Directory:
+      config.inputIsDir = true;
+      config.files = FileIO.YarnFilesInDir(path);
+      if (config.files.length == 0) {
+        console.err(`input directory contains no yarn files`);
+        config.ready = false;
+      }
+      break;
   }
 }
 
-config.filename = program.args[0];
+if (program.preprocessOnly != null) {
+  const pathName = program.preprocessOnly
+}
 
 let yarnText = null
 

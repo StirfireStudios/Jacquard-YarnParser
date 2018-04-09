@@ -14,6 +14,7 @@
   },
   "scripts": {
     "parse": "node cli.js",
+    "preprocessTestFiles": "node cli.js yarn_files --preprocessOnly preprocessed_yarn_files",
     "serveDoc": "documentation serve --watch src/** -f html",
     "buildDoc": "documentation build src/** -f html -o docs"
   }
