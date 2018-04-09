@@ -13,6 +13,10 @@
     "antlr4": "^4.7.1"
   },
   "scripts": {
+    "antlr": "cd src/antlr && antlr4 *.g4 -Dlanguage=JavaScript -visitor",
+    "compile": "cd src/antlr && antlr4 *.g4 -visitor -o ../../tmp && cd ../../tmp && javac *.java",
+    "tokens": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -tokens",
+    "gui": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -gui",
     "parse": "node cli.js",
     "preprocessTestFiles": "node cli.js yarn_files --preprocessOnly preprocessed_yarn_files",
     "serveDoc": "documentation serve --watch src/** -f html",
