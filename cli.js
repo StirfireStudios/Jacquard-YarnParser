@@ -73,6 +73,6 @@ if (parser.parse(yarnText, false, config.filename)) {
 }
 
 if (config.preprocessOnly) {
-  config.preprocessFS.write(parser.processedString);
+  config.preprocessFS.write(parser.preprocessedData);
   FileIO.FinishWriteStream(config.preprocessFS);
 }
