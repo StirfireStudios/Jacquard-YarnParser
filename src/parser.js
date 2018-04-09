@@ -8,6 +8,7 @@ const BaseListener = require('./antlr/YarnParserListener').YarnParserListener;
 const Location = require('./parser/location');
 const ParserMessage = require('./parser/message');
 const statementTypes = require('./statements/types');
+const statements = require('./statements');
 const expressionGenerator = require('./parser/expressionGenerator');
 
 function addError(listener, ctx, string) {
@@ -186,12 +187,11 @@ YarnListener.prototype.exitFunc_call_statement = function(ctx) {
     if (node.getChildCount() === 0) continue;
     args.push(expressionGenerator(node));
   }
-  this._statements.push({
-    type: statementTypes.Function,
-    name: funcText.substring(2, funcText.length - 1).trim(),
-    args: args,
-    location: Location.FromANTLRNode(ctx),
-  })
+  this._statements.push(new statements.Function(
+      funcText.substring(2, funcText.length - 1).trim(),
+      args,
+      Location.FromANTLRNode(ctx),
+  ));
 };
 
 YarnListener.prototype.exitIf_statement = function(ctx) {

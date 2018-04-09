@@ -161,4 +161,10 @@ class Parser {
  */
 Parser.StatementTypes = require('./statements/types');
 
-module.exports = Parser;
+module.exports = {
+	Parser,
+	Location: require('./parser/location'),
+	ParserMessage: require('./parser/message'),
+	Statement: require('./statements'),
+	Node: require('./node'),
+}
