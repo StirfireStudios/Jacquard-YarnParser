@@ -1,4 +1,5 @@
 const fs = require('fs');
+const Path = require('path');
 
 const FileIO = require('./FileIO');
 
@@ -19,8 +20,7 @@ const config = {
   outputHelp: false,
   inputIsDir: false,
   inputFiles: [],
-  preprocessOutput: [],
-  preprocessOnly: false,
+  preprocessOutputFiles: null,
   preprocessDebug: program.debugPreprocess,
 }
 
@@ -29,25 +29,26 @@ if (program.args.length < 1) {
   config.ready = false;
   config.outputHelp = true;
 } else {
-  const path = program.args[0]
-  const fileType = FileIO.PathType(path)
+  const path = program.args[0];
+  const fileType = FileIO.PathType(path);
   switch(fileType) {
     case FileIO.FileType.None:
       console.error(`input file doesn't exist`);
       config.ready = false;
       break;
     case FileIO.FileType.Other:
-      console.err(`input file is not a directory or file`);
+      console.error(`input file is not a directory or file`);
       config.ready = false;
       break;
     case FileIO.FileType.File:
-      config.files = [args[0]]
+      config.inputFiles = [program.args[0]]
       config.inputIsDir = false;
+      break;
     case FileIO.FileType.Directory:
       config.inputIsDir = true;
-      config.files = FileIO.YarnFilesInDir(path);
-      if (config.files.length == 0) {
-        console.err(`input directory contains no yarn files`);
+      config.inputFiles = FileIO.YarnFilesInDir(path);
+      if (config.inputFiles.length == 0) {
+        console.error(`input directory contains no yarn files`);
         config.ready = false;
       }
       break;
@@ -55,15 +56,34 @@ if (program.args.length < 1) {
 }
 
 if (program.preprocessOnly != null) {
-  const pathName = program.preprocessOnly
-}
-
-let yarnText = null
-
-try {
-	yarnText = FileIO.ReadEntireFile(config.filename)
-} catch(err) {
-  console.error(`Could not read ${config.filename} - ${err}`);
+  const path = program.preprocessOnly;
+  const fileType = FileIO.PathType(path);
+  if (config.inputIsDir) {
+    if (fileType == FileIO.FileType.Other || fileType == FileIO.FileType.File) {
+      console.error(`preprocess directory exists and is not a directory, while input is a directory`);
+      config.ready = false;      
+    } else {
+      if (fileType == FileIO.FileType.None) {
+        fs.mkdir(path);
+      }
+      const sourcePathLength = program.args[0].length;
+      config.preprocessOutputFiles = [];
+      config.inputFiles.forEach((filePath) => {
+        const outputPath = `${path}${filePath.substr(sourcePathLength)}`;
+        config.preprocessOutputFiles.push(outputPath);
+      });
+    }
+  } else {
+    if (fileType == FileIO.FileType.Other) {
+      console.error(`preprocess path is not a directory or a file`);
+    } else if (fileType == FileIO.FileType.File || FileIO.FileType.None) {
+      config.preprocessOutputFiles = [path];
+    } else {
+      config.preprocessOutputFiles = [
+        `${path}${Path.delimiter}${Path.basename(config.inputFiles[0])}`
+      ];
+    }
+  }
 }
 
 if (!config.ready) {
@@ -79,14 +99,31 @@ parser = new YarnParser({
   preprocessDebug: config.preprocessDebug
 });
 
-if (parser.parse(yarnText, false, config.filename)) {
-  console.error(`Could not parse ${config.filename}`)
-  parser.errors().forEach((error) => {
-    console.error(`Error: ${error.message}`);
-  })
-}
+for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
+  const inputPath = config.inputFiles[fileIndex];
+  let yarnText = null;
+  try {
+    yarnText = FileIO.ReadEntireFile(inputPath);
+  } catch(err) {
+    console.error(`Could not read ${config.filename} - ${err}`);
+    continue;
+  }
 
-if (config.preprocessOnly) {
-  config.preprocessFS.write(parser.preprocessedData);
-  FileIO.FinishWriteStream(config.preprocessFS);
+  if (parser.parse(yarnText, false, inputPath)) {
+    console.error(`Could not parse ${inputPath}`)
+    parser.errors().forEach((error) => {
+      console.error(`Error: ${error.message}`);
+    })
+  }
+
+  if (config.preprocessOutputFiles != null) {
+    try {
+      const preprocessOutputPath = config.preprocessOutputFiles[fileIndex];
+      const output = FileIO.OpenFileWriteStream(preprocessOutputPath);
+      output.write(parser.preprocessedData);
+      FileIO.FinishWriteStream(output);
+    } catch(err) {
+      console.error(`Could not write preprocessed output ${config.filename} - ${err}`);
+    }
+  }
 }

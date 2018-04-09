@@ -112,7 +112,7 @@ class Parser {
 			return true;
 		}
 	
-		if (this.preprocessOnly) return false;
+		if (this.preprocessOnly || this.preprocessDebug) return false;
 	
 		const parsedData = parser(privates.processedString, bodyOnly);
 		processMessages.call(this, parsedData);

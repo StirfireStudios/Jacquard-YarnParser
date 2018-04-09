@@ -7,13 +7,33 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "CLI Debug",
+			"name": "Process All Test Yarn",
+			"program": "${workspaceFolder}/cli.js"
+			"args": [
+				"yarn_files"
+			]
+		 },
+		 {
+			"type": "node",
+			"request": "launch",
+			"name": "Preprocess only  All Test Yarn",
 			"program": "${workspaceFolder}/cli.js"
 			"args": [
 				"yarn_files",
 				"--preprocessOnly", "preprocessed_yarn_files"
 //				,"--debugPreprocess"
 			]
- 		}
+ 		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Preprocess One Test Yarn",
+			"program": "${workspaceFolder}/cli.js"
+			"args": [
+				"yarn_files/expressions.yarn.txt",
+				"--preprocessOnly", "preprocessed.yarn.txt"
+//				,"--debugPreprocess"
+			]
+ 		}		 
 	]
 }
