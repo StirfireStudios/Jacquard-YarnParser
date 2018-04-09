@@ -1,0 +1,50 @@
+title: If Shortcuts
+---
+Here we have single nested options with an trailing if statement
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+-> Option 2
+	You picked Option 2! (this had tabs)
+<<if $ifBranch >>
+-> Option 3
+	You picked Option 3! (this had tabs)
+<<endif>>
+
+Here we have single nested options with a leading if statement
+<<if $ifBranch >>
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+<<endif>>
+-> Option 2
+	You picked Option 2! (this had tabs)
+-> Option 3
+	You picked Option 3! (this had tabs)
+
+Here we have a nested option with a leading if statement
+<<if $ifBranch >>
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+<<endif>>
+-> Option 2
+	You picked Option 2! (this had tabs)
+	<<if $ifBranch >>
+		-> Option 2a
+	<<endif>>
+	-> Option 2b
+-> Option 3
+	You picked Option 3! (this had tabs)
+
+Here we have a nested option with a trailing if statement
+<<if $ifBranch >>
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+<<endif>>
+-> Option 2
+	You picked Option 2! (this had tabs)
+	-> Option 2a
+	<<if $ifBranch >>
+		-> Option 2b
+	<<endif>>
+-> Option 3
+	You picked Option 3! (this had tabs)
+===
