@@ -31,6 +31,31 @@ function processLine(lines) {
   const whitespaceLength = whitespace.length;
   const postWhitespace = matches[2];
 
+  if (this.comment) {
+    const indexOfEndComment = line.indexOf("*/")
+    if (indexOfEndComment == -1) {
+      this.output.push(line);
+      return;
+    } else {
+      const nextLine = line.substr(indexOfEndComment + 2);
+      if (nextLine.length > 0) lines.unshift(nextLine);
+      this.output.push(line.substr(0, indexOfEndComment + 2));
+      this.comment = false;
+      return;
+    }
+  }
+
+  if (postWhitespace === "//") {
+    this.output.push(line);
+    return;
+  }
+
+  if (postWhitespace === "/*") {
+    this.comment = true;
+    lines.unshift(line);
+    return;
+  }
+
   if (state.inOption && postWhitespace.length > 0) {
     if (whitespaceLength < state.whitespaceLength || state.whitespace === whitespace) {
       this.output.push(this.output.pop() + endInstruction(this.debug))
@@ -66,7 +91,8 @@ module.exports = function(yarnString, debug) {
 			{whitespace: '', inOption: false, whitespaceLength: 0}
 		],
     output: [],
-    debug: debug === true
+    debug: debug === true,
+    comment: false,
 	}
 
 	const lines = yarnString.split(/\r\n|\n/);

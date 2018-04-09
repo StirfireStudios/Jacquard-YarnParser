@@ -27,6 +27,25 @@ It's probably a good idea to use a stack as the way of storing the whitspace enc
   1. Save our whitespace encountered as the empty string and not to emit a shortcut end character
   2. After a newline, check the whitespace between the newline and any other character
     - If:
+        - we are in a comment and the line doesn't contain `*/`
+    - then
+        1. Skip to 3 below
+    - If:
+        - we are in a comment and the line contains `*/`
+    - then
+        1. take everything after the `*/` and and push it back as a new line.
+        2. the current line should only be the remainder of the comment.
+        2. Skip to 3 below
+    - If: 
+        - we aren't in a comment and the next characters are `//`
+    - then
+        1. Skip to 3 below
+    - If:
+        - we aren't in a comment and the next characters are `/*`
+    - then
+        1. we are in a comment
+        2. Skip to 3 below
+    - If:
         - we need to emit a close option 
     - and
         - the whitespace found is the same as the current whitespace encountered or shorter
