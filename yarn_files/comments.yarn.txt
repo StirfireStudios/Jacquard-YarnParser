@@ -1,0 +1,45 @@
+title: Comments
+tag: test
+---
+
+/* I AM A MULTILINE Comment
+[[FearTheLackOfOption]]
+I can have * in here as well
+-> Also shortcutsss.
+  Woo, shortcutsss.
+
+<< Not really a command >>
+<< $var = "not really setting a var">>
+*/
+
+<< simple command >> // I am a single line comment
+
+<<test command with arguments>> // I am also a single line comment
+
+<< if $variable is false >> // I am a single line comment
+  statement1 // Now this is starting
+<<else>> // to get a little
+  statement2 // excessive
+<<endif>> // whoa
+
+<< func(1 + 2 * 3 / 4 % 5) >> // func-y comment
+
+<< func(1+2*3/4%5) >> // even func-y'er comment
+
+<< func(1, 2, 3) >> // func'y comment with triple the arguments
+
+[[ Option Text A | OptionLinkA ]] // this option is A
+[[ Option Text B | OptionLinkB ]] // this option is B
+[[ Option Text C | OptionLinkC ]] // this option is C
+
+-> Option 1 // this is option 1
+   I am text in option 1 // this is text in option 1
+   -> Nested 1a // this is a nested option
+     I don't get a comment
+   -> Nested 2a
+     I also didn't have a comment // but there is one here
+// Comment on a line!
+-> Option 2 
+   I should still be part of the group option 1 is part of
+
+=== 

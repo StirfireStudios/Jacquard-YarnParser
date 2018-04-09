@@ -1,10 +1,10 @@
 title: Options with if
 ---
-[[ OptionLinkA | Option Text A ]]
+[[ Option Text A | OptionLinkA ]]
 <<if $variable>>
-[[ OptionLinkB | Option Text B ]]
+[[ Option Text B | OptionLinkB ]]
 <<else>>
-[[ OptionLinkC | Option Text C ]]
+[[ Option Text C | OptionLinkC ]]
 <<endif>>
-[[ OptionLinkD | Option Text D ]]
+[[ Option Text D | OptionLinkD ]]
 ===

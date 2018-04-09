@@ -1,8 +1,8 @@
 title: Options
 ---
 // This should be an option group
-[[ OptionLink1 | Option Text 1 ]]
-[[ OptionLink2 | Option Text 2 ]]
+[[ Option Text 1 | OptionLink1 ]]
+[[ Option Text 2 | OptionLink2 ]]
 // This should be a new option group
 [[OptionLink]]
 ===
