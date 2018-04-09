@@ -95,7 +95,7 @@ if (!config.ready) {
 }
 
 parser = new YarnParser({
-  preprocessOnly: config.preprocessOnly,
+  preprocessOnly: config.preprocessOutputFiles != null,
   preprocessDebug: config.preprocessDebug
 });
 
@@ -111,7 +111,7 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
 
   if (parser.parse(yarnText, false, inputPath)) {
     console.error(`Could not parse ${inputPath}`)
-    parser.errors().forEach((error) => {
+    parser.errors.forEach((error) => {
       console.error(`Error: ${error.message}`);
     })
   }

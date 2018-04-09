@@ -21,7 +21,7 @@
 			"args": [
 				"yarn_files",
 				"--preprocessOnly", "preprocessed_yarn_files"
-//				,"--debugPreprocess"
+				,"--debugPreprocess"
 			]
  		},
 		{

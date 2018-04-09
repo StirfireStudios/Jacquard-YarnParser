@@ -106,13 +106,14 @@ class Parser {
 
 		const errorCount = privates.errors.length;
 		try {
-			privates.processedString = preprocessor(yarnString, privates.preprocessDebug);
+			privates.processedString = preprocessor(yarnString, privates.config.preprocessDebug);
 		} catch(err) {
 			privates.errors.push({message: err.toString()});
 			return true;
 		}
 	
-		if (this.preprocessOnly || this.preprocessDebug) return false;
+		if (privates.config.preprocessOnly || privates.config.preprocessDebug) 
+			return false;
 	
 		const parsedData = parser(privates.processedString, bodyOnly);
 		processMessages.call(this, parsedData);
