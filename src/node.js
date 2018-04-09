@@ -23,6 +23,9 @@ class Node {
 		privateProps.set(this, privates);
 	}
 
+	/** @returns {Object} - the attributes for this node. A dictionary of key value pairs. */
+	get attributes() { return privateProps.get(this).attributes; }
+
 	/** @returns {String[]} - the tags for this node */
 	get tags() { return privateProps.get(this).tags; }
 
@@ -34,6 +37,9 @@ class Node {
 
 	/** @returns {Location} the location of this node in the original file	 */
 	get location() { return privateProps.get(this).location; }
+
+	/** @returns {boolean} does this node have any statements? */
+	get hasStatements() { return privateProps.get(this).statements.length > 0; }
 }
 
-module.exports = Function;
+module.exports = Node;

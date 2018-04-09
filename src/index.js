@@ -2,7 +2,7 @@
 
 const ParserMessage = require('./parser/message');
 const preprocessor = require('./preprocessor')
-const parser = require('./parser')
+const antlrProcessor = require('./listener')
 const optionGroupProcessor = require('./optionGroupProcessor')
 
 /**
@@ -114,7 +114,7 @@ class Parser {
 	
 		if (this.preprocessOnly) return false;
 	
-		const parsedData = parser(privates.processedString, bodyOnly);
+		const parsedData = antlrProcessor(privates.processedString, bodyOnly);
 		processMessages.call(this, parsedData);
 		processNodes.call(this, parsedData);
 
