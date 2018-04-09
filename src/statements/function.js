@@ -15,7 +15,6 @@ class Function extends Base {
 		super(location);
 
 		const privates = {
-			type: "FunctionStatement",
 			name: name,
 			args: args,
 		}

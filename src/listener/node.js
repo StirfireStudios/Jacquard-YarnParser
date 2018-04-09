@@ -16,6 +16,8 @@ function enter(ctx) {
     linkedNodeNames: [],
     location: Location.FromANTLRNode(ctx),
   }
+
+  this._statements = this._nodeData.statements;
 }
 
 function exit(ctx) {

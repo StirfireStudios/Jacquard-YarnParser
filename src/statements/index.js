@@ -6,5 +6,6 @@
  */
 module.exports = {
 	Base: require('./base'),
+	Blank: require('./blank'),
 	Function: require('./function'),
 }

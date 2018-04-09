@@ -9,9 +9,13 @@ const YarnLexer = require('../antlr/YarnLexer');
 const YarnParser = require('../antlr/YarnParser');
 
 const addNodeListeners = require('./node');
+
 const addHeaderTagListeners = require('./headerTag');
 const addHeaderTitleListeners = require('./headerTitle');
 const addHeaderLineListeners = require('./headerLine');
+
+const addBlankStatementListener = require('./blank');
+const addTextStatementListener = require('./text');
 
 function YarnListener() {
 	this.errors = [];
@@ -44,6 +48,9 @@ addNodeListeners(YarnListener.prototype);
 addHeaderTagListeners(YarnListener.prototype);
 addHeaderTitleListeners(YarnListener.prototype);
 addHeaderLineListeners(YarnListener.prototype);
+
+addBlankStatementListener(YarnListener.prototype);
+addTextStatementListener(YarnListener.prototype);
 
 function process(data, isBodyOnly) {
   const chars = new antlr4.InputStream(data)
