@@ -15,4 +15,12 @@ title: Commands
 << func(1+2*3/4%5) >>
 
 << func(1, 2, 3) >>
+
+<< $henchman pull the lever >>
+
+<< change score to (1 + 1) >>
+
+<< change score to funcCall() >>
+
+<< do the thing if called on >>
 ===

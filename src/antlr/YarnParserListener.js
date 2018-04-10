@@ -263,6 +263,15 @@ YarnParserListener.prototype.exitText = function(ctx) {
 };
 
 
+// Enter a parse tree produced by YarnParser#keyword.
+YarnParserListener.prototype.enterKeyword = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#keyword.
+YarnParserListener.prototype.exitKeyword = function(ctx) {
+};
+
+
 // Enter a parse tree produced by YarnParser#valueExpression.
 YarnParserListener.prototype.enterValueExpression = function(ctx) {
 };

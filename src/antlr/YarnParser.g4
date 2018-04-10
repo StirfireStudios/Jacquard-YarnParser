@@ -44,12 +44,24 @@ set_command : COMMAND_START KEYWORD_SET? VARIABLE KEYWORD_TO expression COMMAND_
 
 command_statement
     : set_command # set
-    | COMMAND_START (TEXT | expression)+ COMMAND_END # command
+    | COMMAND_START (TEXT | expression | keyword)+ COMMAND_END # command
     ;
 
 function_command : func=TEXT LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
 
 text : TEXT hashtag=HASHTAG* ;
+
+keyword 
+    : KEYWORD_TO
+    | KEYWORD_SET
+    | KEYWORD_IF
+    | KEYWORD_ELSE
+    | KEYWORD_ELSE_IF
+    | KEYWORD_ENDIF
+    | KEYWORD_TRUE
+    | KEYWORD_FALSE
+    | KEYWORD_NULL
+    ;
 
 expression
     : value # valueExpression

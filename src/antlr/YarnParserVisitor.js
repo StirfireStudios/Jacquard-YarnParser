@@ -180,6 +180,12 @@ YarnParserVisitor.prototype.visitText = function(ctx) {
 };
 
 
+// Visit a parse tree produced by YarnParser#keyword.
+YarnParserVisitor.prototype.visitKeyword = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by YarnParser#valueExpression.
 YarnParserVisitor.prototype.visitValueExpression = function(ctx) {
   return this.visitChildren(ctx);
