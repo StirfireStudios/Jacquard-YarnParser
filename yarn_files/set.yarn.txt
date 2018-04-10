@@ -4,4 +4,10 @@ title: Set
 
 // set is optional
 << $variable = true >>
+
+<< $variable += 2 >>
+<< $variable -= 2 >>
+<< $variable *= 2 >>
+<< $variable /= 2 >>
+<< $variable %= 2 >>
 ===

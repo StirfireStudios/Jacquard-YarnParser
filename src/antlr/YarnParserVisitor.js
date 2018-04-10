@@ -186,6 +186,12 @@ YarnParserVisitor.prototype.visitText = function(ctx) {
 };
 
 
+// Visit a parse tree produced by YarnParser#set_operands.
+YarnParserVisitor.prototype.visitSet_operands = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by YarnParser#keyword.
 YarnParserVisitor.prototype.visitKeyword = function(ctx) {
   return this.visitChildren(ctx);

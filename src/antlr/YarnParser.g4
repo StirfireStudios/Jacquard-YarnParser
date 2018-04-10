@@ -40,7 +40,7 @@ oelse_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=ostatement*;
 
 endif_clause : COMMAND_START KEYWORD_ENDIF COMMAND_END ;
 
-set_command : COMMAND_START KEYWORD_SET? VARIABLE KEYWORD_TO expression COMMAND_END ;
+set_command : COMMAND_START KEYWORD_SET? VARIABLE set_operands expression COMMAND_END ;
 
 fuction_command : COMMAND_START KEYWORD_FUNC? function_call COMMAND_END ;
 
@@ -52,6 +52,15 @@ command_statement
 function_call : (TEXT | keyword) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
 
 text : TEXT hashtag=HASHTAG* ;
+
+set_operands
+    : KEYWORD_TO
+    | ADD_EQUALS
+    | MINUS_EQUALS
+    | MULTIPLY_EQUALS
+    | DIVIDE_EQUALS
+    | MODULO_EQUALS
+    ;
 
 keyword 
     : KEYWORD_TO
