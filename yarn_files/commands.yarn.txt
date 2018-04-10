@@ -23,4 +23,6 @@ title: Commands
 << change score to funcCall() >>
 
 << do the thing if called on >>
+
+<< true(1, 2) >>
 ===

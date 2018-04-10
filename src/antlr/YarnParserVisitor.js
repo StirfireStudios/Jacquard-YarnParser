@@ -156,6 +156,12 @@ YarnParserVisitor.prototype.visitSet_command = function(ctx) {
 };
 
 
+// Visit a parse tree produced by YarnParser#fuction_command.
+YarnParserVisitor.prototype.visitFuction_command = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by YarnParser#set.
 YarnParserVisitor.prototype.visitSet = function(ctx) {
   return this.visitChildren(ctx);
@@ -168,8 +174,8 @@ YarnParserVisitor.prototype.visitCommand = function(ctx) {
 };
 
 
-// Visit a parse tree produced by YarnParser#function_command.
-YarnParserVisitor.prototype.visitFunction_command = function(ctx) {
+// Visit a parse tree produced by YarnParser#function_call.
+YarnParserVisitor.prototype.visitFunction_call = function(ctx) {
   return this.visitChildren(ctx);
 };
 

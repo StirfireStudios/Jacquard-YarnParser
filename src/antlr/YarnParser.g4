@@ -42,18 +42,21 @@ endif_clause : COMMAND_START KEYWORD_ENDIF COMMAND_END ;
 
 set_command : COMMAND_START KEYWORD_SET? VARIABLE KEYWORD_TO expression COMMAND_END ;
 
+fuction_command : COMMAND_START KEYWORD_FUNC? function_call COMMAND_END ;
+
 command_statement
     : set_command # set
     | COMMAND_START (TEXT | expression | keyword)+ COMMAND_END # command
     ;
 
-function_command : func=TEXT LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
+function_call : (TEXT | keyword) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
 
 text : TEXT hashtag=HASHTAG* ;
 
 keyword 
     : KEYWORD_TO
     | KEYWORD_SET
+    | KEYWORD_FUNC
     | KEYWORD_IF
     | KEYWORD_ELSE
     | KEYWORD_ELSE_IF
@@ -65,7 +68,7 @@ keyword
 
 expression
     : value # valueExpression
-    | function_command # functionExpression
+    | function_call # functionExpression
     | LBRACKET expression RBRACKET # groupedExpression
     | MINUS expression # negativeExpression
     | NOT expression # notExpression
