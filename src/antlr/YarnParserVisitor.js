@@ -72,6 +72,12 @@ YarnParserVisitor.prototype.visitShortcut = function(ctx) {
 };
 
 
+// Visit a parse tree produced by YarnParser#eval_statement.
+YarnParserVisitor.prototype.visitEval_statement = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by YarnParser#shortcut_statement.
 YarnParserVisitor.prototype.visitShortcut_statement = function(ctx) {
   return this.visitChildren(ctx);

@@ -1,0 +1,6 @@
+title: Functions
+---
+<< func do(1, "the text") >>
+
+<< do(2, "the other text") >>
+===

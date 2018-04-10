@@ -1,0 +1,5 @@
+title: Evaluation
+---
+Kronk: are you sure it's the {$leverColor} lever?
+it's the {leverColor()} lever
+===

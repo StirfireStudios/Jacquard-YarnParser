@@ -25,4 +25,7 @@ title: Commands
 << do the thing if called on >>
 
 << true(1, 2) >>
+
+<< if $4 is false >>
+<<endif>>
 ===

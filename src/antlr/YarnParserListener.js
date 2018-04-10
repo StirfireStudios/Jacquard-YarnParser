@@ -101,6 +101,15 @@ YarnParserListener.prototype.exitShortcut = function(ctx) {
 };
 
 
+// Enter a parse tree produced by YarnParser#eval_statement.
+YarnParserListener.prototype.enterEval_statement = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#eval_statement.
+YarnParserListener.prototype.exitEval_statement = function(ctx) {
+};
+
+
 // Enter a parse tree produced by YarnParser#shortcut_statement.
 YarnParserListener.prototype.enterShortcut_statement = function(ctx) {
 };

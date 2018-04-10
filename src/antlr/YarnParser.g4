@@ -11,7 +11,7 @@ header : headerName=TEXT SEPARATOR headerValue=TEXT? ;
 body : BODY_START (statement | option_group)* BODY_END ;
 
 statement
-    : (text | command_statement)+ # line
+    : (text | command_statement | eval_statement)+ # line
     | BODY_BLANKLINE # blank
     | if_statement # if
     ;
@@ -21,6 +21,8 @@ ostatement
     | of_statement # optionIf
     | shortcut_statement # shortcut
     ;
+
+eval_statement : EVAL_START expression EVAL_END ;
 
 shortcut_statement : SHORTCUT_START (statement | option_group)* SHORTCUT_END ;
 

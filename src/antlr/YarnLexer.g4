@@ -40,6 +40,9 @@ OPTION_END : ']]' ;
 COMMAND_START : '<<' ;
 COMMAND_END : '>>' ;
 
+EVAL_START : '{' ;
+EVAL_END : '}' ;
+
 SHORTCUT_START : '->' [ \t]* '\u001D' ;
 SHORTCUT_END : '\u001E' ;
 
@@ -63,13 +66,15 @@ BODY_END : '===' -> popMode ;
 BODY_COMMENT : COMMENT -> skip ;
 BODY_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
 BODY_HASHTAG : HASHTAG -> type(HASHTAG) ;
-BODY_TEXT : (LETTER_NUMBER | '$') (~[\r\n<>[\]#/\u001D\u001E] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+BODY_TEXT : (LETTER_NUMBER | '$') (~[\r\n<>[\]#{}/\u001D\u001E] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 
 BODY_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 BODY_OPTION_START : OPTION_START -> type(OPTION_START), pushMode(Option);
 
 BODY_SHORTCUT_START : SHORTCUT_START -> type(SHORTCUT_START) ;
 BODY_SHORTCUT_END : SHORTCUT_END -> type(SHORTCUT_END);
+
+BODY_EVAL_START : EVAL_START -> type(EVAL_START), pushMode(Command) ;
 
 mode Option ;
 BODY_OPTION_END : OPTION_END -> type(OPTION_END), popMode ;
@@ -81,6 +86,7 @@ OPTION_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 
 mode Command ;
 BODY_COMMAND_END : COMMAND_END -> type(COMMAND_END), popMode ;
+BODY_EVAL_END : EVAL_END -> type(EVAL_END), popMode ;
 COMMAND_WS : [ \t] -> skip ;
 COMMAND_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
 
@@ -123,6 +129,6 @@ VARIABLE : '$' LETTER_NUMBER+ ;
 
 NUMBER : '-'? DIGIT+('.'DIGIT+)? ;
 
-STRING : '"' ~[\r\n]* '"' ;
+STRING : '"' ~[\r\n]*? '"' ;
 
 COMMAND_TEXT : LETTER (~[ \t|<>[\](),/] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
