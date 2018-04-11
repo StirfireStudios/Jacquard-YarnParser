@@ -14,7 +14,9 @@ const addHeaderTagListeners = require('./headerTag');
 const addHeaderTitleListeners = require('./headerTitle');
 const addHeaderLineListeners = require('./headerLine');
 
+const addAssignmentLineListeners = require('./assignment');
 const addBlankStatementListener = require('./blank');
+const addFunctionStatementListener = require('./function');
 const addTextStatementListener = require('./text');
 
 function YarnListener() {
@@ -49,7 +51,9 @@ addHeaderTagListeners(YarnListener.prototype);
 addHeaderTitleListeners(YarnListener.prototype);
 addHeaderLineListeners(YarnListener.prototype);
 
+addAssignmentLineListeners(YarnListener.prototype);
 addBlankStatementListener(YarnListener.prototype);
+addFunctionStatementListener(YarnListener.prototype);
 addTextStatementListener(YarnListener.prototype);
 
 function process(data, isBodyOnly) {

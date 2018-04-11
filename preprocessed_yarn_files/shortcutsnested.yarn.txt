@@ -1,0 +1,11 @@
+title: Shortcuts nested
+---
+->{ Option 1
+  These are nested with spaces!
+  ->{ SubOption a
+    You picked a!}
+  ->{ SubOption b
+    You picked b!}}
+->{ Option 2
+  There are no sub-options for this shortcut option}
+===

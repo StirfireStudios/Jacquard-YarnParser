@@ -166,5 +166,6 @@ module.exports = {
 	Location: require('./parser/location'),
 	ParserMessage: require('./parser/message'),
 	Statement: require('./statements'),
+	Expression: require('./expression'),
 	Node: require('./node'),
 }

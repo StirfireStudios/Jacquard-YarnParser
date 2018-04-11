@@ -9,7 +9,7 @@ const Location = require('./parser/location');
 const ParserMessage = require('./parser/message');
 const statementTypes = require('./statements/types');
 const statements = require('./statements');
-const expressionGenerator = require('./parser/expressionGenerator');
+const expressionGenerator = function() {};
 
 function addError(listener, ctx, string) {
 	listener.errors.push(ParserMessage.FromANTLRContext(ctx, string));

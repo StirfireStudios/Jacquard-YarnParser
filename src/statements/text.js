@@ -7,7 +7,7 @@ const privateProps = new WeakMap();
 /**
  * Represents a text statement in the node body
  * @memberof Statement
- * @augments Base
+ * @augments Statement.Base
  * @class Text
  */
 class Text extends Base {
