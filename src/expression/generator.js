@@ -68,7 +68,7 @@ function generateOperatorExpression(node) {
 }
 
 function generateNumberValue(expressionNode) {
-	const location = Location.FromANTLRSymbol(expressionNode);
+	const location = Location.FromANTLRSymbol(expressionNode.symbol);
 	const numberAsString = expressionNode.getText();
 	if (numberAsString.indexOf('.') === -1) {
 		const value = parseInt(numberAsString, 10);
@@ -134,7 +134,9 @@ function generateParensExpression(expressionNode) {
 
 function generateExpression(expressionNode, variable) {
 	if (variable !== undefined) {
-		return new ExpressionTypes.AssignmentOperator(variable, generateExpression(expressionNode));
+		const location = Location.FromANTLRNode(expressionNode);
+		const expression = generateExpression(expressionNode)
+		return new ExpressionTypes.AssignmentOperator(variable, expression, location);
 	}
 	if (expressionNode.children.length === 1) {
 	  return generateValueExpression(expressionNode);
