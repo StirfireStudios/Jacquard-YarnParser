@@ -126,9 +126,33 @@ class Parser {
 	 * Get the last output from the preprocessor (will be the last {@link Parser#parse|parse} call)
 	 * @return {string} the preprocessed data 
 	 */
-	get preprocessedData() {
-		return privateProps.get(this).processedString;
-	}
+	get preprocessedData() { return privateProps.get(this).processedString; }
+
+	/**
+	 * Get the names of the nodes parsed so far
+	 * @return {string[]} the node names
+	 */
+	get nodeNames() { return Object.keys(privateProps.get(this).nodesByName) }
+
+	/**
+	 * Get the tags used on the nodes parsed so far
+	 * @return {string[]} the tag names
+	 */
+	get nodeTags() { return Object.keys(privateProps.get(this).nodesByTag) }
+
+	/**
+	 * Get a node with this name
+	 * @param {string} name the name of the node to get
+	 * @returns {Node} the node with this name (or null)
+	 */
+	nodeNamed(name) { return privateProps.get(this).nodesByName[name]; }
+
+	/**
+	 * Get a node tagged with this name
+	 * @param {string} tag the name of the tag to get nodes for
+	 * @returns {Object.<string, Node>} The nodes in this tag (or null if tag doesn't exist)
+	 */
+	nodesTagged(tag) { return privateProps.get(this).nodesTagged[tag]; }
 
 	/**
 	 * Get the error list from the parser
