@@ -19,6 +19,7 @@ const addConditionalStatementListener = require('./conditional');
 const addCommandStatementListener = require('./command');
 const addEvaluateStatementListener = require('./evaluate');
 const addFunctionStatementListener = require('./function');
+const addOptionLinkStatementListener = require('./option');
 const addTextStatementListener = require('./text');
 
 function YarnListener() {
@@ -60,6 +61,7 @@ addCommandStatementListener(YarnListener.prototype);
 addEvaluateStatementListener(YarnListener.prototype);
 addFunctionStatementListener(YarnListener.prototype);
 addTextStatementListener(YarnListener.prototype);
+addOptionLinkStatementListener(YarnListener.prototype);
 
 function process(data, isBodyOnly) {
   const chars = new antlr4.InputStream(data)

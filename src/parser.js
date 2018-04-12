@@ -105,6 +105,7 @@ YarnListener.prototype.exitHeader_line = function(ctx) {
 
 /* Statement Visitors
  */
+//done
 YarnListener.prototype.enterIf_statement = function(ctx) {
   const statement = { 
     type: statementTypes.Conditional, 
@@ -116,7 +117,7 @@ YarnListener.prototype.enterIf_statement = function(ctx) {
   this._conditional = statement;
   this._statements.push(statement);
 };
-
+//done
 YarnListener.prototype.enterIf_clause = function(ctx) {
   const clause = {
     test: expressionGenerator(ctx.getChild(1)),
@@ -126,7 +127,7 @@ YarnListener.prototype.enterIf_clause = function(ctx) {
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
 };
-
+//done
 YarnListener.prototype.enterElse_if_clause = function(ctx) {
   const clause = {
     test: expressionGenerator(ctx.getChild(1)),
@@ -136,7 +137,7 @@ YarnListener.prototype.enterElse_if_clause = function(ctx) {
   this._conditional.clauses.push(clause);
   this._statements = clause.statements;
 };
-
+//done
 YarnListener.prototype.enterElse_clause = function(ctx) {
   const clause = {
     statements: [],
@@ -146,7 +147,6 @@ YarnListener.prototype.enterElse_clause = function(ctx) {
   this._statements = clause.statements;
 };
 
-// done
 YarnListener.prototype.enterShortcut = function(ctx) {
   const statement = {
     type: statementTypes.Shortcut,
@@ -197,7 +197,7 @@ YarnListener.prototype.exitFunc_call_statement = function(ctx) {
       Location.FromANTLRNode(ctx),
   ));
 };
-
+//done
 YarnListener.prototype.exitIf_statement = function(ctx) {
   const statement = this._conditional;
   this._statements = statement.previousStatements;
