@@ -1,27 +1,124 @@
-title: Expressions Tester
-tags: expressions
+title: Basic
+tags: frog people, frog, people
 colorID: 0
 position: 545,274
 ---
-Set a variable to an integer via "to"
-<< set $junk to 1 >>
+Basic Node, has information and a node link.
 
-Boolean Expressions
-<< set $junk = true and false >>
-<< set $junk = true or false >>
-<< set $junk = true is false >>
-<< set $junk = true ^ false >>
+This
+should be one statement.
 
-Comparators
-<< set $junk = 1 > 2 >>
-<< set $junk = 1 >= 2 >>
-<< set $junk = 1 < 2 >>
-<< set $junk = 1 <= 2 >>
-<< set $junk = 1 != 2 >>
 
-Arithmetic expresions
-<< set $junk = 1 + 1 >>
-<< set $junk = 1 - 1 >>
-<< set $junk = 1 / 1 >>
-<< set $junk = 1 * 1 >>
+<< set $ifBranch to true >>
+[[Named Options]]
+
+[[This should never be reached]]
+===
+title: Named Options
+tags: people, frog
+colorID: 0
+position: 856,356
+---
+Here we have the normal named options syntax, which doesn't allow for anything other than a node-jump
+
+[[ If Branches|If Branch ]]
+[[ Shortcut Options|Shortcut Options ]]
+This text should never appear
+[[Shouldn't be included above|This should never be reached]]
+===
+title: If Branch
+tags:
+colorID: 0
+position: 1170,404
+---
+Here we have an if test on $ifBranch to be true and if that's true we display a thing (also the if has a capital I and the else is ElSe)
+<< If $ifBranch>>
+	$ifBranch was true, also this should display without leading tabs.
+<<ElSe>>
+	$ifBranch was FALSE D: D:
+also this should be on two lines without leading tabs.
+<<endIf>>
+[[Shortcut Options]]
+===
+title: Shortcut Options
+tags:
+colorID: 0
+position: 1170,404
+---
+Here we have single nested options.
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+-> Option 2
+	You picked Option 2! (this had tabs)
+-> <<flying man>> he flies! <<no more flyingman>>
+
+Here we have Nested Options
+-> Option 1
+  These are nested with spaces!
+  -> SubOption a
+    You picked a!
+  -> SubOption b
+    You picked b!
+
+-> Option 2
+	These are nested with tabs!
+	-> SubOption a
+		You Picked a!
+	-> SubOption b
+		You Picked b!
+
+[[If Statement Options|If Statements]]
+===
+title: If Statements
+tags:
+colorID: 0
+position: 1170,404
+---
+Here we have single nested options with an trailing if statement
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+-> Option 2
+	You picked Option 2! (this had tabs)
+<<if $ifBranch >>
+-> Option 3
+	You picked Option 3! (this had tabs)
+<<endif>>
+
+Here we have single nested options with a leading if statement
+<<if $ifBranch >>
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+<<endif>>
+-> Option 2
+	You picked Option 2! (this had tabs)
+-> Option 3
+	You picked Option 3! (this had tabs)
+
+Here we have a nested option with a leading if statement
+<<if $ifBranch >>
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+<<endif>>
+-> Option 2
+	You picked Option 2! (this had tabs)
+	<<if $ifBranch >>
+		-> Option 2a
+	<<endif>>
+	-> Option 2b
+-> Option 3
+	You picked Option 3! (this had tabs)
+
+Here we have a nested option with a trailing if statement
+<<if $ifBranch >>
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+<<endif>>
+-> Option 2
+	You picked Option 2! (this had tabs)
+	-> Option 2a
+	<<if $ifBranch >>
+		-> Option 2b
+	<<endif>>
+-> Option 3
+	You picked Option 3! (this had tabs)
 ===
