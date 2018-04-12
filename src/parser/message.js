@@ -2,8 +2,6 @@
 
 const Location = require('./location');
 
-const privateProps = new WeakMap();
-
 /**
  * Instances of this class detail messages from the parser.
  * @property {string} message The message

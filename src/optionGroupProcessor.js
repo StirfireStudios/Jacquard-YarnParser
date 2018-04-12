@@ -1,15 +1,9 @@
 'use strict';
 
-const statementTypes = require('./statements/types');
+const Statement = require('./statements');
 
 function statementResetsOptionGroup(statement) {
-  switch(statement.type) {
-    case statementTypes.Blank:
-    case statementTypes.Line:
-      return true;
-    default: 
-      return false;
-  }
+  return statement instanceof Statement.Blank || statement instanceof Statement.Text;
 }
 
 function closeGroup(context) {
@@ -64,12 +58,12 @@ function processStatements(statements, errors, context) {
     const statement = statements.shift();
 
     if (statementResetsOptionGroup(statement)) closeGroup(context);
-    if (statement.type == statementTypes.NodeLinkWithText) {
-      handleGroupMember(context, statement, statementTypes.NodeLinkGroup);
-    } else if (statement.type == statementTypes.Shortcut) {
-      handleGroupMember(context, statement, statementTypes.ShortcutGroup);
+    if (statement instanceof Statement.Option) {
+      handleGroupMember(context, statement, Statement.Option);
+    } else if (statement instanceof Statement.Shortcut) {
+      handleGroupMember(context, statement, Statement.Shortcut);
       statement.statements = processStatements(statement.statements, errors);
-    } else if (statement.type == statementTypes.Conditional) {
+    } else if (statement instanceof Statement.Conditional) {
       handleConditional(context, statement, errors);
     } else {
       context.statements.push(statement);
