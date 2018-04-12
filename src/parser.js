@@ -39,7 +39,7 @@ YarnListener.prototype.visitErrorNode = function(node) {
   });
 };
 
-/* Node Visitors
+/* Node Visitors - all done
  */
 
 YarnListener.prototype.enterNode = function(ctx) {
@@ -74,7 +74,7 @@ YarnListener.prototype.exitNode = function(ctx) {
 /* End Node Visitors
  */
 
-/* Header visitors
+/* Header visitors - all done
  */
 YarnListener.prototype.exitHeader_title = function(ctx) {
 	this._node.title = ctx.getChild(1).getText().trim();
@@ -146,6 +146,7 @@ YarnListener.prototype.enterElse_clause = function(ctx) {
   this._statements = clause.statements;
 };
 
+// done
 YarnListener.prototype.enterShortcut = function(ctx) {
   const statement = {
     type: statementTypes.Shortcut,
@@ -159,6 +160,7 @@ YarnListener.prototype.enterShortcut = function(ctx) {
   this._statements = statement.statements;
 };
 
+// done
 YarnListener.prototype.exitAction_statement = function(ctx) {
   const actionText = ctx.getChild(0).getText()
   this._statements.push({
@@ -168,6 +170,7 @@ YarnListener.prototype.exitAction_statement = function(ctx) {
   })
 };
 
+// done
 YarnListener.prototype.exitBlank_statement = function(ctx) {
   if (this._statements.length > 0) {
     const lastStatement = this._statements[this._statements.length - 1];
@@ -179,6 +182,7 @@ YarnListener.prototype.exitBlank_statement = function(ctx) {
   });
 };
 
+//done
 YarnListener.prototype.exitFunc_call_statement = function(ctx) {
   const funcText = ctx.getChild(0).getText();
   const args = [];
@@ -203,6 +207,7 @@ YarnListener.prototype.exitIf_statement = function(ctx) {
   delete(statement.previousStatements);
 };
 
+// done
 YarnListener.prototype.exitLine_statement = function(ctx) {
   const text = ctx.children.map(function(textNode) {
     return textNode.children[0].toString();  
@@ -235,6 +240,7 @@ YarnListener.prototype.exitOption_statement = function(ctx) {
   this._statements.push(statement);
 };
 
+// done
 YarnListener.prototype.exitSet_statement = function(ctx) {
   const statement = {type: statementTypes.Evaluate}
   if (ctx.children.length == 5) {

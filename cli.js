@@ -67,7 +67,7 @@ parser = new YarnParser({
 
 if (parser.parse(yarnText, false, config.filename)) {
   console.error(`Could not parse ${config.filename}`)
-  parser.errors().forEach((error) => {
+  parser.errors.forEach((error) => {
     console.error(`Error: ${error.message}`);
   })
 }

@@ -80,7 +80,7 @@ function generateNumberValue(expressionNode) {
 }
 
 function generateStringExpression(expressionNode) {
-	const location = Location.FromANTLRNode(expressionNode);
+	const location = Location.FromANTLRNode(expressionNode.symbol);
 	let value = expressionNode.getText();
 	if (value.startsWith('"')) value = value.substr(1);
 	if (value.endsWith('"')) value = value.substr(0, value.length - 1);

@@ -15,6 +15,7 @@ const addHeaderTitleListeners = require('./headerTitle');
 const addHeaderLineListeners = require('./headerLine');
 
 const addBlankStatementListener = require('./blank');
+const addConditionalStatementListener = require('./conditional');
 const addCommandStatementListener = require('./command');
 const addEvaluateStatementListener = require('./evaluate');
 const addFunctionStatementListener = require('./function');
@@ -26,6 +27,7 @@ function YarnListener() {
   this.nodesByName = {};
   this._node = null;
   this._statements = null;
+  this._conditional = null;
 	BaseListener.call(this);
 }
 
@@ -43,7 +45,7 @@ YarnListener.prototype.visitErrorNode = function(node) {
   node.parentCtx.children.forEach((child) => {
     if (child.isErrorNode === undefined) return;
     if (!child.isErrorNode()) return;
-    addError(this, child, child.toString());
+    this.addError(child, child.toString());
   });
 };
 
@@ -53,6 +55,7 @@ addHeaderTitleListeners(YarnListener.prototype);
 addHeaderLineListeners(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);
+addConditionalStatementListener(YarnListener.prototype);
 addCommandStatementListener(YarnListener.prototype);
 addEvaluateStatementListener(YarnListener.prototype);
 addFunctionStatementListener(YarnListener.prototype);
