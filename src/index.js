@@ -155,12 +155,6 @@ class Parser {
 	}
 }
 
-/**
- * StatementTypes constant values
- * @static
- */
-Parser.StatementTypes = require('./statements/types');
-
 module.exports = {
 	Parser,
 	Location: require('./parser/location'),
