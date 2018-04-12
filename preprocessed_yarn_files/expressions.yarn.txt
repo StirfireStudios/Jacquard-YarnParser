@@ -1,0 +1,18 @@
+title: Expressions Tester
+tags: expressions
+colorID: 0
+position: 545,274
+---
+Set a variable to an integer via "to"
+<< set $junk to 1 >>
+
+Set a variable to an integer via "="
+<< set $junk = 1 >>
+
+Set a variable to an integer without "set"
+<< $junk = aFuncCall(1+1, "string") >>
+
+<< $junk += aFuncCall(1+1, "string") >>
+
+<< i am a frog >>
+===

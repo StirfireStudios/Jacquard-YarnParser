@@ -23,6 +23,7 @@ class Location {
     const obj = new Location();
     obj.start = { line: node.start.line, column: node.start.column };
     obj.end = { line: node.stop.line, column: node.stop.column };
+    return obj;
   }
     
   static FromANTLRSymbol(symbol) {

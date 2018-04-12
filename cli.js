@@ -5,7 +5,7 @@ const FileIO = require('./FileIO');
 const package = require('./package.json')
 const program = require('commander');
 
-const YarnParser = require('./src/index')
+const YarnParser = require('./src/index').Parser;
 
 program
   .version(package.version)
@@ -67,7 +67,7 @@ parser = new YarnParser({
 
 if (parser.parse(yarnText, false, config.filename)) {
   console.error(`Could not parse ${config.filename}`)
-  parser.errors().forEach((error) => {
+  parser.errors.forEach((error) => {
     console.error(`Error: ${error.message}`);
   })
 }

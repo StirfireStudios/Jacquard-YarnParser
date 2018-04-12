@@ -1,0 +1,15 @@
+title: Hashtags
+---
+Hashtags can appear at the end of lines. #line:d68942
+
+[[Option|Link]] #line:088f6b
+
+<<if $var is true>>
+Choice A #line:e11124
+<<else>>
+Choice B #line:034796
+<<endif>>
+
+->{ Shortcut #line:83062d
+    To the front of the line. #line:e90da9}
+===
