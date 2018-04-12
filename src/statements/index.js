@@ -7,5 +7,8 @@
 module.exports = {
 	Base: require('./base'),
 	Blank: require('./blank'),
+	Command: require('./command'),
+	Evaluate: require('./evaluate'),
 	Function: require('./function'),
+	Text: require('./text'),
 }

@@ -15,6 +15,7 @@ const addHeaderTitleListeners = require('./headerTitle');
 const addHeaderLineListeners = require('./headerLine');
 
 const addBlankStatementListener = require('./blank');
+const addCommandStatementListener = require('./command');
 const addEvaluateStatementListener = require('./evaluate');
 const addFunctionStatementListener = require('./function');
 const addTextStatementListener = require('./text');
@@ -52,6 +53,7 @@ addHeaderTitleListeners(YarnListener.prototype);
 addHeaderLineListeners(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);
+addCommandStatementListener(YarnListener.prototype);
 addEvaluateStatementListener(YarnListener.prototype);
 addFunctionStatementListener(YarnListener.prototype);
 addTextStatementListener(YarnListener.prototype);

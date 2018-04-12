@@ -29,7 +29,7 @@ class Function extends Base {
 
 	/** @memberof Statement.Function 
 	 * @instance
-	 * @returns {array} an array of expressions for this function */
+	 * @returns {Expression.Base[]} an array of expressions for this function */
 	get arguments() { return privateProps.get(this).args; }
 }
 
