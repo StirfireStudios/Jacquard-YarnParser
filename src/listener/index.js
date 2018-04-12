@@ -21,6 +21,7 @@ const addEvaluateStatementListener = require('./evaluate');
 const addFunctionStatementListener = require('./function');
 const addOptionLinkStatementListener = require('./option');
 const addTextStatementListener = require('./text');
+const addShortcutStatementListener = require('./shortcut');
 
 function YarnListener() {
 	this.errors = [];
@@ -62,6 +63,7 @@ addEvaluateStatementListener(YarnListener.prototype);
 addFunctionStatementListener(YarnListener.prototype);
 addTextStatementListener(YarnListener.prototype);
 addOptionLinkStatementListener(YarnListener.prototype);
+addShortcutStatementListener(YarnListener.prototype);
 
 function process(data, isBodyOnly) {
   const chars = new antlr4.InputStream(data)
