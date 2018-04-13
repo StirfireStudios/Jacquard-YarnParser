@@ -11,6 +11,7 @@ program
   .version(package.version)
   .option("--preprocessOnly <filename>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
   .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
+  .option("--bodyOnly", "the specified file only contains a node body")
   .arguments('<infile>')
   .parse(process.argv);
 
@@ -65,7 +66,7 @@ parser = new YarnParser({
   preprocessDebug: config.preprocessDebug
 });
 
-if (parser.parse(yarnText, false, config.filename)) {
+if (parser.parse(yarnText, program.bodyOnly, config.filename)) {
   console.error(`Could not parse ${config.filename}`)
   parser.errors.forEach((error) => {
     console.error(`Error: ${error.message}`);
