@@ -47,4 +47,17 @@ Here we have a nested option with a trailing if statement
 	<<endif>>
 -> Option 3
 	You picked Option 3! (this had tabs)
+
+Here we have an if statement that's not really involved in the option grouping
+-> Option 1
+   You picked option 1
+	 <<if $ifBranch>>
+	   you get some extra statements
+	 <<endif>>
+	 -> Option 1a
+	    1a!
+	 -> Option 1b
+	    1b!
+-> Option 2
+   You picked option 2!
 ===
