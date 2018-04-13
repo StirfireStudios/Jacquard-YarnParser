@@ -10,9 +10,7 @@ const YarnParser = require('../antlr/YarnParser');
 
 const addNodeListeners = require('./node');
 
-const addHeaderTagListeners = require('./headerTag');
-const addHeaderTitleListeners = require('./headerTitle');
-const addHeaderLineListeners = require('./headerLine');
+const addHeaderListener = require('./header');
 
 const addBlankStatementListener = require('./blank');
 const addConditionalStatementListener = require('./conditional');
@@ -52,9 +50,7 @@ YarnListener.prototype.visitErrorNode = function(node) {
 };
 
 addNodeListeners(YarnListener.prototype);
-addHeaderTagListeners(YarnListener.prototype);
-addHeaderTitleListeners(YarnListener.prototype);
-addHeaderLineListeners(YarnListener.prototype);
+addHeaderListener(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);
 addConditionalStatementListener(YarnListener.prototype);

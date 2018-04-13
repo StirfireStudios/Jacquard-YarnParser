@@ -1,7 +1,4 @@
 title: Basic Lines
-tags: junk, thing is thing, thing is bad
-novalue:
-otherAttr: place, thing
 ---
 This is a single line.
 

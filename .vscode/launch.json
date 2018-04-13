@@ -13,7 +13,16 @@
 				"yarn_files"
 			]
 		 },
-		 {
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Process One Test Yarn",
+			"program": "${workspaceFolder}/cli.js"
+			"args": [
+				"yarn_files/basiclines.yarn.txt"
+			]
+		},	
+		{
 			"type": "node",
 			"request": "launch",
 			"name": "Preprocess only  All Test Yarn",
@@ -30,8 +39,8 @@
 			"name": "Preprocess One Test Yarn",
 			"program": "${workspaceFolder}/cli.js"
 			"args": [
-				"yarn_files/expressions.yarn.txt",
-				"--preprocessOnly", "preprocessed.yarn.txt"
+				"yarn_files/basiclines.yarn.txt",
+				,"--preprocessOnly", "preprocessed.yarn.txt"
 //				,"--debugPreprocess"
 			]
  		}		 
