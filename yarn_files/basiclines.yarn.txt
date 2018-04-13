@@ -2,8 +2,8 @@ title: Basic Lines
 ---
 This is a single line.
 
-This is a
-multiline.
+This should be
+two lines.
 
 This <<has>> commands <<in>> it.
 

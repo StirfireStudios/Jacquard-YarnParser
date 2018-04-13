@@ -6,10 +6,12 @@
 ## ANTLR stuff
 *.interp
 *.tokens
-.antlr/
+/src/antlr/
+!/src/antlr/*.g4
+!/src/antlr/*.js
 
 ## Preprocessed yarn
-/preprocessed_yarn_files/*
+/preprocessed_yarn_files/
 
 ## Temp grun code
 tmp/

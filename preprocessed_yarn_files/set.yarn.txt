@@ -1,7 +1,0 @@
-title: Set
----
-<< set $variable to true >>
-
-// set is optional
-<< $variable = true >>
-===
