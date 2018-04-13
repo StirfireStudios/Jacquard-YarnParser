@@ -12,6 +12,7 @@ program
   .version(package.version)
   .option("--preprocessOnly <filename/directory>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
   .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
+  .option("--bodyOnly", "the specified file only contains a node body")
   .arguments('<infile/indir>')
   .parse(process.argv);
 
@@ -22,6 +23,7 @@ const config = {
   inputFiles: [],
   preprocessOutputFiles: null,
   preprocessDebug: program.debugPreprocess,
+  bodyOnly: program.bodyOnly,
 }
 
 if (program.args.length < 1) {
@@ -86,6 +88,11 @@ if (program.preprocessOnly != null) {
   }
 }
 
+if (config.inputIsDir && config.bodyOnly) {
+  console.error("Can't parse body only and supply a directory of input files");
+  config.ready = false;
+}
+
 if (!config.ready) {
   if (config.outputHelp) {
     program.help();
@@ -109,7 +116,7 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
     continue;
   }
 
-  if (parser.parse(yarnText, false, inputPath)) {
+  if (parser.parse(yarnText, config.bodyOnly, inputPath)) {
     console.error(`Could not parse ${inputPath}`)
     parser.errors.forEach((error) => {
       console.error(`Error: ${error.message}`);

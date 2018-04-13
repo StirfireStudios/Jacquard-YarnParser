@@ -96,6 +96,7 @@ class Parser {
 	
 	/**
 	 * Parse more yarn text input and add it to the nodes already present.
+	 * If the yarn is body only, the node will be called `bodyParsed` and any previous contents will be overwritten
 	 * @param {string} yarnString the yarn string to process. Can contain body only or header and body. 
 	 * @param {boolean} bodyOnly if this yarnString is only body.
 	 * @param {string} fileID an identifer for the source of the yarnString that is being passed in.
@@ -117,6 +118,7 @@ class Parser {
 	
 		const parsedData = antlrProcessor(privates.processedString, bodyOnly);
 		processMessages.call(this, parsedData);
+		if (bodyOnly) delete(privates.nodesByName["bodyParsed"]);
 		processNodes.call(this, parsedData);
 
 	//	optionGroupProcessor(Object.values(this.nodesByName), this.errors);

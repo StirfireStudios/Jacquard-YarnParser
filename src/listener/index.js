@@ -66,6 +66,9 @@ addOptionLinkStatementListener(YarnListener.prototype);
 addShortcutStatementListener(YarnListener.prototype);
 
 function process(data, isBodyOnly) {
+  if (isBodyOnly) {
+    data = `title: bodyParsed\n---\n${data}\n===\n`
+  }
   const chars = new antlr4.InputStream(data)
   const lexer = new YarnLexer.YarnLexer(chars);
   const tokens = new antlr4.CommonTokenStream(lexer);
@@ -74,12 +77,7 @@ function process(data, isBodyOnly) {
   let tree = null;
   const listener = new YarnListener();
 
-  if (isBodyOnly) {
-    //todo: set up the node that we're inserting into here...
-    tree = parser.body();
-  } else {
-    tree = parser.dialogue();
-  }
+  tree = parser.dialogue();
 
   antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
