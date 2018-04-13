@@ -1,5 +1,14 @@
 title: Options with if
 ---
+If at the start
+<<if $variable>>
+[[ Option Text A | OptionLinkA ]]
+<<endif>>
+[[ Option Text B | OptionLinkB ]]
+[[ Option Text C | OptionLinkC ]]
+
+
+If in the middle
 [[ Option Text A | OptionLinkA ]]
 <<if $variable>>
 [[ Option Text B | OptionLinkB ]]
@@ -7,4 +16,13 @@ title: Options with if
 [[ Option Text C | OptionLinkC ]]
 <<endif>>
 [[ Option Text D | OptionLinkD ]]
+
+If at the end
+[[ Option Text A | OptionLinkA ]]
+[[ Option Text B | OptionLinkB ]]
+<<if $variable>>
+[[ Option Text C | OptionLinkC ]]
+<<else>>
+junk
+<<endif>>
 ===
