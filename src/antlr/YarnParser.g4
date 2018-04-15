@@ -11,9 +11,9 @@ header : headerName=TEXT SEPARATOR headerValue=TEXT? ;
 body : BODY_START (statement | option_group)* BODY_END ;
 
 statement
-    : (text | command_statement | eval_statement)+ # line
+    : if_statement # if
     | BODY_BLANKLINE # blank
-    | if_statement # if
+    | (text | command_statement | eval_statement)+? # line
     ;
 
 ostatement
@@ -48,6 +48,7 @@ fuction_command : COMMAND_START KEYWORD_FUNC? function_call COMMAND_END ;
 
 command_statement
     : set_command # set
+    | fuction_command # func
     | COMMAND_START (TEXT | expression | keyword)+ COMMAND_END # command
     ;
 
