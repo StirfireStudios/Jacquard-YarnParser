@@ -2,12 +2,10 @@
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 var YarnParserListener = require('./YarnParserListener').YarnParserListener;
-var YarnParserVisitor = require('./YarnParserVisitor').YarnParserVisitor;
-
 var grammarFileName = "YarnParser.g4";
 
 var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
-    "\u0003@\u014c\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u0003@\u014d\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
     "\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007\u0004",
     "\b\t\b\u0004\t\t\t\u0004\n\t\n\u0004\u000b\t\u000b\u0004\f\t\f\u0004",
     "\r\t\r\u0004\u000e\t\u000e\u0004\u000f\t\u000f\u0004\u0010\t\u0010\u0004",
@@ -20,8 +18,8 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\r\u0003\u000e\u0003I\u0003\u0003\u0003\u0003\u0003\u0004\u0003\u0004",
     "\u0003\u0004\u0005\u0004Q\n\u0004\u0003\u0005\u0003\u0005\u0003\u0005",
     "\u0007\u0005V\n\u0005\f\u0005\u000e\u0005Y\u000b\u0005\u0003\u0005\u0003",
-    "\u0005\u0003\u0006\u0003\u0006\u0003\u0006\u0006\u0006`\n\u0006\r\u0006",
-    "\u000e\u0006a\u0003\u0006\u0003\u0006\u0005\u0006f\n\u0006\u0003\u0007",
+    "\u0005\u0003\u0006\u0003\u0006\u0003\u0006\u0003\u0006\u0003\u0006\u0006",
+    "\u0006b\n\u0006\r\u0006\u000e\u0006c\u0005\u0006f\n\u0006\u0003\u0007",
     "\u0003\u0007\u0003\u0007\u0005\u0007k\n\u0007\u0003\b\u0003\b\u0003",
     "\b\u0003\b\u0003\t\u0003\t\u0003\t\u0007\tt\n\t\f\t\u000e\tw\u000b\t",
     "\u0003\t\u0003\t\u0003\n\u0006\n|\n\n\r\n\u000e\n}\u0003\n\u0005\n\u0081",
@@ -47,185 +45,187 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0005\u0016\u00f6\n\u0016\u0003\u0016\u0003\u0016\u0003\u0016\u0003",
     "\u0016\u0003\u0016\u0003\u0017\u0003\u0017\u0005\u0017\u00ff\n\u0017",
     "\u0003\u0017\u0003\u0017\u0003\u0017\u0003\u0018\u0003\u0018\u0003\u0018",
-    "\u0003\u0018\u0003\u0018\u0006\u0018\u0109\n\u0018\r\u0018\u000e\u0018",
-    "\u010a\u0003\u0018\u0005\u0018\u010e\n\u0018\u0003\u0019\u0003\u0019",
-    "\u0005\u0019\u0112\n\u0019\u0003\u0019\u0003\u0019\u0003\u0019\u0003",
-    "\u0019\u0007\u0019\u0118\n\u0019\f\u0019\u000e\u0019\u011b\u000b\u0019",
-    "\u0005\u0019\u011d\n\u0019\u0003\u0019\u0003\u0019\u0003\u001a\u0003",
-    "\u001a\u0007\u001a\u0123\n\u001a\f\u001a\u000e\u001a\u0126\u000b\u001a",
-    "\u0003\u001b\u0003\u001b\u0003\u001c\u0003\u001c\u0003\u001d\u0003\u001d",
+    "\u0003\u0018\u0003\u0018\u0003\u0018\u0006\u0018\u010a\n\u0018\r\u0018",
+    "\u000e\u0018\u010b\u0003\u0018\u0005\u0018\u010f\n\u0018\u0003\u0019",
+    "\u0003\u0019\u0005\u0019\u0113\n\u0019\u0003\u0019\u0003\u0019\u0003",
+    "\u0019\u0003\u0019\u0007\u0019\u0119\n\u0019\f\u0019\u000e\u0019\u011c",
+    "\u000b\u0019\u0005\u0019\u011e\n\u0019\u0003\u0019\u0003\u0019\u0003",
+    "\u001a\u0003\u001a\u0007\u001a\u0124\n\u001a\f\u001a\u000e\u001a\u0127",
+    "\u000b\u001a\u0003\u001b\u0003\u001b\u0003\u001c\u0003\u001c\u0003\u001d",
     "\u0003\u001d\u0003\u001d\u0003\u001d\u0003\u001d\u0003\u001d\u0003\u001d",
-    "\u0003\u001d\u0003\u001d\u0003\u001d\u0005\u001d\u0137\n\u001d\u0003",
-    "\u001d\u0003\u001d\u0003\u001d\u0003\u001d\u0007\u001d\u013d\n\u001d",
-    "\f\u001d\u000e\u001d\u0140\u000b\u001d\u0003\u001e\u0003\u001e\u0003",
-    "\u001f\u0003\u001f\u0003\u001f\u0003\u001f\u0003\u001f\u0003\u001f\u0005",
-    "\u001f\u014a\n\u001f\u0003\u001f\u0002\u00038 \u0002\u0004\u0006\b\n",
-    "\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02",
-    "468:<\u0002\u0005\u0003\u0002/4\u0003\u00024=\u0004\u0002 *,3\u0002",
-    "\u015e\u0002A\u0003\u0002\u0002\u0002\u0004G\u0003\u0002\u0002\u0002",
-    "\u0006M\u0003\u0002\u0002\u0002\bR\u0003\u0002\u0002\u0002\ne\u0003",
-    "\u0002\u0002\u0002\fj\u0003\u0002\u0002\u0002\u000el\u0003\u0002\u0002",
-    "\u0002\u0010p\u0003\u0002\u0002\u0002\u0012\u0080\u0003\u0002\u0002",
-    "\u0002\u0014\u0082\u0003\u0002\u0002\u0002\u0016\u0086\u0003\u0002\u0002",
-    "\u0002\u0018\u0091\u0003\u0002\u0002\u0002\u001a\u00a3\u0003\u0002\u0002",
-    "\u0002\u001c\u00ad\u0003\u0002\u0002\u0002\u001e\u00b7\u0003\u0002\u0002",
-    "\u0002 \u00c0\u0003\u0002\u0002\u0002\"\u00d2\u0003\u0002\u0002\u0002",
-    "$\u00dc\u0003\u0002\u0002\u0002&\u00e6\u0003\u0002\u0002\u0002(\u00ef",
-    "\u0003\u0002\u0002\u0002*\u00f3\u0003\u0002\u0002\u0002,\u00fc\u0003",
-    "\u0002\u0002\u0002.\u010d\u0003\u0002\u0002\u00020\u0111\u0003\u0002",
-    "\u0002\u00022\u0120\u0003\u0002\u0002\u00024\u0127\u0003\u0002\u0002",
-    "\u00026\u0129\u0003\u0002\u0002\u00028\u0136\u0003\u0002\u0002\u0002",
-    ":\u0141\u0003\u0002\u0002\u0002<\u0149\u0003\u0002\u0002\u0002>@\u0005",
-    "\u0004\u0003\u0002?>\u0003\u0002\u0002\u0002@C\u0003\u0002\u0002\u0002",
-    "A?\u0003\u0002\u0002\u0002AB\u0003\u0002\u0002\u0002BD\u0003\u0002\u0002",
-    "\u0002CA\u0003\u0002\u0002\u0002DE\u0007\u0002\u0002\u0003E\u0003\u0003",
-    "\u0002\u0002\u0002FH\u0005\u0006\u0004\u0002GF\u0003\u0002\u0002\u0002",
-    "HI\u0003\u0002\u0002\u0002IG\u0003\u0002\u0002\u0002IJ\u0003\u0002\u0002",
-    "\u0002JK\u0003\u0002\u0002\u0002KL\u0005\b\u0005\u0002L\u0005\u0003",
-    "\u0002\u0002\u0002MN\u0007\u000b\u0002\u0002NP\u0007\u0011\u0002\u0002",
-    "OQ\u0007\u000b\u0002\u0002PO\u0003\u0002\u0002\u0002PQ\u0003\u0002\u0002",
-    "\u0002Q\u0007\u0003\u0002\u0002\u0002RW\u0007\u0012\u0002\u0002SV\u0005",
-    "\n\u0006\u0002TV\u0005\u0012\n\u0002US\u0003\u0002\u0002\u0002UT\u0003",
-    "\u0002\u0002\u0002VY\u0003\u0002\u0002\u0002WU\u0003\u0002\u0002\u0002",
-    "WX\u0003\u0002\u0002\u0002XZ\u0003\u0002\u0002\u0002YW\u0003\u0002\u0002",
-    "\u0002Z[\u0007\u0015\u0002\u0002[\t\u0003\u0002\u0002\u0002\\`\u0005",
-    "2\u001a\u0002]`\u0005.\u0018\u0002^`\u0005\u000e\b\u0002_\\\u0003\u0002",
-    "\u0002\u0002_]\u0003\u0002\u0002\u0002_^\u0003\u0002\u0002\u0002`a\u0003",
-    "\u0002\u0002\u0002a_\u0003\u0002\u0002\u0002ab\u0003\u0002\u0002\u0002",
-    "bf\u0003\u0002\u0002\u0002cf\u0007\u0013\u0002\u0002df\u0005\u0018\r",
-    "\u0002e_\u0003\u0002\u0002\u0002ec\u0003\u0002\u0002\u0002ed\u0003\u0002",
-    "\u0002\u0002f\u000b\u0003\u0002\u0002\u0002gk\u0005\u0016\f\u0002hk",
-    "\u0005 \u0011\u0002ik\u0005\u0010\t\u0002jg\u0003\u0002\u0002\u0002",
-    "jh\u0003\u0002\u0002\u0002ji\u0003\u0002\u0002\u0002k\r\u0003\u0002",
-    "\u0002\u0002lm\u0007\u0007\u0002\u0002mn\u00058\u001d\u0002no\u0007",
-    "\b\u0002\u0002o\u000f\u0003\u0002\u0002\u0002pu\u0007\t\u0002\u0002",
-    "qt\u0005\n\u0006\u0002rt\u0005\u0012\n\u0002sq\u0003\u0002\u0002\u0002",
-    "sr\u0003\u0002\u0002\u0002tw\u0003\u0002\u0002\u0002us\u0003\u0002\u0002",
-    "\u0002uv\u0003\u0002\u0002\u0002vx\u0003\u0002\u0002\u0002wu\u0003\u0002",
-    "\u0002\u0002xy\u0007\n\u0002\u0002y\u0011\u0003\u0002\u0002\u0002z|",
-    "\u0005\f\u0007\u0002{z\u0003\u0002\u0002\u0002|}\u0003\u0002\u0002\u0002",
-    "}{\u0003\u0002\u0002\u0002}~\u0003\u0002\u0002\u0002~\u0081\u0003\u0002",
-    "\u0002\u0002\u007f\u0081\u0005\u0014\u000b\u0002\u0080{\u0003\u0002",
-    "\u0002\u0002\u0080\u007f\u0003\u0002\u0002\u0002\u0081\u0013\u0003\u0002",
-    "\u0002\u0002\u0082\u0083\u0007\u0003\u0002\u0002\u0083\u0084\u0007\u000b",
-    "\u0002\u0002\u0084\u0085\u0007\u0004\u0002\u0002\u0085\u0015\u0003\u0002",
-    "\u0002\u0002\u0086\u0087\u0007\u0003\u0002\u0002\u0087\u0088\u0007\u000b",
-    "\u0002\u0002\u0088\u0089\u0007\u001a\u0002\u0002\u0089\u008a\u0007\u000b",
-    "\u0002\u0002\u008a\u008e\u0007\u0004\u0002\u0002\u008b\u008d\u0007\f",
-    "\u0002\u0002\u008c\u008b\u0003\u0002\u0002\u0002\u008d\u0090\u0003\u0002",
-    "\u0002\u0002\u008e\u008c\u0003\u0002\u0002\u0002\u008e\u008f\u0003\u0002",
-    "\u0002\u0002\u008f\u0017\u0003\u0002\u0002\u0002\u0090\u008e\u0003\u0002",
-    "\u0002\u0002\u0091\u0095\u0005\u001a\u000e\u0002\u0092\u0094\u0005\n",
-    "\u0006\u0002\u0093\u0092\u0003\u0002\u0002\u0002\u0094\u0097\u0003\u0002",
-    "\u0002\u0002\u0095\u0093\u0003\u0002\u0002\u0002\u0095\u0096\u0003\u0002",
-    "\u0002\u0002\u0096\u009b\u0003\u0002\u0002\u0002\u0097\u0095\u0003\u0002",
-    "\u0002\u0002\u0098\u009a\u0005\u001c\u000f\u0002\u0099\u0098\u0003\u0002",
-    "\u0002\u0002\u009a\u009d\u0003\u0002\u0002\u0002\u009b\u0099\u0003\u0002",
-    "\u0002\u0002\u009b\u009c\u0003\u0002\u0002\u0002\u009c\u009f\u0003\u0002",
-    "\u0002\u0002\u009d\u009b\u0003\u0002\u0002\u0002\u009e\u00a0\u0005\u001e",
-    "\u0010\u0002\u009f\u009e\u0003\u0002\u0002\u0002\u009f\u00a0\u0003\u0002",
-    "\u0002\u0002\u00a0\u00a1\u0003\u0002\u0002\u0002\u00a1\u00a2\u0005(",
-    "\u0015\u0002\u00a2\u0019\u0003\u0002\u0002\u0002\u00a3\u00a4\u0007\u0005",
-    "\u0002\u0002\u00a4\u00a5\u00077\u0002\u0002\u00a5\u00a6\u00058\u001d",
-    "\u0002\u00a6\u00aa\u0007\u0006\u0002\u0002\u00a7\u00a9\u0005\n\u0006",
-    "\u0002\u00a8\u00a7\u0003\u0002\u0002\u0002\u00a9\u00ac\u0003\u0002\u0002",
-    "\u0002\u00aa\u00a8\u0003\u0002\u0002\u0002\u00aa\u00ab\u0003\u0002\u0002",
-    "\u0002\u00ab\u001b\u0003\u0002\u0002\u0002\u00ac\u00aa\u0003\u0002\u0002",
-    "\u0002\u00ad\u00ae\u0007\u0005\u0002\u0002\u00ae\u00af\u00079\u0002",
-    "\u0002\u00af\u00b0\u00058\u001d\u0002\u00b0\u00b4\u0007\u0006\u0002",
-    "\u0002\u00b1\u00b3\u0005\n\u0006\u0002\u00b2\u00b1\u0003\u0002\u0002",
-    "\u0002\u00b3\u00b6\u0003\u0002\u0002\u0002\u00b4\u00b2\u0003\u0002\u0002",
-    "\u0002\u00b4\u00b5\u0003\u0002\u0002\u0002\u00b5\u001d\u0003\u0002\u0002",
-    "\u0002\u00b6\u00b4\u0003\u0002\u0002\u0002\u00b7\u00b8\u0007\u0005\u0002",
-    "\u0002\u00b8\u00b9\u00078\u0002\u0002\u00b9\u00bd\u0007\u0006\u0002",
-    "\u0002\u00ba\u00bc\u0005\n\u0006\u0002\u00bb\u00ba\u0003\u0002\u0002",
-    "\u0002\u00bc\u00bf\u0003\u0002\u0002\u0002\u00bd\u00bb\u0003\u0002\u0002",
-    "\u0002\u00bd\u00be\u0003\u0002\u0002\u0002\u00be\u001f\u0003\u0002\u0002",
-    "\u0002\u00bf\u00bd\u0003\u0002\u0002\u0002\u00c0\u00c4\u0005\"\u0012",
-    "\u0002\u00c1\u00c3\u0005\n\u0006\u0002\u00c2\u00c1\u0003\u0002\u0002",
-    "\u0002\u00c3\u00c6\u0003\u0002\u0002\u0002\u00c4\u00c2\u0003\u0002\u0002",
-    "\u0002\u00c4\u00c5\u0003\u0002\u0002\u0002\u00c5\u00ca\u0003\u0002\u0002",
-    "\u0002\u00c6\u00c4\u0003\u0002\u0002\u0002\u00c7\u00c9\u0005$\u0013",
-    "\u0002\u00c8\u00c7\u0003\u0002\u0002\u0002\u00c9\u00cc\u0003\u0002\u0002",
-    "\u0002\u00ca\u00c8\u0003\u0002\u0002\u0002\u00ca\u00cb\u0003\u0002\u0002",
-    "\u0002\u00cb\u00ce\u0003\u0002\u0002\u0002\u00cc\u00ca\u0003\u0002\u0002",
-    "\u0002\u00cd\u00cf\u0005&\u0014\u0002\u00ce\u00cd\u0003\u0002\u0002",
-    "\u0002\u00ce\u00cf\u0003\u0002\u0002\u0002\u00cf\u00d0\u0003\u0002\u0002",
-    "\u0002\u00d0\u00d1\u0005(\u0015\u0002\u00d1!\u0003\u0002\u0002\u0002",
-    "\u00d2\u00d3\u0007\u0005\u0002\u0002\u00d3\u00d4\u00077\u0002\u0002",
-    "\u00d4\u00d5\u00058\u001d\u0002\u00d5\u00d9\u0007\u0006\u0002\u0002",
-    "\u00d6\u00d8\u0005\f\u0007\u0002\u00d7\u00d6\u0003\u0002\u0002\u0002",
-    "\u00d8\u00db\u0003\u0002\u0002\u0002\u00d9\u00d7\u0003\u0002\u0002\u0002",
-    "\u00d9\u00da\u0003\u0002\u0002\u0002\u00da#\u0003\u0002\u0002\u0002",
-    "\u00db\u00d9\u0003\u0002\u0002\u0002\u00dc\u00dd\u0007\u0005\u0002\u0002",
-    "\u00dd\u00de\u00079\u0002\u0002\u00de\u00df\u00058\u001d\u0002\u00df",
-    "\u00e3\u0007\u0006\u0002\u0002\u00e0\u00e2\u0005\f\u0007\u0002\u00e1",
-    "\u00e0\u0003\u0002\u0002\u0002\u00e2\u00e5\u0003\u0002\u0002\u0002\u00e3",
-    "\u00e1\u0003\u0002\u0002\u0002\u00e3\u00e4\u0003\u0002\u0002\u0002\u00e4",
-    "%\u0003\u0002\u0002\u0002\u00e5\u00e3\u0003\u0002\u0002\u0002\u00e6",
-    "\u00e7\u0007\u0005\u0002\u0002\u00e7\u00e8\u00078\u0002\u0002\u00e8",
-    "\u00ec\u0007\u0006\u0002\u0002\u00e9\u00eb\u0005\f\u0007\u0002\u00ea",
-    "\u00e9\u0003\u0002\u0002\u0002\u00eb\u00ee\u0003\u0002\u0002\u0002\u00ec",
-    "\u00ea\u0003\u0002\u0002\u0002\u00ec\u00ed\u0003\u0002\u0002\u0002\u00ed",
-    "\'\u0003\u0002\u0002\u0002\u00ee\u00ec\u0003\u0002\u0002\u0002\u00ef",
-    "\u00f0\u0007\u0005\u0002\u0002\u00f0\u00f1\u0007:\u0002\u0002\u00f1",
-    "\u00f2\u0007\u0006\u0002\u0002\u00f2)\u0003\u0002\u0002\u0002\u00f3",
-    "\u00f5\u0007\u0005\u0002\u0002\u00f4\u00f6\u00075\u0002\u0002\u00f5",
-    "\u00f4\u0003\u0002\u0002\u0002\u00f5\u00f6\u0003\u0002\u0002\u0002\u00f6",
-    "\u00f7\u0003\u0002\u0002\u0002\u00f7\u00f8\u0007>\u0002\u0002\u00f8",
-    "\u00f9\u00054\u001b\u0002\u00f9\u00fa\u00058\u001d\u0002\u00fa\u00fb",
-    "\u0007\u0006\u0002\u0002\u00fb+\u0003\u0002\u0002\u0002\u00fc\u00fe",
-    "\u0007\u0005\u0002\u0002\u00fd\u00ff\u00076\u0002\u0002\u00fe\u00fd",
-    "\u0003\u0002\u0002\u0002\u00fe\u00ff\u0003\u0002\u0002\u0002\u00ff\u0100",
-    "\u0003\u0002\u0002\u0002\u0100\u0101\u00050\u0019\u0002\u0101\u0102",
-    "\u0007\u0006\u0002\u0002\u0102-\u0003\u0002\u0002\u0002\u0103\u010e",
-    "\u0005*\u0016\u0002\u0104\u0108\u0007\u0005\u0002\u0002\u0105\u0109",
-    "\u0007\u000b\u0002\u0002\u0106\u0109\u00058\u001d\u0002\u0107\u0109",
-    "\u00056\u001c\u0002\u0108\u0105\u0003\u0002\u0002\u0002\u0108\u0106",
-    "\u0003\u0002\u0002\u0002\u0108\u0107\u0003\u0002\u0002\u0002\u0109\u010a",
-    "\u0003\u0002\u0002\u0002\u010a\u0108\u0003\u0002\u0002\u0002\u010a\u010b",
-    "\u0003\u0002\u0002\u0002\u010b\u010c\u0003\u0002\u0002\u0002\u010c\u010e",
-    "\u0007\u0006\u0002\u0002\u010d\u0103\u0003\u0002\u0002\u0002\u010d\u0104",
-    "\u0003\u0002\u0002\u0002\u010e/\u0003\u0002\u0002\u0002\u010f\u0112",
-    "\u0007\u000b\u0002\u0002\u0110\u0112\u00056\u001c\u0002\u0111\u010f",
-    "\u0003\u0002\u0002\u0002\u0111\u0110\u0003\u0002\u0002\u0002\u0112\u0113",
-    "\u0003\u0002\u0002\u0002\u0113\u011c\u0007\u001d\u0002\u0002\u0114\u0119",
-    "\u00058\u001d\u0002\u0115\u0116\u0007\u001f\u0002\u0002\u0116\u0118",
-    "\u00058\u001d\u0002\u0117\u0115\u0003\u0002\u0002\u0002\u0118\u011b",
-    "\u0003\u0002\u0002\u0002\u0119\u0117\u0003\u0002\u0002\u0002\u0119\u011a",
-    "\u0003\u0002\u0002\u0002\u011a\u011d\u0003\u0002\u0002\u0002\u011b\u0119",
-    "\u0003\u0002\u0002\u0002\u011c\u0114\u0003\u0002\u0002\u0002\u011c\u011d",
-    "\u0003\u0002\u0002\u0002\u011d\u011e\u0003\u0002\u0002\u0002\u011e\u011f",
-    "\u0007\u001e\u0002\u0002\u011f1\u0003\u0002\u0002\u0002\u0120\u0124",
-    "\u0007\u000b\u0002\u0002\u0121\u0123\u0007\f\u0002\u0002\u0122\u0121",
-    "\u0003\u0002\u0002\u0002\u0123\u0126\u0003\u0002\u0002\u0002\u0124\u0122",
-    "\u0003\u0002\u0002\u0002\u0124\u0125\u0003\u0002\u0002\u0002\u01253",
-    "\u0003\u0002\u0002\u0002\u0126\u0124\u0003\u0002\u0002\u0002\u0127\u0128",
-    "\t\u0002\u0002\u0002\u01285\u0003\u0002\u0002\u0002\u0129\u012a\t\u0003",
-    "\u0002\u0002\u012a7\u0003\u0002\u0002\u0002\u012b\u012c\b\u001d\u0001",
-    "\u0002\u012c\u0137\u0005<\u001f\u0002\u012d\u0137\u00050\u0019\u0002",
-    "\u012e\u012f\u0007\u001d\u0002\u0002\u012f\u0130\u00058\u001d\u0002",
-    "\u0130\u0131\u0007\u001e\u0002\u0002\u0131\u0137\u0003\u0002\u0002\u0002",
-    "\u0132\u0133\u0007!\u0002\u0002\u0133\u0137\u00058\u001d\u0005\u0134",
-    "\u0135\u0007+\u0002\u0002\u0135\u0137\u00058\u001d\u0004\u0136\u012b",
-    "\u0003\u0002\u0002\u0002\u0136\u012d\u0003\u0002\u0002\u0002\u0136\u012e",
-    "\u0003\u0002\u0002\u0002\u0136\u0132\u0003\u0002\u0002\u0002\u0136\u0134",
-    "\u0003\u0002\u0002\u0002\u0137\u013e\u0003\u0002\u0002\u0002\u0138\u0139",
-    "\f\u0003\u0002\u0002\u0139\u013a\u0005:\u001e\u0002\u013a\u013b\u0005",
-    "8\u001d\u0004\u013b\u013d\u0003\u0002\u0002\u0002\u013c\u0138\u0003",
-    "\u0002\u0002\u0002\u013d\u0140\u0003\u0002\u0002\u0002\u013e\u013c\u0003",
-    "\u0002\u0002\u0002\u013e\u013f\u0003\u0002\u0002\u0002\u013f9\u0003",
-    "\u0002\u0002\u0002\u0140\u013e\u0003\u0002\u0002\u0002\u0141\u0142\t",
-    "\u0004\u0002\u0002\u0142;\u0003\u0002\u0002\u0002\u0143\u014a\u0007",
-    "?\u0002\u0002\u0144\u014a\u0007@\u0002\u0002\u0145\u014a\u0007>\u0002",
-    "\u0002\u0146\u014a\u0007;\u0002\u0002\u0147\u014a\u0007<\u0002\u0002",
-    "\u0148\u014a\u0007=\u0002\u0002\u0149\u0143\u0003\u0002\u0002\u0002",
-    "\u0149\u0144\u0003\u0002\u0002\u0002\u0149\u0145\u0003\u0002\u0002\u0002",
-    "\u0149\u0146\u0003\u0002\u0002\u0002\u0149\u0147\u0003\u0002\u0002\u0002",
-    "\u0149\u0148\u0003\u0002\u0002\u0002\u014a=\u0003\u0002\u0002\u0002",
-    "(AIPUW_aejsu}\u0080\u008e\u0095\u009b\u009f\u00aa\u00b4\u00bd\u00c4",
-    "\u00ca\u00ce\u00d9\u00e3\u00ec\u00f5\u00fe\u0108\u010a\u010d\u0111\u0119",
-    "\u011c\u0124\u0136\u013e\u0149"].join("");
+    "\u0003\u001d\u0003\u001d\u0003\u001d\u0003\u001d\u0005\u001d\u0138\n",
+    "\u001d\u0003\u001d\u0003\u001d\u0003\u001d\u0003\u001d\u0007\u001d\u013e",
+    "\n\u001d\f\u001d\u000e\u001d\u0141\u000b\u001d\u0003\u001e\u0003\u001e",
+    "\u0003\u001f\u0003\u001f\u0003\u001f\u0003\u001f\u0003\u001f\u0003\u001f",
+    "\u0005\u001f\u014b\n\u001f\u0003\u001f\rc\u0095\u009b\u00aa\u00b4\u00bd",
+    "\u00c4\u00ca\u00d9\u00e3\u00ec\u00038 \u0002\u0004\u0006\b\n\f\u000e",
+    "\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<\u0002",
+    "\u0005\u0003\u0002/4\u0003\u00024=\u0004\u0002 *,3\u0002\u0160\u0002",
+    "A\u0003\u0002\u0002\u0002\u0004G\u0003\u0002\u0002\u0002\u0006M\u0003",
+    "\u0002\u0002\u0002\bR\u0003\u0002\u0002\u0002\ne\u0003\u0002\u0002\u0002",
+    "\fj\u0003\u0002\u0002\u0002\u000el\u0003\u0002\u0002\u0002\u0010p\u0003",
+    "\u0002\u0002\u0002\u0012\u0080\u0003\u0002\u0002\u0002\u0014\u0082\u0003",
+    "\u0002\u0002\u0002\u0016\u0086\u0003\u0002\u0002\u0002\u0018\u0091\u0003",
+    "\u0002\u0002\u0002\u001a\u00a3\u0003\u0002\u0002\u0002\u001c\u00ad\u0003",
+    "\u0002\u0002\u0002\u001e\u00b7\u0003\u0002\u0002\u0002 \u00c0\u0003",
+    "\u0002\u0002\u0002\"\u00d2\u0003\u0002\u0002\u0002$\u00dc\u0003\u0002",
+    "\u0002\u0002&\u00e6\u0003\u0002\u0002\u0002(\u00ef\u0003\u0002\u0002",
+    "\u0002*\u00f3\u0003\u0002\u0002\u0002,\u00fc\u0003\u0002\u0002\u0002",
+    ".\u010e\u0003\u0002\u0002\u00020\u0112\u0003\u0002\u0002\u00022\u0121",
+    "\u0003\u0002\u0002\u00024\u0128\u0003\u0002\u0002\u00026\u012a\u0003",
+    "\u0002\u0002\u00028\u0137\u0003\u0002\u0002\u0002:\u0142\u0003\u0002",
+    "\u0002\u0002<\u014a\u0003\u0002\u0002\u0002>@\u0005\u0004\u0003\u0002",
+    "?>\u0003\u0002\u0002\u0002@C\u0003\u0002\u0002\u0002A?\u0003\u0002\u0002",
+    "\u0002AB\u0003\u0002\u0002\u0002BD\u0003\u0002\u0002\u0002CA\u0003\u0002",
+    "\u0002\u0002DE\u0007\u0002\u0002\u0003E\u0003\u0003\u0002\u0002\u0002",
+    "FH\u0005\u0006\u0004\u0002GF\u0003\u0002\u0002\u0002HI\u0003\u0002\u0002",
+    "\u0002IG\u0003\u0002\u0002\u0002IJ\u0003\u0002\u0002\u0002JK\u0003\u0002",
+    "\u0002\u0002KL\u0005\b\u0005\u0002L\u0005\u0003\u0002\u0002\u0002MN",
+    "\u0007\u000b\u0002\u0002NP\u0007\u0011\u0002\u0002OQ\u0007\u000b\u0002",
+    "\u0002PO\u0003\u0002\u0002\u0002PQ\u0003\u0002\u0002\u0002Q\u0007\u0003",
+    "\u0002\u0002\u0002RW\u0007\u0012\u0002\u0002SV\u0005\n\u0006\u0002T",
+    "V\u0005\u0012\n\u0002US\u0003\u0002\u0002\u0002UT\u0003\u0002\u0002",
+    "\u0002VY\u0003\u0002\u0002\u0002WU\u0003\u0002\u0002\u0002WX\u0003\u0002",
+    "\u0002\u0002XZ\u0003\u0002\u0002\u0002YW\u0003\u0002\u0002\u0002Z[\u0007",
+    "\u0015\u0002\u0002[\t\u0003\u0002\u0002\u0002\\f\u0005\u0018\r\u0002",
+    "]f\u0007\u0013\u0002\u0002^b\u00052\u001a\u0002_b\u0005.\u0018\u0002",
+    "`b\u0005\u000e\b\u0002a^\u0003\u0002\u0002\u0002a_\u0003\u0002\u0002",
+    "\u0002a`\u0003\u0002\u0002\u0002bc\u0003\u0002\u0002\u0002cd\u0003\u0002",
+    "\u0002\u0002ca\u0003\u0002\u0002\u0002df\u0003\u0002\u0002\u0002e\\",
+    "\u0003\u0002\u0002\u0002e]\u0003\u0002\u0002\u0002ea\u0003\u0002\u0002",
+    "\u0002f\u000b\u0003\u0002\u0002\u0002gk\u0005\u0016\f\u0002hk\u0005",
+    " \u0011\u0002ik\u0005\u0010\t\u0002jg\u0003\u0002\u0002\u0002jh\u0003",
+    "\u0002\u0002\u0002ji\u0003\u0002\u0002\u0002k\r\u0003\u0002\u0002\u0002",
+    "lm\u0007\u0007\u0002\u0002mn\u00058\u001d\u0002no\u0007\b\u0002\u0002",
+    "o\u000f\u0003\u0002\u0002\u0002pu\u0007\t\u0002\u0002qt\u0005\n\u0006",
+    "\u0002rt\u0005\u0012\n\u0002sq\u0003\u0002\u0002\u0002sr\u0003\u0002",
+    "\u0002\u0002tw\u0003\u0002\u0002\u0002us\u0003\u0002\u0002\u0002uv\u0003",
+    "\u0002\u0002\u0002vx\u0003\u0002\u0002\u0002wu\u0003\u0002\u0002\u0002",
+    "xy\u0007\n\u0002\u0002y\u0011\u0003\u0002\u0002\u0002z|\u0005\f\u0007",
+    "\u0002{z\u0003\u0002\u0002\u0002|}\u0003\u0002\u0002\u0002}{\u0003\u0002",
+    "\u0002\u0002}~\u0003\u0002\u0002\u0002~\u0081\u0003\u0002\u0002\u0002",
+    "\u007f\u0081\u0005\u0014\u000b\u0002\u0080{\u0003\u0002\u0002\u0002",
+    "\u0080\u007f\u0003\u0002\u0002\u0002\u0081\u0013\u0003\u0002\u0002\u0002",
+    "\u0082\u0083\u0007\u0003\u0002\u0002\u0083\u0084\u0007\u000b\u0002\u0002",
+    "\u0084\u0085\u0007\u0004\u0002\u0002\u0085\u0015\u0003\u0002\u0002\u0002",
+    "\u0086\u0087\u0007\u0003\u0002\u0002\u0087\u0088\u0007\u000b\u0002\u0002",
+    "\u0088\u0089\u0007\u001a\u0002\u0002\u0089\u008a\u0007\u000b\u0002\u0002",
+    "\u008a\u008e\u0007\u0004\u0002\u0002\u008b\u008d\u0007\f\u0002\u0002",
+    "\u008c\u008b\u0003\u0002\u0002\u0002\u008d\u0090\u0003\u0002\u0002\u0002",
+    "\u008e\u008c\u0003\u0002\u0002\u0002\u008e\u008f\u0003\u0002\u0002\u0002",
+    "\u008f\u0017\u0003\u0002\u0002\u0002\u0090\u008e\u0003\u0002\u0002\u0002",
+    "\u0091\u0095\u0005\u001a\u000e\u0002\u0092\u0094\u0005\n\u0006\u0002",
+    "\u0093\u0092\u0003\u0002\u0002\u0002\u0094\u0097\u0003\u0002\u0002\u0002",
+    "\u0095\u0096\u0003\u0002\u0002\u0002\u0095\u0093\u0003\u0002\u0002\u0002",
+    "\u0096\u009b\u0003\u0002\u0002\u0002\u0097\u0095\u0003\u0002\u0002\u0002",
+    "\u0098\u009a\u0005\u001c\u000f\u0002\u0099\u0098\u0003\u0002\u0002\u0002",
+    "\u009a\u009d\u0003\u0002\u0002\u0002\u009b\u009c\u0003\u0002\u0002\u0002",
+    "\u009b\u0099\u0003\u0002\u0002\u0002\u009c\u009f\u0003\u0002\u0002\u0002",
+    "\u009d\u009b\u0003\u0002\u0002\u0002\u009e\u00a0\u0005\u001e\u0010\u0002",
+    "\u009f\u009e\u0003\u0002\u0002\u0002\u009f\u00a0\u0003\u0002\u0002\u0002",
+    "\u00a0\u00a1\u0003\u0002\u0002\u0002\u00a1\u00a2\u0005(\u0015\u0002",
+    "\u00a2\u0019\u0003\u0002\u0002\u0002\u00a3\u00a4\u0007\u0005\u0002\u0002",
+    "\u00a4\u00a5\u00077\u0002\u0002\u00a5\u00a6\u00058\u001d\u0002\u00a6",
+    "\u00aa\u0007\u0006\u0002\u0002\u00a7\u00a9\u0005\n\u0006\u0002\u00a8",
+    "\u00a7\u0003\u0002\u0002\u0002\u00a9\u00ac\u0003\u0002\u0002\u0002\u00aa",
+    "\u00ab\u0003\u0002\u0002\u0002\u00aa\u00a8\u0003\u0002\u0002\u0002\u00ab",
+    "\u001b\u0003\u0002\u0002\u0002\u00ac\u00aa\u0003\u0002\u0002\u0002\u00ad",
+    "\u00ae\u0007\u0005\u0002\u0002\u00ae\u00af\u00079\u0002\u0002\u00af",
+    "\u00b0\u00058\u001d\u0002\u00b0\u00b4\u0007\u0006\u0002\u0002\u00b1",
+    "\u00b3\u0005\n\u0006\u0002\u00b2\u00b1\u0003\u0002\u0002\u0002\u00b3",
+    "\u00b6\u0003\u0002\u0002\u0002\u00b4\u00b5\u0003\u0002\u0002\u0002\u00b4",
+    "\u00b2\u0003\u0002\u0002\u0002\u00b5\u001d\u0003\u0002\u0002\u0002\u00b6",
+    "\u00b4\u0003\u0002\u0002\u0002\u00b7\u00b8\u0007\u0005\u0002\u0002\u00b8",
+    "\u00b9\u00078\u0002\u0002\u00b9\u00bd\u0007\u0006\u0002\u0002\u00ba",
+    "\u00bc\u0005\n\u0006\u0002\u00bb\u00ba\u0003\u0002\u0002\u0002\u00bc",
+    "\u00bf\u0003\u0002\u0002\u0002\u00bd\u00be\u0003\u0002\u0002\u0002\u00bd",
+    "\u00bb\u0003\u0002\u0002\u0002\u00be\u001f\u0003\u0002\u0002\u0002\u00bf",
+    "\u00bd\u0003\u0002\u0002\u0002\u00c0\u00c4\u0005\"\u0012\u0002\u00c1",
+    "\u00c3\u0005\n\u0006\u0002\u00c2\u00c1\u0003\u0002\u0002\u0002\u00c3",
+    "\u00c6\u0003\u0002\u0002\u0002\u00c4\u00c5\u0003\u0002\u0002\u0002\u00c4",
+    "\u00c2\u0003\u0002\u0002\u0002\u00c5\u00ca\u0003\u0002\u0002\u0002\u00c6",
+    "\u00c4\u0003\u0002\u0002\u0002\u00c7\u00c9\u0005$\u0013\u0002\u00c8",
+    "\u00c7\u0003\u0002\u0002\u0002\u00c9\u00cc\u0003\u0002\u0002\u0002\u00ca",
+    "\u00cb\u0003\u0002\u0002\u0002\u00ca\u00c8\u0003\u0002\u0002\u0002\u00cb",
+    "\u00ce\u0003\u0002\u0002\u0002\u00cc\u00ca\u0003\u0002\u0002\u0002\u00cd",
+    "\u00cf\u0005&\u0014\u0002\u00ce\u00cd\u0003\u0002\u0002\u0002\u00ce",
+    "\u00cf\u0003\u0002\u0002\u0002\u00cf\u00d0\u0003\u0002\u0002\u0002\u00d0",
+    "\u00d1\u0005(\u0015\u0002\u00d1!\u0003\u0002\u0002\u0002\u00d2\u00d3",
+    "\u0007\u0005\u0002\u0002\u00d3\u00d4\u00077\u0002\u0002\u00d4\u00d5",
+    "\u00058\u001d\u0002\u00d5\u00d9\u0007\u0006\u0002\u0002\u00d6\u00d8",
+    "\u0005\f\u0007\u0002\u00d7\u00d6\u0003\u0002\u0002\u0002\u00d8\u00db",
+    "\u0003\u0002\u0002\u0002\u00d9\u00da\u0003\u0002\u0002\u0002\u00d9\u00d7",
+    "\u0003\u0002\u0002\u0002\u00da#\u0003\u0002\u0002\u0002\u00db\u00d9",
+    "\u0003\u0002\u0002\u0002\u00dc\u00dd\u0007\u0005\u0002\u0002\u00dd\u00de",
+    "\u00079\u0002\u0002\u00de\u00df\u00058\u001d\u0002\u00df\u00e3\u0007",
+    "\u0006\u0002\u0002\u00e0\u00e2\u0005\f\u0007\u0002\u00e1\u00e0\u0003",
+    "\u0002\u0002\u0002\u00e2\u00e5\u0003\u0002\u0002\u0002\u00e3\u00e4\u0003",
+    "\u0002\u0002\u0002\u00e3\u00e1\u0003\u0002\u0002\u0002\u00e4%\u0003",
+    "\u0002\u0002\u0002\u00e5\u00e3\u0003\u0002\u0002\u0002\u00e6\u00e7\u0007",
+    "\u0005\u0002\u0002\u00e7\u00e8\u00078\u0002\u0002\u00e8\u00ec\u0007",
+    "\u0006\u0002\u0002\u00e9\u00eb\u0005\f\u0007\u0002\u00ea\u00e9\u0003",
+    "\u0002\u0002\u0002\u00eb\u00ee\u0003\u0002\u0002\u0002\u00ec\u00ed\u0003",
+    "\u0002\u0002\u0002\u00ec\u00ea\u0003\u0002\u0002\u0002\u00ed\'\u0003",
+    "\u0002\u0002\u0002\u00ee\u00ec\u0003\u0002\u0002\u0002\u00ef\u00f0\u0007",
+    "\u0005\u0002\u0002\u00f0\u00f1\u0007:\u0002\u0002\u00f1\u00f2\u0007",
+    "\u0006\u0002\u0002\u00f2)\u0003\u0002\u0002\u0002\u00f3\u00f5\u0007",
+    "\u0005\u0002\u0002\u00f4\u00f6\u00075\u0002\u0002\u00f5\u00f4\u0003",
+    "\u0002\u0002\u0002\u00f5\u00f6\u0003\u0002\u0002\u0002\u00f6\u00f7\u0003",
+    "\u0002\u0002\u0002\u00f7\u00f8\u0007>\u0002\u0002\u00f8\u00f9\u0005",
+    "4\u001b\u0002\u00f9\u00fa\u00058\u001d\u0002\u00fa\u00fb\u0007\u0006",
+    "\u0002\u0002\u00fb+\u0003\u0002\u0002\u0002\u00fc\u00fe\u0007\u0005",
+    "\u0002\u0002\u00fd\u00ff\u00076\u0002\u0002\u00fe\u00fd\u0003\u0002",
+    "\u0002\u0002\u00fe\u00ff\u0003\u0002\u0002\u0002\u00ff\u0100\u0003\u0002",
+    "\u0002\u0002\u0100\u0101\u00050\u0019\u0002\u0101\u0102\u0007\u0006",
+    "\u0002\u0002\u0102-\u0003\u0002\u0002\u0002\u0103\u010f\u0005*\u0016",
+    "\u0002\u0104\u010f\u0005,\u0017\u0002\u0105\u0109\u0007\u0005\u0002",
+    "\u0002\u0106\u010a\u0007\u000b\u0002\u0002\u0107\u010a\u00058\u001d",
+    "\u0002\u0108\u010a\u00056\u001c\u0002\u0109\u0106\u0003\u0002\u0002",
+    "\u0002\u0109\u0107\u0003\u0002\u0002\u0002\u0109\u0108\u0003\u0002\u0002",
+    "\u0002\u010a\u010b\u0003\u0002\u0002\u0002\u010b\u0109\u0003\u0002\u0002",
+    "\u0002\u010b\u010c\u0003\u0002\u0002\u0002\u010c\u010d\u0003\u0002\u0002",
+    "\u0002\u010d\u010f\u0007\u0006\u0002\u0002\u010e\u0103\u0003\u0002\u0002",
+    "\u0002\u010e\u0104\u0003\u0002\u0002\u0002\u010e\u0105\u0003\u0002\u0002",
+    "\u0002\u010f/\u0003\u0002\u0002\u0002\u0110\u0113\u0007\u000b\u0002",
+    "\u0002\u0111\u0113\u00056\u001c\u0002\u0112\u0110\u0003\u0002\u0002",
+    "\u0002\u0112\u0111\u0003\u0002\u0002\u0002\u0113\u0114\u0003\u0002\u0002",
+    "\u0002\u0114\u011d\u0007\u001d\u0002\u0002\u0115\u011a\u00058\u001d",
+    "\u0002\u0116\u0117\u0007\u001f\u0002\u0002\u0117\u0119\u00058\u001d",
+    "\u0002\u0118\u0116\u0003\u0002\u0002\u0002\u0119\u011c\u0003\u0002\u0002",
+    "\u0002\u011a\u0118\u0003\u0002\u0002\u0002\u011a\u011b\u0003\u0002\u0002",
+    "\u0002\u011b\u011e\u0003\u0002\u0002\u0002\u011c\u011a\u0003\u0002\u0002",
+    "\u0002\u011d\u0115\u0003\u0002\u0002\u0002\u011d\u011e\u0003\u0002\u0002",
+    "\u0002\u011e\u011f\u0003\u0002\u0002\u0002\u011f\u0120\u0007\u001e\u0002",
+    "\u0002\u01201\u0003\u0002\u0002\u0002\u0121\u0125\u0007\u000b\u0002",
+    "\u0002\u0122\u0124\u0007\f\u0002\u0002\u0123\u0122\u0003\u0002\u0002",
+    "\u0002\u0124\u0127\u0003\u0002\u0002\u0002\u0125\u0123\u0003\u0002\u0002",
+    "\u0002\u0125\u0126\u0003\u0002\u0002\u0002\u01263\u0003\u0002\u0002",
+    "\u0002\u0127\u0125\u0003\u0002\u0002\u0002\u0128\u0129\t\u0002\u0002",
+    "\u0002\u01295\u0003\u0002\u0002\u0002\u012a\u012b\t\u0003\u0002\u0002",
+    "\u012b7\u0003\u0002\u0002\u0002\u012c\u012d\b\u001d\u0001\u0002\u012d",
+    "\u0138\u0005<\u001f\u0002\u012e\u0138\u00050\u0019\u0002\u012f\u0130",
+    "\u0007\u001d\u0002\u0002\u0130\u0131\u00058\u001d\u0002\u0131\u0132",
+    "\u0007\u001e\u0002\u0002\u0132\u0138\u0003\u0002\u0002\u0002\u0133\u0134",
+    "\u0007!\u0002\u0002\u0134\u0138\u00058\u001d\u0005\u0135\u0136\u0007",
+    "+\u0002\u0002\u0136\u0138\u00058\u001d\u0004\u0137\u012c\u0003\u0002",
+    "\u0002\u0002\u0137\u012e\u0003\u0002\u0002\u0002\u0137\u012f\u0003\u0002",
+    "\u0002\u0002\u0137\u0133\u0003\u0002\u0002\u0002\u0137\u0135\u0003\u0002",
+    "\u0002\u0002\u0138\u013f\u0003\u0002\u0002\u0002\u0139\u013a\f\u0003",
+    "\u0002\u0002\u013a\u013b\u0005:\u001e\u0002\u013b\u013c\u00058\u001d",
+    "\u0004\u013c\u013e\u0003\u0002\u0002\u0002\u013d\u0139\u0003\u0002\u0002",
+    "\u0002\u013e\u0141\u0003\u0002\u0002\u0002\u013f\u013d\u0003\u0002\u0002",
+    "\u0002\u013f\u0140\u0003\u0002\u0002\u0002\u01409\u0003\u0002\u0002",
+    "\u0002\u0141\u013f\u0003\u0002\u0002\u0002\u0142\u0143\t\u0004\u0002",
+    "\u0002\u0143;\u0003\u0002\u0002\u0002\u0144\u014b\u0007?\u0002\u0002",
+    "\u0145\u014b\u0007@\u0002\u0002\u0146\u014b\u0007>\u0002\u0002\u0147",
+    "\u014b\u0007;\u0002\u0002\u0148\u014b\u0007<\u0002\u0002\u0149\u014b",
+    "\u0007=\u0002\u0002\u014a\u0144\u0003\u0002\u0002\u0002\u014a\u0145",
+    "\u0003\u0002\u0002\u0002\u014a\u0146\u0003\u0002\u0002\u0002\u014a\u0147",
+    "\u0003\u0002\u0002\u0002\u014a\u0148\u0003\u0002\u0002\u0002\u014a\u0149",
+    "\u0003\u0002\u0002\u0002\u014b=\u0003\u0002\u0002\u0002(AIPUWacejsu",
+    "}\u0080\u008e\u0095\u009b\u009f\u00aa\u00b4\u00bd\u00c4\u00ca\u00ce",
+    "\u00d9\u00e3\u00ec\u00f5\u00fe\u0109\u010b\u010e\u0112\u011a\u011d\u0125",
+    "\u0137\u013f\u014a"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -423,14 +423,6 @@ DialogueContext.prototype.exitRule = function(listener) {
 	}
 };
 
-DialogueContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitDialogue(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -510,14 +502,6 @@ NodeContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitNode(this);
 	}
-};
-
-NodeContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitNode(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -602,14 +586,6 @@ HeaderContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitHeader(this);
 	}
-};
-
-HeaderContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitHeader(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -705,14 +681,6 @@ BodyContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitBody(this);
 	}
-};
-
-BodyContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitBody(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -817,14 +785,6 @@ BlankContext.prototype.exitRule = function(listener) {
 	}
 };
 
-BlankContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitBlank(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function LineContext(parser, ctx) {
 	StatementContext.call(this, parser);
@@ -881,14 +841,6 @@ LineContext.prototype.exitRule = function(listener) {
 	}
 };
 
-LineContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitLine(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function IfContext(parser, ctx) {
 	StatementContext.call(this, parser);
@@ -916,14 +868,6 @@ IfContext.prototype.exitRule = function(listener) {
 	}
 };
 
-IfContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitIf(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 YarnParser.StatementContext = StatementContext;
@@ -938,27 +882,41 @@ YarnParser.prototype.statement = function() {
         var la_ = this._interp.adaptivePredict(this._input,7,this._ctx);
         switch(la_) {
         case 1:
-            localctx = new LineContext(this, localctx);
+            localctx = new IfContext(this, localctx);
             this.enterOuterAlt(localctx, 1);
-            this.state = 93; 
+            this.state = 90;
+            this.if_statement();
+            break;
+
+        case 2:
+            localctx = new BlankContext(this, localctx);
+            this.enterOuterAlt(localctx, 2);
+            this.state = 91;
+            this.match(YarnParser.BODY_BLANKLINE);
+            break;
+
+        case 3:
+            localctx = new LineContext(this, localctx);
+            this.enterOuterAlt(localctx, 3);
+            this.state = 95; 
             this._errHandler.sync(this);
-            var _alt = 1;
+            var _alt = 1+1;
             do {
             	switch (_alt) {
-            	case 1:
-            		this.state = 93;
+            	case 1+1:
+            		this.state = 95;
             		this._errHandler.sync(this);
             		switch(this._input.LA(1)) {
             		case YarnParser.TEXT:
-            		    this.state = 90;
+            		    this.state = 92;
             		    this.text();
             		    break;
             		case YarnParser.COMMAND_START:
-            		    this.state = 91;
+            		    this.state = 93;
             		    this.command_statement();
             		    break;
             		case YarnParser.EVAL_START:
-            		    this.state = 92;
+            		    this.state = 94;
             		    this.eval_statement();
             		    break;
             		default:
@@ -968,24 +926,10 @@ YarnParser.prototype.statement = function() {
             	default:
             		throw new antlr4.error.NoViableAltException(this);
             	}
-            	this.state = 95; 
+            	this.state = 97; 
             	this._errHandler.sync(this);
             	_alt = this._interp.adaptivePredict(this._input,6, this._ctx);
-            } while ( _alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER );
-            break;
-
-        case 2:
-            localctx = new BlankContext(this, localctx);
-            this.enterOuterAlt(localctx, 2);
-            this.state = 97;
-            this.match(YarnParser.BODY_BLANKLINE);
-            break;
-
-        case 3:
-            localctx = new IfContext(this, localctx);
-            this.enterOuterAlt(localctx, 3);
-            this.state = 98;
-            this.if_statement();
+            } while ( _alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER );
             break;
 
         }
@@ -1052,14 +996,6 @@ ShortcutContext.prototype.exitRule = function(listener) {
 	}
 };
 
-ShortcutContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitShortcut(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function OptionIfContext(parser, ctx) {
 	OstatementContext.call(this, parser);
@@ -1087,14 +1023,6 @@ OptionIfContext.prototype.exitRule = function(listener) {
 	}
 };
 
-OptionIfContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOptionIf(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function OptionContext(parser, ctx) {
 	OstatementContext.call(this, parser);
@@ -1120,14 +1048,6 @@ OptionContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitOption(this);
 	}
-};
-
-OptionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOption(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1217,14 +1137,6 @@ Eval_statementContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Eval_statementContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitEval_statement(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1312,14 +1224,6 @@ Shortcut_statementContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitShortcut_statement(this);
 	}
-};
-
-Shortcut_statementContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitShortcut_statement(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1418,14 +1322,6 @@ Option_groupContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Option_groupContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOption_group(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1519,14 +1415,6 @@ Option_linkContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitOption_link(this);
 	}
-};
-
-Option_linkContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOption_link(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1625,14 +1513,6 @@ Option_with_textContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitOption_with_text(this);
 	}
-};
-
-Option_with_textContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOption_with_text(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1743,14 +1623,6 @@ If_statementContext.prototype.exitRule = function(listener) {
 	}
 };
 
-If_statementContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitIf_statement(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1767,8 +1639,8 @@ YarnParser.prototype.if_statement = function() {
         this.state = 147;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,14,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 144;
                 this.statement(); 
             }
@@ -1780,8 +1652,8 @@ YarnParser.prototype.if_statement = function() {
         this.state = 153;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,15,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 150;
                 this.else_if_clause(); 
             }
@@ -1871,14 +1743,6 @@ If_clauseContext.prototype.exitRule = function(listener) {
 	}
 };
 
-If_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitIf_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1901,8 +1765,8 @@ YarnParser.prototype.if_clause = function() {
         this.state = 168;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,17,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 165;
                 localctx.statements = this.statement(); 
             }
@@ -1982,14 +1846,6 @@ Else_if_clauseContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Else_if_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitElse_if_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2012,8 +1868,8 @@ YarnParser.prototype.else_if_clause = function() {
         this.state = 178;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,18,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 175;
                 localctx.statements = this.statement(); 
             }
@@ -2088,14 +1944,6 @@ Else_clauseContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Else_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitElse_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2116,8 +1964,8 @@ YarnParser.prototype.else_clause = function() {
         this.state = 187;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,19,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 184;
                 localctx.statements = this.statement(); 
             }
@@ -2202,14 +2050,6 @@ Of_statementContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Of_statementContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOf_statement(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2226,8 +2066,8 @@ YarnParser.prototype.of_statement = function() {
         this.state = 194;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,20,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 191;
                 this.statement(); 
             }
@@ -2239,8 +2079,8 @@ YarnParser.prototype.of_statement = function() {
         this.state = 200;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,21,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 197;
                 this.else_of_clause(); 
             }
@@ -2330,14 +2170,6 @@ Of_clauseContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Of_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOf_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2360,8 +2192,8 @@ YarnParser.prototype.of_clause = function() {
         this.state = 215;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,23,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 212;
                 localctx.statements = this.ostatement(); 
             }
@@ -2441,14 +2273,6 @@ Else_of_clauseContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Else_of_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitElse_of_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2471,8 +2295,8 @@ YarnParser.prototype.else_of_clause = function() {
         this.state = 225;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,24,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 222;
                 localctx.statements = this.ostatement(); 
             }
@@ -2547,14 +2371,6 @@ Oelse_clauseContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Oelse_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOelse_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2575,8 +2391,8 @@ YarnParser.prototype.oelse_clause = function() {
         this.state = 234;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,25,this._ctx)
-        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
-            if(_alt===1) {
+        while(_alt!=1 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
+            if(_alt===1+1) {
                 this.state = 231;
                 localctx.statements = this.ostatement(); 
             }
@@ -2637,14 +2453,6 @@ Endif_clauseContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitEndif_clause(this);
 	}
-};
-
-Endif_clauseContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitEndif_clause(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -2728,14 +2536,6 @@ Set_commandContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitSet_command(this);
 	}
-};
-
-Set_commandContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitSet_command(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -2826,14 +2626,6 @@ Fuction_commandContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Fuction_commandContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitFuction_command(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2922,12 +2714,31 @@ SetContext.prototype.exitRule = function(listener) {
 	}
 };
 
-SetContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitSet(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
+
+function FuncContext(parser, ctx) {
+	Command_statementContext.call(this, parser);
+    Command_statementContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+FuncContext.prototype = Object.create(Command_statementContext.prototype);
+FuncContext.prototype.constructor = FuncContext;
+
+YarnParser.FuncContext = FuncContext;
+
+FuncContext.prototype.fuction_command = function() {
+    return this.getTypedRuleContext(Fuction_commandContext,0);
+};
+FuncContext.prototype.enterRule = function(listener) {
+    if(listener instanceof YarnParserListener ) {
+        listener.enterFunc(this);
+	}
+};
+
+FuncContext.prototype.exitRule = function(listener) {
+    if(listener instanceof YarnParserListener ) {
+        listener.exitFunc(this);
+	}
 };
 
 
@@ -2995,14 +2806,6 @@ CommandContext.prototype.exitRule = function(listener) {
 	}
 };
 
-CommandContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitCommand(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 YarnParser.Command_statementContext = Command_statementContext;
@@ -3013,7 +2816,7 @@ YarnParser.prototype.command_statement = function() {
     this.enterRule(localctx, 44, YarnParser.RULE_command_statement);
     var _la = 0; // Token type
     try {
-        this.state = 267;
+        this.state = 268;
         this._errHandler.sync(this);
         var la_ = this._interp.adaptivePredict(this._input,30,this._ctx);
         switch(la_) {
@@ -3025,39 +2828,46 @@ YarnParser.prototype.command_statement = function() {
             break;
 
         case 2:
-            localctx = new CommandContext(this, localctx);
+            localctx = new FuncContext(this, localctx);
             this.enterOuterAlt(localctx, 2);
             this.state = 258;
+            this.fuction_command();
+            break;
+
+        case 3:
+            localctx = new CommandContext(this, localctx);
+            this.enterOuterAlt(localctx, 3);
+            this.state = 259;
             this.match(YarnParser.COMMAND_START);
-            this.state = 262; 
+            this.state = 263; 
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             do {
-                this.state = 262;
+                this.state = 263;
                 this._errHandler.sync(this);
                 var la_ = this._interp.adaptivePredict(this._input,28,this._ctx);
                 switch(la_) {
                 case 1:
-                    this.state = 259;
+                    this.state = 260;
                     this.match(YarnParser.TEXT);
                     break;
 
                 case 2:
-                    this.state = 260;
+                    this.state = 261;
                     this.expression(0);
                     break;
 
                 case 3:
-                    this.state = 261;
+                    this.state = 262;
                     this.keyword();
                     break;
 
                 }
-                this.state = 264; 
+                this.state = 265; 
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
             } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << YarnParser.TEXT) | (1 << YarnParser.LBRACKET) | (1 << YarnParser.MINUS))) !== 0) || ((((_la - 41)) & ~0x1f) == 0 && ((1 << (_la - 41)) & ((1 << (YarnParser.NOT - 41)) | (1 << (YarnParser.KEYWORD_TO - 41)) | (1 << (YarnParser.KEYWORD_SET - 41)) | (1 << (YarnParser.KEYWORD_FUNC - 41)) | (1 << (YarnParser.KEYWORD_IF - 41)) | (1 << (YarnParser.KEYWORD_ELSE - 41)) | (1 << (YarnParser.KEYWORD_ELSE_IF - 41)) | (1 << (YarnParser.KEYWORD_ENDIF - 41)) | (1 << (YarnParser.KEYWORD_TRUE - 41)) | (1 << (YarnParser.KEYWORD_FALSE - 41)) | (1 << (YarnParser.KEYWORD_NULL - 41)) | (1 << (YarnParser.VARIABLE - 41)) | (1 << (YarnParser.NUMBER - 41)) | (1 << (YarnParser.STRING - 41)))) !== 0));
-            this.state = 266;
+            this.state = 267;
             this.match(YarnParser.COMMAND_END);
             break;
 
@@ -3145,14 +2955,6 @@ Function_callContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Function_callContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitFunction_call(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -3165,11 +2967,11 @@ YarnParser.prototype.function_call = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 271;
+        this.state = 272;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case YarnParser.TEXT:
-            this.state = 269;
+            this.state = 270;
             this.match(YarnParser.TEXT);
             break;
         case YarnParser.KEYWORD_TO:
@@ -3182,37 +2984,37 @@ YarnParser.prototype.function_call = function() {
         case YarnParser.KEYWORD_TRUE:
         case YarnParser.KEYWORD_FALSE:
         case YarnParser.KEYWORD_NULL:
-            this.state = 270;
+            this.state = 271;
             this.keyword();
             break;
         default:
             throw new antlr4.error.NoViableAltException(this);
         }
-        this.state = 273;
+        this.state = 274;
         this.match(YarnParser.LBRACKET);
-        this.state = 282;
+        this.state = 283;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << YarnParser.TEXT) | (1 << YarnParser.LBRACKET) | (1 << YarnParser.MINUS))) !== 0) || ((((_la - 41)) & ~0x1f) == 0 && ((1 << (_la - 41)) & ((1 << (YarnParser.NOT - 41)) | (1 << (YarnParser.KEYWORD_TO - 41)) | (1 << (YarnParser.KEYWORD_SET - 41)) | (1 << (YarnParser.KEYWORD_FUNC - 41)) | (1 << (YarnParser.KEYWORD_IF - 41)) | (1 << (YarnParser.KEYWORD_ELSE - 41)) | (1 << (YarnParser.KEYWORD_ELSE_IF - 41)) | (1 << (YarnParser.KEYWORD_ENDIF - 41)) | (1 << (YarnParser.KEYWORD_TRUE - 41)) | (1 << (YarnParser.KEYWORD_FALSE - 41)) | (1 << (YarnParser.KEYWORD_NULL - 41)) | (1 << (YarnParser.VARIABLE - 41)) | (1 << (YarnParser.NUMBER - 41)) | (1 << (YarnParser.STRING - 41)))) !== 0)) {
-            this.state = 274;
+            this.state = 275;
             localctx._expression = this.expression(0);
             localctx.args.push(localctx._expression);
-            this.state = 279;
+            this.state = 280;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             while(_la===YarnParser.COMMA) {
-                this.state = 275;
-                this.match(YarnParser.COMMA);
                 this.state = 276;
+                this.match(YarnParser.COMMA);
+                this.state = 277;
                 localctx._expression = this.expression(0);
                 localctx.args.push(localctx._expression);
-                this.state = 281;
+                this.state = 282;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
             }
         }
 
-        this.state = 284;
+        this.state = 285;
         this.match(YarnParser.RBRACKET);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -3273,14 +3075,6 @@ TextContext.prototype.exitRule = function(listener) {
 	}
 };
 
-TextContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitText(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -3293,15 +3087,15 @@ YarnParser.prototype.text = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 286;
+        this.state = 287;
         this.match(YarnParser.TEXT);
-        this.state = 290;
+        this.state = 291;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while(_la===YarnParser.HASHTAG) {
-            this.state = 287;
+            this.state = 288;
             localctx.hashtag = this.match(YarnParser.HASHTAG);
-            this.state = 292;
+            this.state = 293;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
         }
@@ -3371,14 +3165,6 @@ Set_operandsContext.prototype.exitRule = function(listener) {
 	}
 };
 
-Set_operandsContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitSet_operands(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -3391,7 +3177,7 @@ YarnParser.prototype.set_operands = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 293;
+        this.state = 294;
         _la = this._input.LA(1);
         if(!(((((_la - 45)) & ~0x1f) == 0 && ((1 << (_la - 45)) & ((1 << (YarnParser.ADD_EQUALS - 45)) | (1 << (YarnParser.MINUS_EQUALS - 45)) | (1 << (YarnParser.MULTIPLY_EQUALS - 45)) | (1 << (YarnParser.DIVIDE_EQUALS - 45)) | (1 << (YarnParser.MODULO_EQUALS - 45)) | (1 << (YarnParser.KEYWORD_TO - 45)))) !== 0))) {
         this._errHandler.recoverInline(this);
@@ -3482,14 +3268,6 @@ KeywordContext.prototype.exitRule = function(listener) {
 	}
 };
 
-KeywordContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitKeyword(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -3502,7 +3280,7 @@ YarnParser.prototype.keyword = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 295;
+        this.state = 296;
         _la = this._input.LA(1);
         if(!(((((_la - 50)) & ~0x1f) == 0 && ((1 << (_la - 50)) & ((1 << (YarnParser.KEYWORD_TO - 50)) | (1 << (YarnParser.KEYWORD_SET - 50)) | (1 << (YarnParser.KEYWORD_FUNC - 50)) | (1 << (YarnParser.KEYWORD_IF - 50)) | (1 << (YarnParser.KEYWORD_ELSE - 50)) | (1 << (YarnParser.KEYWORD_ELSE_IF - 50)) | (1 << (YarnParser.KEYWORD_ENDIF - 50)) | (1 << (YarnParser.KEYWORD_TRUE - 50)) | (1 << (YarnParser.KEYWORD_FALSE - 50)) | (1 << (YarnParser.KEYWORD_NULL - 50)))) !== 0))) {
         this._errHandler.recoverInline(this);
@@ -3573,14 +3351,6 @@ ValueExpressionContext.prototype.exitRule = function(listener) {
 	}
 };
 
-ValueExpressionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitValueExpression(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function NegativeExpressionContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
@@ -3612,14 +3382,6 @@ NegativeExpressionContext.prototype.exitRule = function(listener) {
 	}
 };
 
-NegativeExpressionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitNegativeExpression(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function NotExpressionContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
@@ -3649,14 +3411,6 @@ NotExpressionContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitNotExpression(this);
 	}
-};
-
-NotExpressionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitNotExpression(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -3699,14 +3453,6 @@ OpExpressionContext.prototype.exitRule = function(listener) {
 	}
 };
 
-OpExpressionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOpExpression(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function FunctionExpressionContext(parser, ctx) {
 	ExpressionContext.call(this, parser);
@@ -3732,14 +3478,6 @@ FunctionExpressionContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitFunctionExpression(this);
 	}
-};
-
-FunctionExpressionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitFunctionExpression(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -3777,14 +3515,6 @@ GroupedExpressionContext.prototype.exitRule = function(listener) {
 	}
 };
 
-GroupedExpressionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitGroupedExpression(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 YarnParser.prototype.expression = function(_p) {
@@ -3799,7 +3529,7 @@ YarnParser.prototype.expression = function(_p) {
     this.enterRecursionRule(localctx, 54, YarnParser.RULE_expression, _p);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 308;
+        this.state = 309;
         this._errHandler.sync(this);
         var la_ = this._interp.adaptivePredict(this._input,35,this._ctx);
         switch(la_) {
@@ -3808,7 +3538,7 @@ YarnParser.prototype.expression = function(_p) {
             this._ctx = localctx;
             _prevctx = localctx;
 
-            this.state = 298;
+            this.state = 299;
             this.value();
             break;
 
@@ -3816,7 +3546,7 @@ YarnParser.prototype.expression = function(_p) {
             localctx = new FunctionExpressionContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 299;
+            this.state = 300;
             this.function_call();
             break;
 
@@ -3824,11 +3554,11 @@ YarnParser.prototype.expression = function(_p) {
             localctx = new GroupedExpressionContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 300;
-            this.match(YarnParser.LBRACKET);
             this.state = 301;
-            this.expression(0);
+            this.match(YarnParser.LBRACKET);
             this.state = 302;
+            this.expression(0);
+            this.state = 303;
             this.match(YarnParser.RBRACKET);
             break;
 
@@ -3836,9 +3566,9 @@ YarnParser.prototype.expression = function(_p) {
             localctx = new NegativeExpressionContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 304;
-            this.match(YarnParser.MINUS);
             this.state = 305;
+            this.match(YarnParser.MINUS);
+            this.state = 306;
             this.expression(3);
             break;
 
@@ -3846,15 +3576,15 @@ YarnParser.prototype.expression = function(_p) {
             localctx = new NotExpressionContext(this, localctx);
             this._ctx = localctx;
             _prevctx = localctx;
-            this.state = 306;
-            this.match(YarnParser.NOT);
             this.state = 307;
+            this.match(YarnParser.NOT);
+            this.state = 308;
             this.expression(2);
             break;
 
         }
         this._ctx.stop = this._input.LT(-1);
-        this.state = 316;
+        this.state = 317;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,36,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -3866,16 +3596,16 @@ YarnParser.prototype.expression = function(_p) {
                 localctx = new OpExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
                 localctx.left = _prevctx;
                 this.pushNewRecursionContext(localctx, _startState, YarnParser.RULE_expression);
-                this.state = 310;
+                this.state = 311;
                 if (!( this.precpred(this._ctx, 1))) {
                     throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 1)");
                 }
-                this.state = 311;
-                this.operand();
                 this.state = 312;
+                this.operand();
+                this.state = 313;
                 localctx.right = this.expression(2); 
             }
-            this.state = 318;
+            this.state = 319;
             this._errHandler.sync(this);
             _alt = this._interp.adaptivePredict(this._input,36,this._ctx);
         }
@@ -3998,14 +3728,6 @@ OperandContext.prototype.exitRule = function(listener) {
 	}
 };
 
-OperandContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitOperand(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -4018,7 +3740,7 @@ YarnParser.prototype.operand = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 319;
+        this.state = 320;
         _la = this._input.LA(1);
         if(!(((((_la - 30)) & ~0x1f) == 0 && ((1 << (_la - 30)) & ((1 << (YarnParser.PLUS - 30)) | (1 << (YarnParser.MINUS - 30)) | (1 << (YarnParser.MULTIPLY - 30)) | (1 << (YarnParser.DIVIDE - 30)) | (1 << (YarnParser.MODULO - 30)) | (1 << (YarnParser.EQ - 30)) | (1 << (YarnParser.GT - 30)) | (1 << (YarnParser.LT - 30)) | (1 << (YarnParser.NEQ - 30)) | (1 << (YarnParser.GTE - 30)) | (1 << (YarnParser.LTE - 30)) | (1 << (YarnParser.AND - 30)) | (1 << (YarnParser.OR - 30)) | (1 << (YarnParser.XOR - 30)) | (1 << (YarnParser.ADD_EQUALS - 30)) | (1 << (YarnParser.MINUS_EQUALS - 30)) | (1 << (YarnParser.MULTIPLY_EQUALS - 30)) | (1 << (YarnParser.DIVIDE_EQUALS - 30)) | (1 << (YarnParser.MODULO_EQUALS - 30)))) !== 0))) {
         this._errHandler.recoverInline(this);
@@ -4090,14 +3812,6 @@ NumberContext.prototype.exitRule = function(listener) {
 	}
 };
 
-NumberContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitNumber(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function StringContext(parser, ctx) {
 	ValueContext.call(this, parser);
@@ -4123,14 +3837,6 @@ StringContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitString(this);
 	}
-};
-
-StringContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitString(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -4160,14 +3866,6 @@ VariableContext.prototype.exitRule = function(listener) {
 	}
 };
 
-VariableContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitVariable(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function FalseConstantContext(parser, ctx) {
 	ValueContext.call(this, parser);
@@ -4193,14 +3891,6 @@ FalseConstantContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
         listener.exitFalseConstant(this);
 	}
-};
-
-FalseConstantContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitFalseConstant(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -4230,14 +3920,6 @@ TrueConstantContext.prototype.exitRule = function(listener) {
 	}
 };
 
-TrueConstantContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitTrueConstant(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 function NullConstantContext(parser, ctx) {
 	ValueContext.call(this, parser);
@@ -4265,14 +3947,6 @@ NullConstantContext.prototype.exitRule = function(listener) {
 	}
 };
 
-NullConstantContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof YarnParserVisitor ) {
-        return visitor.visitNullConstant(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 YarnParser.ValueContext = ValueContext;
@@ -4282,43 +3956,43 @@ YarnParser.prototype.value = function() {
     var localctx = new ValueContext(this, this._ctx, this.state);
     this.enterRule(localctx, 58, YarnParser.RULE_value);
     try {
-        this.state = 327;
+        this.state = 328;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case YarnParser.NUMBER:
             localctx = new NumberContext(this, localctx);
             this.enterOuterAlt(localctx, 1);
-            this.state = 321;
+            this.state = 322;
             this.match(YarnParser.NUMBER);
             break;
         case YarnParser.STRING:
             localctx = new StringContext(this, localctx);
             this.enterOuterAlt(localctx, 2);
-            this.state = 322;
+            this.state = 323;
             this.match(YarnParser.STRING);
             break;
         case YarnParser.VARIABLE:
             localctx = new VariableContext(this, localctx);
             this.enterOuterAlt(localctx, 3);
-            this.state = 323;
+            this.state = 324;
             this.match(YarnParser.VARIABLE);
             break;
         case YarnParser.KEYWORD_TRUE:
             localctx = new TrueConstantContext(this, localctx);
             this.enterOuterAlt(localctx, 4);
-            this.state = 324;
+            this.state = 325;
             this.match(YarnParser.KEYWORD_TRUE);
             break;
         case YarnParser.KEYWORD_FALSE:
             localctx = new FalseConstantContext(this, localctx);
             this.enterOuterAlt(localctx, 5);
-            this.state = 325;
+            this.state = 326;
             this.match(YarnParser.KEYWORD_FALSE);
             break;
         case YarnParser.KEYWORD_NULL:
             localctx = new NullConstantContext(this, localctx);
             this.enterOuterAlt(localctx, 6);
-            this.state = 326;
+            this.state = 327;
             this.match(YarnParser.KEYWORD_NULL);
             break;
         default:
