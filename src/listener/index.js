@@ -12,6 +12,8 @@ const addNodeListeners = require('./node');
 
 const addHeaderListener = require('./header');
 
+const addStatementGroupListener = require('./statement');
+
 const addBlankStatementListener = require('./blank');
 const addConditionalStatementListener = require('./conditional');
 const addCommandStatementListener = require('./command');
@@ -51,6 +53,8 @@ YarnListener.prototype.visitErrorNode = function(node) {
 
 addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
+
+addStatementGroupListener(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);
 addConditionalStatementListener(YarnListener.prototype);
