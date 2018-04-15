@@ -28,17 +28,17 @@ shortcut_statement : SHORTCUT_START (statement | option_group)* SHORTCUT_END ;
 
 option_group : (ostatement+ | option_link) ;
 option_link : OPTION_START link=TEXT OPTION_END ;
-option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG* ;
+option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
 
-if_statement : if_clause statement* else_if_clause* else_clause? endif_clause ;
-if_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END statements=statement*;
-else_if_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END statements=statement* ;
-else_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=statement*;
+if_statement : if_clause statement*? else_if_clause*? else_clause? endif_clause;
+if_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END statements=statement*?;
+else_if_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END statements=statement*?;
+else_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=statement*?;
 
-of_statement : of_clause statement* else_of_clause* oelse_clause? endif_clause ;
-of_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END statements=ostatement*;
-else_of_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END statements=ostatement* ;
-oelse_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=ostatement*;
+of_statement : of_clause statement*? else_of_clause*? oelse_clause? endif_clause ;
+of_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END statements=ostatement*?;
+else_of_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END statements=ostatement*?;
+oelse_clause : COMMAND_START KEYWORD_ELSE COMMAND_END statements=ostatement*?;
 
 endif_clause : COMMAND_START KEYWORD_ENDIF COMMAND_END ;
 
