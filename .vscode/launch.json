@@ -8,7 +8,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Process All Test Yarn",
-			"program": "${workspaceFolder}/cli.js"
+			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files"
 			]
@@ -17,16 +17,16 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Process One Test Yarn",
-			"program": "${workspaceFolder}/cli.js"
+			"program": "${workspaceFolder}/cli.js",
 			"args": [
-				"yarn_files/basiclines.yarn.txt"
+				"yarn_files/commands.yarn.txt"
 			]
 		},	
 		{
 			"type": "node",
 			"request": "launch",
 			"name": "Preprocess only  All Test Yarn",
-			"program": "${workspaceFolder}/cli.js"
+			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files",
 				"--preprocessOnly", "preprocessed_yarn_files"
@@ -37,10 +37,10 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Preprocess One Test Yarn",
-			"program": "${workspaceFolder}/cli.js"
+			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files/basiclines.yarn.txt",
-				,"--preprocessOnly", "preprocessed.yarn.txt"
+				"--preprocessOnly", "preprocessed.yarn.txt"
 //				,"--debugPreprocess"
 			]
  		}		 

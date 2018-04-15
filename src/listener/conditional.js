@@ -61,14 +61,14 @@ function exit(ctx) {
 }
 
 function addToPrototype(prototype) {
-	prototype.enterIf_statement = enter;
+/*	prototype.enterIf = enter;
 	prototype.enterIf_clause = enterTestedClause;
-	prototype.exitIf_clause = exitTestedClause;
+/*	prototype.exitIf_clause = exitTestedClause;
 	prototype.enterElse_if_clause = enterTestedClause;
 	prototype.exitElse_if_clause = exitTestedClause;
 	prototype.enterElse_clause = enterClause;
 	prototype.exitElse_clause = exitClause;
-	prototype.exitIf_statement = exit;
+	prototype.exitIf_statement = exit;*/
 }
 
 module.exports = addToPrototype;

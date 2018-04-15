@@ -18,10 +18,11 @@ function childExpression(child, args) {
 }
 
 function enter(ctx) {
-
+  this._handleCommand = true;
 }
 
 function exit(ctx) {
+  if (!this._handleCommand) return;
   const location = Location.FromANTLRNode(ctx);
   const args = [];
   for (let index = 1; index < ctx.getChildCount() - 1; index++) {

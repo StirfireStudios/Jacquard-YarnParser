@@ -89,6 +89,7 @@ function generateStringExpression(expressionNode) {
 
 function generateFunctionExpression(expressionNode) {
 	const location = Location.FromANTLRNode(expressionNode);
+	const actual = expressionNode.getChild(0);
 	const name = expressionNode.getChild(0).getText();
 	const args = [];
 	for(let i = 1; i < expressionNode.children.length; i++) {
@@ -100,9 +101,10 @@ function generateFunctionExpression(expressionNode) {
 }
 
 function generateValueExpression(expressionNode) {
-	if (expressionNode instanceof YarnParser.VariableContext) {
+	const actualValue = expressionNode.getChild(0);
+	if (actualValue instanceof YarnParser.VariableContext) { //done
 		const location = Location.FromANTLRNode(expressionNode);
-		const name = expressionNode.getChild(0).getText().trim().substr(1);
+		const name = actualValue.getText().trim().substr(1);
 	  return new ExpressionTypes.Variable(name, location);
 	} else if (expressionNode instanceof YarnParser.ValueStringContext) {
 	  return generateStringExpression(expressionNode.getChild(0));
@@ -133,6 +135,11 @@ function generateParensExpression(expressionNode) {
 }
 
 function generateExpression(expressionNode, variable) {
+	if (expressionNode instanceof YarnParser.ValueExpressionContext) { // done
+		return generateValueExpression(expressionNode);
+	} else if (expressionNode instanceof YarnParser.FunctionExpressionContext) { // working on this
+		return generateFunctionExpression(expressionNode);
+	}
 	if (variable !== undefined) {
 		const location = Location.FromANTLRNode(expressionNode);
 		const expression = generateExpression(expressionNode)
