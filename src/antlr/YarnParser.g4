@@ -84,7 +84,8 @@ expression
     | LBRACKET expression RBRACKET # groupedExpression
     | MINUS expression # negativeExpression
     | NOT expression # notExpression
-    | left=expression operand right=expression #opExpression
+    | VARIABLE assignmentOperand expression #assignmentExpression
+    | left=expression operand right=expression #leftRightExpression
     ;
 
 operand
@@ -102,7 +103,10 @@ operand
     | AND
     | OR
     | XOR
-    | ADD_EQUALS
+    ;
+
+assignmentOperand
+    : ADD_EQUALS
     | MINUS_EQUALS
     | MULTIPLY_EQUALS
     | DIVIDE_EQUALS

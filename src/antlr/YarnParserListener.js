@@ -326,6 +326,15 @@ YarnParserListener.prototype.exitNegativeExpression = function(ctx) {
 };
 
 
+// Enter a parse tree produced by YarnParser#assignmentExpression.
+YarnParserListener.prototype.enterAssignmentExpression = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#assignmentExpression.
+YarnParserListener.prototype.exitAssignmentExpression = function(ctx) {
+};
+
+
 // Enter a parse tree produced by YarnParser#notExpression.
 YarnParserListener.prototype.enterNotExpression = function(ctx) {
 };
@@ -335,12 +344,12 @@ YarnParserListener.prototype.exitNotExpression = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#opExpression.
-YarnParserListener.prototype.enterOpExpression = function(ctx) {
+// Enter a parse tree produced by YarnParser#leftRightExpression.
+YarnParserListener.prototype.enterLeftRightExpression = function(ctx) {
 };
 
-// Exit a parse tree produced by YarnParser#opExpression.
-YarnParserListener.prototype.exitOpExpression = function(ctx) {
+// Exit a parse tree produced by YarnParser#leftRightExpression.
+YarnParserListener.prototype.exitLeftRightExpression = function(ctx) {
 };
 
 
@@ -368,6 +377,15 @@ YarnParserListener.prototype.enterOperand = function(ctx) {
 
 // Exit a parse tree produced by YarnParser#operand.
 YarnParserListener.prototype.exitOperand = function(ctx) {
+};
+
+
+// Enter a parse tree produced by YarnParser#assignmentOperand.
+YarnParserListener.prototype.enterAssignmentOperand = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#assignmentOperand.
+YarnParserListener.prototype.exitAssignmentOperand = function(ctx) {
 };
 
 

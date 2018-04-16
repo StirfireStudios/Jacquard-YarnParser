@@ -25,7 +25,7 @@ class Function extends Base {
 	/** @memberof Expression.Function
 	 * @instance 
 	 * @returns {string} function name */
-	get name() { return privateProps.get(this).value; }
+	get name() { return privateProps.get(this).name; }
 
 	/** @memberof Expression.Function
 	 * @instance 
