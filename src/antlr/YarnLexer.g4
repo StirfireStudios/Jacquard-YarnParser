@@ -57,11 +57,11 @@ BLOCK_COMMENT : '/*' .*? '*/' -> skip ;
 
 SEPARATOR : ':' ;
 
-BODY_START : '---' -> pushMode(Body);
+BODY_START : '---' WS* NEWLINE -> pushMode(Body);
 
 mode Body ;
-BODY_BLANKLINE : NEWLINE NEWLINE ;
-BODY_WS : [ \t\r\n] -> skip ;
+BODY_WS : [ \t] -> skip ;
+BODY_NEWLINE : NEWLINE -> type(NEWLINE);
 BODY_END : '===' -> popMode ;
 BODY_COMMENT : COMMENT -> skip ;
 BODY_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
