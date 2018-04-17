@@ -30,6 +30,7 @@ function exit(ctx) {
   }
 
   this._nodeData = null;
+  this._statements = null;
 }
 
 function addToPrototype(prototype) {

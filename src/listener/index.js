@@ -13,6 +13,7 @@ const addNodeListeners = require('./node');
 const addHeaderListener = require('./header');
 
 const addStatementGroupListener = require('./statement');
+const addOptionGroupListener = require('./group');
 
 const addBlankStatementListener = require('./blank');
 const addConditionalStatementListener = require('./conditional');
@@ -55,6 +56,7 @@ addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
 
 addStatementGroupListener(YarnListener.prototype);
+addOptionGroupListener(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);
 addConditionalStatementListener(YarnListener.prototype);

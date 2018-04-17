@@ -15,6 +15,7 @@ function enter(ctx) {
 }
 
 function exit(ctx) {
+	if (this._group != null) this._group.isShortcut = true;
 	const location = Location.FromANTLRNode(ctx);
 	const shortcutParts = this._shortcut;
   this._statements = shortcutParts.previousStatements;
