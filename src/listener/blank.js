@@ -7,12 +7,12 @@ function exit(ctx) {
 	if (this._statements.length > 0) {
 		const lastStatement = this._statements[this._statements.length - 1];
 		if (lastStatement instanceof BlankStatement) return;
-	  }
-	  this._statements.push(new BlankStatement(Location.FromANTLRNode(ctx)));
+	}
+	this._statements.push(new BlankStatement(Location.FromANTLRNode(ctx)));
 }
 
 function addToPrototype(prototype) {
-  prototype.exitBlank_statement = exit;
+  prototype.exitBlank = exit;
 }
 
 module.exports = addToPrototype;
