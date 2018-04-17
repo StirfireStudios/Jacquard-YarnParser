@@ -3,7 +3,6 @@
 const ParserMessage = require('./parser/message');
 const preprocessor = require('./preprocessor')
 const antlrProcessor = require('./listener')
-const optionGroupProcessor = require('./optionGroupProcessor')
 
 /**
  * parser configuration
@@ -82,7 +81,7 @@ function processNodes(parsedData, fileID) {
 class Parser {
   constructor(config) {
 		const privates = { 
-			config: Object.assign(defaultConfig),
+			config: Object.assign({}, defaultConfig),
 		}
 
 		resetState(privates);
@@ -121,7 +120,6 @@ class Parser {
 		if (bodyOnly) delete(privates.nodesByName["bodyParsed"]);
 		processNodes.call(this, parsedData);
 
-	//	optionGroupProcessor(Object.values(this.nodesByName), this.errors);
 		return privates.errors.length != errorCount;
 	}
 

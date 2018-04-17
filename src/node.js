@@ -9,6 +9,10 @@ const defaultNode = {
 	linkedNodeNames: [],
 }
 
+function getDefaultNode() {
+	return Object.assign({}, defaultNode);
+}
+
 /**
  * Represents a yarn node
  * @class Node
@@ -18,7 +22,7 @@ class Node {
 	constructor(attrs) {
 		this.name = attrs.name;
 		delete(attrs.name);
-		const privates = Object.assign(defaultNode, attrs);
+		const privates = Object.assign(getDefaultNode(), attrs);
 
 		privateProps.set(this, privates);
 	}
