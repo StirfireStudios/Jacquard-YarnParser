@@ -236,12 +236,12 @@ YarnParserListener.prototype.exitSet_command = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#fuction_command.
-YarnParserListener.prototype.enterFuction_command = function(ctx) {
+// Enter a parse tree produced by YarnParser#function_command.
+YarnParserListener.prototype.enterFunction_command = function(ctx) {
 };
 
-// Exit a parse tree produced by YarnParser#fuction_command.
-YarnParserListener.prototype.exitFuction_command = function(ctx) {
+// Exit a parse tree produced by YarnParser#function_command.
+YarnParserListener.prototype.exitFunction_command = function(ctx) {
 };
 
 
@@ -296,6 +296,15 @@ YarnParserListener.prototype.enterSet_operands = function(ctx) {
 
 // Exit a parse tree produced by YarnParser#set_operands.
 YarnParserListener.prototype.exitSet_operands = function(ctx) {
+};
+
+
+// Enter a parse tree produced by YarnParser#keyword_start.
+YarnParserListener.prototype.enterKeyword_start = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#keyword_start.
+YarnParserListener.prototype.exitKeyword_start = function(ctx) {
 };
 
 
