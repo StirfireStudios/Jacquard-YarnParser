@@ -44,11 +44,11 @@ endif_clause : COMMAND_START KEYWORD_ENDIF COMMAND_END NEWLINE? ;
 
 set_command : COMMAND_START KEYWORD_SET? VARIABLE set_operands expression COMMAND_END ;
 
-fuction_command : COMMAND_START KEYWORD_FUNC? function_call COMMAND_END ;
+function_command : COMMAND_START KEYWORD_FUNC? function_call COMMAND_END ;
 
 command_statement
     : set_command # set
-    | fuction_command # func
+    | function_command # func
     | COMMAND_START 
         (TEXT | EVAL_START expression EVAL_END | keyword_start | VARIABLE) 
         (TEXT | EVAL_START expression EVAL_END | keyword | VARIABLE)* 
