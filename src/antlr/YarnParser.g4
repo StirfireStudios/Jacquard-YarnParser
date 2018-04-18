@@ -30,12 +30,12 @@ option_group : (ostatement+ | option_link) ;
 option_link : OPTION_START link=TEXT OPTION_END ;
 option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
 
-if_statement : if_clause statement*? else_if_clause*? else_clause? endif_clause;
+if_statement : if_clause else_if_clause*? else_clause? endif_clause;
 if_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END NEWLINE? statements=statement*?;
 else_if_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END NEWLINE? statements=statement*?;
 else_clause : COMMAND_START KEYWORD_ELSE COMMAND_END NEWLINE? statements=statement*?;
 
-of_statement : of_clause ostatement*? else_of_clause*? oelse_clause? endif_clause ;
+of_statement : of_clause else_of_clause*? oelse_clause? endif_clause ;
 of_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
 else_of_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
 oelse_clause : COMMAND_START KEYWORD_ELSE COMMAND_END NEWLINE? statements=ostatement*?;
