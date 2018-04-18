@@ -32,7 +32,7 @@ function exit(ctx) {
     } else if (child instanceof YarnParser.KeywordContext) {
       childStringValue(child.getChild(0), args);
     } else {
-      childExpression(child, args);
+      childExpression(child.getChild(1), args);
     }
   }
 

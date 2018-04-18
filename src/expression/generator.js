@@ -121,7 +121,7 @@ function generateFunctionExpression(expressionNode) {
 
 function generateValueExpression(expressionNode) {
 	const actualValue = expressionNode.getChild(0);
-	if (expressionNode instanceof YarnParser.VariableContext) {
+	if (actualValue instanceof YarnParser.VariableContext) {
 		const location = Location.FromANTLRNode(expressionNode);
 		const name = actualValue.getText().trim().substr(1);
 	  return new ExpressionTypes.Variable(name, location);
@@ -148,12 +148,12 @@ function generateParensExpression(expressionNode) {
 }
 
 function generateExpression(expressionNode) {
-	if (expressionNode instanceof YarnParser.ValueExpressionContext) { // done
+	if (expressionNode instanceof YarnParser.ValueExpressionContext) {
 		return generateValueExpression(expressionNode);
 	} else if (expressionNode instanceof YarnParser.FunctionExpressionContext) {
 		return generateFunctionExpression(expressionNode);
-	} else if (expressionNode instanceof YarnParser.GroupedExpressionContext) { // TODO: fix this
-		return generateExpression(expressionNode.getChild(0));
+	} else if (expressionNode instanceof YarnParser.GroupedExpressionContext) {
+		return generateExpression(expressionNode.getChild(1));
 	} else if (expressionNode instanceof YarnParser.NegativeExpressionContext) {
 		return generateNegativeExpression(expressionNode);
 	} else if (expressionNode instanceof YarnParser.NotExpressionContext) {

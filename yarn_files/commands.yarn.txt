@@ -4,29 +4,20 @@ title: Commands
 
 <<test command with arguments>>
 
-<< if $variable is false >>
-  statement1
-<<else>>
-  statement2
-<<endif>>
+<<func functionName(1 + 2 * 3 / 4 % 5) >>
 
-<< func(1 + 2 * 3 / 4 % 5) >>
+<<func functionName(1+2*3/4%5) >>
 
-<< func(1+2*3/4%5) >>
+<<func functionName(1, 2, 3) >>
 
-<< func(1, 2, 3) >>
+<< {$henchman} pull the lever >>
 
-<< $henchman pull the lever >>
+<< change score to {(1 + 1)} >>
+<< change score {to(1 + 1)} >>
 
-<< change score to (1 + 1) >>
-<< change score {to (1 + 1)} >>
-
-<< change score to funcCall() >>
+<< change score to {funcCall()} >>
 
 << do the thing if called on >>
 
-<< true(1, 2) >>
-
-<< if $4 is false >>
-<<endif>>
+<<func true(1, 2) >>
 ===
