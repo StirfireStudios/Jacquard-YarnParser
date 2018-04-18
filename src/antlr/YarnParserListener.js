@@ -299,15 +299,6 @@ YarnParserListener.prototype.exitSet_operands = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#keyword_start.
-YarnParserListener.prototype.enterKeyword_start = function(ctx) {
-};
-
-// Exit a parse tree produced by YarnParser#keyword_start.
-YarnParserListener.prototype.exitKeyword_start = function(ctx) {
-};
-
-
 // Enter a parse tree produced by YarnParser#keyword.
 YarnParserListener.prototype.enterKeyword = function(ctx) {
 };
@@ -332,6 +323,15 @@ YarnParserListener.prototype.enterNegativeExpression = function(ctx) {
 
 // Exit a parse tree produced by YarnParser#negativeExpression.
 YarnParserListener.prototype.exitNegativeExpression = function(ctx) {
+};
+
+
+// Enter a parse tree produced by YarnParser#evaluatedExpression.
+YarnParserListener.prototype.enterEvaluatedExpression = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#evaluatedExpression.
+YarnParserListener.prototype.exitEvaluatedExpression = function(ctx) {
 };
 
 

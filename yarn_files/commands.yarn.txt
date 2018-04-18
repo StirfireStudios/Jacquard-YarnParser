@@ -19,6 +19,7 @@ title: Commands
 << $henchman pull the lever >>
 
 << change score to (1 + 1) >>
+<< change score {to (1 + 1)} >>
 
 << change score to funcCall() >>
 

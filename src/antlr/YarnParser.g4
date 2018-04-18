@@ -31,31 +31,28 @@ option_link : OPTION_START link=TEXT OPTION_END ;
 option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
 
 if_statement : if_clause else_if_clause*? else_clause? endif_clause;
-if_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END NEWLINE? statements=statement*?;
-else_if_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END NEWLINE? statements=statement*?;
-else_clause : COMMAND_START KEYWORD_ELSE COMMAND_END NEWLINE? statements=statement*?;
+if_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=statement*?;
+else_if_clause : ELSEIF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=statement*?;
+else_clause : ELSE_COMMAND NEWLINE? statements=statement*?;
 
 of_statement : of_clause else_of_clause*? oelse_clause? endif_clause ;
-of_clause : COMMAND_START KEYWORD_IF predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
-else_of_clause : COMMAND_START KEYWORD_ELSE_IF predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
-oelse_clause : COMMAND_START KEYWORD_ELSE COMMAND_END NEWLINE? statements=ostatement*?;
+of_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
+else_of_clause : ELSEIF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
+oelse_clause : ELSE_COMMAND NEWLINE? statements=ostatement*?;
 
-endif_clause : COMMAND_START KEYWORD_ENDIF COMMAND_END NEWLINE? ;
+endif_clause : ENDIF_COMMAND NEWLINE? ;
 
-set_command : COMMAND_START KEYWORD_SET? VARIABLE set_operands expression COMMAND_END ;
+set_command : (COMMAND_START | SET_COMMAND_START) VARIABLE set_operands expression COMMAND_END ;
 
-function_command : COMMAND_START KEYWORD_FUNC? function_call COMMAND_END ;
+function_command : FUNC_COMMAND_START function_call COMMAND_END ;
 
 command_statement
     : set_command # set
     | function_command # func
-    | COMMAND_START 
-        (TEXT | EVAL_START expression EVAL_END | keyword_start | VARIABLE) 
-        (TEXT | EVAL_START expression EVAL_END | keyword | VARIABLE)* 
-        COMMAND_END # command
+    | COMMAND_START (TEXT | expression | keyword | operand | VARIABLE)+? COMMAND_END # command
     ;
 
-function_call : (TEXT | keyword) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
+function_call : (TEXT | keyword | operand) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
 
 text : TEXT hashtag=HASHTAG* ;
 
@@ -68,23 +65,8 @@ set_operands
     | MODULO_EQUALS
     ;
 
-keyword_start
-    : KEYWORD_TO
-    | KEYWORD_SET
-    | KEYWORD_FUNC
-    | KEYWORD_TRUE
-    | KEYWORD_FALSE
-    | KEYWORD_NULL
-    ;
-
 keyword 
     : KEYWORD_TO
-    | KEYWORD_SET
-    | KEYWORD_FUNC
-    | KEYWORD_IF
-    | KEYWORD_ELSE
-    | KEYWORD_ELSE_IF
-    | KEYWORD_ENDIF
     | KEYWORD_TRUE
     | KEYWORD_FALSE
     | KEYWORD_NULL
@@ -93,6 +75,7 @@ keyword
 expression
     : value # valueExpression
     | function_call # functionExpression
+    | EVAL_START expression EVAL_END # evaluatedExpression
     | LBRACKET expression RBRACKET # groupedExpression
     | MINUS expression # negativeExpression
     | NOT expression # notExpression
