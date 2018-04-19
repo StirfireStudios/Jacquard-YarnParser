@@ -20,7 +20,7 @@ function setAttr(name, value) {
 }
 
 function exit(ctx) {
-	const attrName = ctx.getChild(0).getText().trim();
+	const attrName = ctx.getChild(0).getText().trim().toLower();
 
 	if (ctx.getChildCount() < 3) {
 		this.addWarning(ctx, `Attribute ${attrName} has no value`);
@@ -34,6 +34,7 @@ function exit(ctx) {
 			setTitle.call(this, value);
 			break;
 		case "tags":
+		case "tag":
 			setTags.call(this, value);
 			break;
 		default:

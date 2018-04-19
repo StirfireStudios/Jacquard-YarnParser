@@ -22,6 +22,7 @@ function enterTestedClause(ctx) {
 
 function exitTestedClause(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const test = expressionGenerator(ctx.getChild(1));
 
 	this._conditional.clauses.push(new Clause(
@@ -50,13 +51,15 @@ function exitClause(ctx) {
 }
 
 function exit(ctx) {
+	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const conditionalParts = this._conditional;
   this._statements = conditionalParts.previousStatements;
   this._conditional = conditionalParts.previousConditional;
 
 	this._statements.push(new ConditionalStatement(
 		conditionalParts.clauses,
-		conditionalParts.location,
+		location,
 	));
 }
 

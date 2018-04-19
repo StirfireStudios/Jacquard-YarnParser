@@ -10,7 +10,7 @@ function exit(ctx) {
 		return textNode.toString();  
 	}).join("\n");
 	
-	this._statements.push(new TextStatement(text, location));
+	this._statements.push(new TextStatement(text.trim(), location));
 }
 
 function addToPrototype(prototype) {
