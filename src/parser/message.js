@@ -13,6 +13,10 @@ class ParserMessage {
     if (location !== undefined) this.location = location;
   }
 
+  toString() {
+    return `${this.message} - ${this.location}`;
+  }
+
   static FromANTLRContext(obj, message) {
     let location = null;
     if (obj.isErrorNode !== undefined && obj.isErrorNode()) {
@@ -22,10 +26,6 @@ class ParserMessage {
     }
     
     return new ParserMessage(message, location);
-  }    
-
-  static FromNode(node, message) {
-    
   }
 }
 

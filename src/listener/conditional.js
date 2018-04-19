@@ -39,6 +39,7 @@ function enterClause(ctx) {
 
 function exitClause(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 
 	this._conditional.clauses.push(new Clause(
 		this._conditional.clauseStatements,

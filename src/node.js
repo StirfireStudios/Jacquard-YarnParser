@@ -7,6 +7,7 @@ const defaultNode = {
 	tags: [],
 	statements: [],
 	linkedNodeNames: [],
+	location: null,
 }
 
 function getDefaultNode() {

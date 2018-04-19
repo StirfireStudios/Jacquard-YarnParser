@@ -58,7 +58,7 @@ function processLine(lines) {
 
   if (state.inOption && postWhitespace.length > 0) {
     if (whitespaceLength < state.whitespaceLength || state.whitespace === whitespace) {
-      this.output.push(this.output.pop() + endInstruction(this.debug))
+      this.output.push(this.output.pop() + " " + endInstruction(this.debug));
       this.indentStack.shift();
       lines.unshift(line);
       return;
@@ -73,7 +73,7 @@ function processLine(lines) {
         whitespaceLength: whitespaceLength
       });
       this.output.push(
-        wholeMatch + 
+        wholeMatch + " " +
         startInstruction(this.debug) + 
         line.substr(wholeMatch.length)
       );

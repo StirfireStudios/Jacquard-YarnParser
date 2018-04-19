@@ -6,6 +6,7 @@ const expressionGenerator = require('../expression/generator');
 
 function exit(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	let expression = null;
 	if (ctx.children.length == 5) {
     const variable = ctx.getChild(1).getChild(0).toString().trim();

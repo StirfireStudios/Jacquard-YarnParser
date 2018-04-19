@@ -22,11 +22,11 @@ I can have * in here as well
   statement2 // excessive
 <<endif>> // whoa
 
-<< func(1 + 2 * 3 / 4 % 5) >> // func-y comment
+<<func functionName(1 + 2 * 3 / 4 % 5) >> // func-y comment
 
-<< func(1+2*3/4%5) >> // even func-y'er comment
+<<func functionName(1+2*3/4%5) >> // even func-y'er comment
 
-<< func(1, 2, 3) >> // func'y comment with triple the arguments
+<<func functionName(1, 2, 3) >> // func'y comment with triple the arguments
 
 [[ Option Text A | OptionLinkA ]] // this option is A
 [[ Option Text B | OptionLinkB ]] // this option is B
@@ -45,4 +45,4 @@ I can have * in here as well
 */-> Option 2 
    I should still be part of the group option 1 is part of
 
-=== 
+===

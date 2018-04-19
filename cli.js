@@ -119,7 +119,7 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
   if (parser.parse(yarnText, config.bodyOnly, inputPath)) {
     console.error(`Could not parse ${inputPath}`)
     parser.errors.forEach((error) => {
-      console.error(`Error: ${error.message}`);
+      console.error(`Error: ${error}`);
     })
   }
 
@@ -134,3 +134,5 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
     }
   }
 }
+
+console.log("all parsed");

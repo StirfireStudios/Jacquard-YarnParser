@@ -50,7 +50,10 @@ function getExpressionClassFor(node) {
 
 }
 
-function generateAssignmentExpression(node) {
+function generateAssignmentExpression(node, fileID) {
+	const location = Location.FromANTLRNode(node);
+	location.fileID = fileID;
+
 	if (node.getChildCount() != 3) {
 		console.error(`Assignment operator has ${node.getChildCount()} children and not 3!`);
 		return null;
@@ -66,10 +69,13 @@ function generateAssignmentExpression(node) {
 		return null;
 	}
 
-	return new operatorClass(variable, expression, Location.FromANTLRNode(node));
+	return new operatorClass(variable, expression, location);
 }
 
-function generateLeftRightExpression(node) {
+function generateLeftRightExpression(node, fileID) {
+	const location = Location.FromANTLRNode(node);
+	location.fileID = fileID;
+
 	if (node.getChildCount() != 3) {
 		console.error(`LeftRight operator has ${node.getChildCount()} children and not 3!`);
 		return null;
@@ -85,11 +91,12 @@ function generateLeftRightExpression(node) {
 		return null;
 	}
 
-	return new operatorClass(left, right, Location.FromANTLRNode(node));
+	return new operatorClass(left, right, location);
 }
 
-function generateNumberValue(expressionNode) {
+function generateNumberValue(expressionNode, fileID) {
 	const location = Location.FromANTLRNode(expressionNode);
+	location.fileID = fileID;
 	const numberAsString = expressionNode.getText();
 	if (numberAsString.indexOf('.') === -1) {
 		const value = parseInt(numberAsString, 10);
@@ -100,17 +107,20 @@ function generateNumberValue(expressionNode) {
 	}
 }
 
-function generateStringExpression(expressionNode) {
+function generateStringExpression(expressionNode, fileID) {
 	const location = Location.FromANTLRNode(expressionNode.symbol);
+	location.fileID = fileID;
 	let value = expressionNode.getText();
 	if (value.startsWith('"')) value = value.substr(1);
 	if (value.endsWith('"')) value = value.substr(0, value.length - 1);
 	return new ExpressionTypes.StringValue(value, location);
 }
 
-function generateFunctionExpression(expressionNode) {
+function generateFunctionExpression(expressionNode, fileID, isActual) {
 	const location = Location.FromANTLRNode(expressionNode);
-	const actual = expressionNode.getChild(0);
+	location.fileID = fileID;
+	let actual = expressionNode;
+	if (!isActual) actual = expressionNode.getChild(0);
 	const name = actual.getChild(0).getText();
 	const args = [];
 	actual.args.forEach((arg) =>{
@@ -119,49 +129,51 @@ function generateFunctionExpression(expressionNode) {
 	return new ExpressionTypes.Function(name, args, location);
 }
 
-function generateValueExpression(expressionNode) {
+function generateValueExpression(expressionNode, fileID) {
 	const actualValue = expressionNode.getChild(0);
 	if (actualValue instanceof YarnParser.VariableContext) {
 		const location = Location.FromANTLRNode(expressionNode);
+		location.fileID = fileID;
 		const name = actualValue.getText().trim().substr(1);
 	  return new ExpressionTypes.Variable(name, location);
 	} else if (expressionNode instanceof YarnParser.StringContext) {
-	  return generateStringExpression(expressionNode.getChild(0));
+	  return generateStringExpression(expressionNode.getChild(0), fileID);
 	} else if (expressionNode instanceof YarnParser.ValueExpressionContext) {
-	  return generateNumberValue(expressionNode.getChild(0));
+	  return generateNumberValue(expressionNode.getChild(0), fileID);
 	} else if (expressionNode instanceof YarnParser.FalseConstantContext) {
 		const location = Location.FromANTLRNode(expressionNode);
+		location.fileID = fileID;
 		return new ExpressionTypes.BooleanValue(false, location);
 	} else if (expressionNode instanceof YarnParser.TrueConstantContext) {
 		const location = Location.FromANTLRNode(expressionNode);
+		location.fileID = fileID;
 		return new ExpressionTypes.BooleanValue(true, location);
 	} else if (expressionNode instanceof YarnParser.NullConstantContext) {
 		const location = Location.FromANTLRNode(expressionNode);
+		location.fileID = fileID;
 	  return new ExpressionTypes.NullValue(location);
 	} else {
 	  console.err("Unknown value expression!");
 	}
 }
 
-function generateParensExpression(expressionNode) {
-	return generateExpression(expressionNode.getChild(1));
-}
-
-function generateExpression(expressionNode) {
+function generateExpression(expressionNode, fileID) {
 	if (expressionNode instanceof YarnParser.ValueExpressionContext) {
-		return generateValueExpression(expressionNode);
+		return generateValueExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.FunctionExpressionContext) {
-		return generateFunctionExpression(expressionNode);
+		return generateFunctionExpression(expressionNode, fileID);
+	} else if (expressionNode instanceof YarnParser.Function_callContext) {
+		return generateFunctionExpression(expressionNode, fileID, true);
 	} else if (expressionNode instanceof YarnParser.GroupedExpressionContext) {
-		return generateExpression(expressionNode.getChild(1));
+		return generateExpression(expressionNode.getChild(1), fileID);
 	} else if (expressionNode instanceof YarnParser.NegativeExpressionContext) {
-		return generateNegativeExpression(expressionNode);
+		return generateNegativeExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.NotExpressionContext) {
-		return generateNotExpression(expressionNode);
+		return generateNotExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.AssignmentExpressionContext) {
-		return generateAssignmentExpression(expressionNode);
+		return generateAssignmentExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.LeftRightExpressionContext) {
-		return generateLeftRightExpression(expressionNode);
+		return generateLeftRightExpression(expressionNode, fileID);
 	} 
 	console.error("UNHANDLED EXPRESSION!");
 }

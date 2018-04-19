@@ -34,7 +34,6 @@ function processMessages(parsedData, fileID) {
 	const privates = privateProps.get(this);
 
 	['errors', 'warnings'].forEach((type) => {
-		parsedData[type].forEach((item) => { item.location.fileID = fileID; });
 		privates[type] = privates[type].concat(parsedData[type]);
 	});
 }
@@ -115,10 +114,10 @@ class Parser {
 		if (privates.config.preprocessOnly || privates.config.preprocessDebug) 
 			return false;
 	
-		const parsedData = antlrProcessor(privates.processedString, bodyOnly);
-		processMessages.call(this, parsedData);
+		const parsedData = antlrProcessor(privates.processedString, bodyOnly, fileID);
+		processMessages.call(this, parsedData, fileID);
 		if (bodyOnly) delete(privates.nodesByName["bodyParsed"]);
-		processNodes.call(this, parsedData);
+		processNodes.call(this, parsedData, fileID);
 
 		return privates.errors.length != errorCount;
 	}

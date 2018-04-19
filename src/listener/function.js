@@ -5,7 +5,9 @@ const Location = require('../parser/location');
 const expressionGenerator = require('../expression/generator');
 
 function exit(ctx) {
+	this._handleCommand = false;
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const actual = ctx.getChild(1);
 	const funcText = actual.getChild(0).getText()
 	const args = [];

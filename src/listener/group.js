@@ -18,6 +18,7 @@ function enter(ctx) {
 
 function exit(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const groupParts = this._group;
 	this._statements = groupParts.previousStatements;
 	this._group = groupParts.previousGroup;

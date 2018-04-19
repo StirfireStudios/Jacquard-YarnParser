@@ -50,7 +50,7 @@ It's probably a good idea to use a stack as the way of storing the whitspace enc
     - and
         - the whitespace found is the same as the current whitespace encountered or shorter
     - then
-        1. Insert a shortcut end character before the newline (`0x1E`)
+        1. Insert a shortcut end character (`0x1E`) before the newline 
         2. pop the current whitespace encountered & option off the stack
         3. start reading from the newline
     - If:
@@ -58,8 +58,9 @@ It's probably a good idea to use a stack as the way of storing the whitspace enc
     - and 
         - the next characters are `->`
     - then
-        1. Insert a shortcut start character before the next newline (`0x1E`)
-        2. push the whitespace found at 2 and that we need to emit "close option" onto the stack
+        1. Insert a single space and a shortcut start character  (`0x1D`) immediatley following the `->`
+        1. Mark off that we are now in an option and the amount of whitespace we have onto the stack.
+        2. Output the start of the line (whitespace and `->`), a space (` `), the shortcut start character (`0x1D`) and the rest of that line and return to 2 above
   3. Output the line and return to 2 above
 
 

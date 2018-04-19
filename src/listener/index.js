@@ -28,6 +28,7 @@ function YarnListener() {
 	this.errors = [];
 	this.warnings = [];
   this.nodesByName = {};
+  this._fileID = null;
   this._node = null;
   this._statements = null;
   this._conditional = null;
@@ -37,11 +38,15 @@ function YarnListener() {
 YarnListener.prototype = Object.create(BaseListener.prototype);
 
 YarnListener.prototype.addError = function(ctx, string) {
-	this.errors.push(ParserMessage.FromANTLRContext(ctx, string));
+  const message = ParserMessage.FromANTLRContext(ctx, string);
+  message.location.fileID = this._fileID;
+	this.errors.push(message);
 }
 
 YarnListener.prototype.addWarning = function(ctx, string) {
-	this.warnings.push(ParserMessage.FromANTLRContext(ctx, string));
+  const message = ParserMessage.FromANTLRContext(ctx, string);
+  message.location.fileID = this._fileID;
+  this.warnings.push(message);
 }
 
 YarnListener.prototype.visitErrorNode = function(node) {
@@ -67,7 +72,7 @@ addTextStatementListener(YarnListener.prototype);
 addOptionLinkStatementListener(YarnListener.prototype);
 addShortcutStatementListener(YarnListener.prototype);
 
-function process(data, isBodyOnly) {
+function process(data, isBodyOnly, fileID) {
   if (isBodyOnly) {
     data = `title: bodyParsed\n---\n${data}\n===\n`
   }
@@ -78,11 +83,13 @@ function process(data, isBodyOnly) {
   parser.buildParseTrees = true;
   let tree = null;
   const listener = new YarnListener();
+  listener._fileID = fileID;
 
   tree = parser.dialogue();
 
   antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
+  delete(listener._fileID);
   delete(listener._nodeData);
   delete(listener._statements);
   delete(listener._conditional);

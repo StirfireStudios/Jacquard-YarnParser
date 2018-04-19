@@ -12,6 +12,7 @@ function addLink(statement) {
 function exitOption(ctx) {
 	if (this._group != null) this._group.isOption = true;
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const destination = ctx.getChild(3).getText().trim();
 	const text = ctx.getChild(1).getText().trim();
 
@@ -20,6 +21,7 @@ function exitOption(ctx) {
 
 function exitLink(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const destination = ctx.getChild(1).getText().trim();
 	
 	addLink.call(this, new LinkStatement(destination, location));
