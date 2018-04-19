@@ -22,7 +22,5 @@ If at the end
 [[ Option Text B | OptionLinkB ]]
 <<if $variable>>
 [[ Option Text C | OptionLinkC ]]
-<<else>>
-junk
 <<endif>>
 ===

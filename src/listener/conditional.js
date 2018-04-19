@@ -73,6 +73,14 @@ function addToPrototype(prototype) {
 	prototype.exitElse_clause = exitClause;
 	prototype.exitIf_statement = exit;
 
+	prototype.enterOf_statement = enter;
+	prototype.enterOf_clause = enterTestedClause;
+	prototype.exitOf_clause = exitTestedClause;
+	prototype.enterElse_of_clause = enterTestedClause;
+	prototype.exitElse_of_clause = enterTestedClause;
+	prototype.enterOelse_clause = enterClause;
+	prototype.exitOelse_clause = exitClause;
+	prototype.exitOf_statement = exit;
 }
 
 module.exports = addToPrototype;

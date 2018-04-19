@@ -20,7 +20,7 @@ function setAttr(name, value) {
 }
 
 function exit(ctx) {
-	const attrName = ctx.getChild(0).getText().trim().toLower();
+	const attrName = ctx.getChild(0).getText().trim().toLocaleLowerCase();
 
 	if (ctx.getChildCount() < 3) {
 		this.addWarning(ctx, `Attribute ${attrName} has no value`);
