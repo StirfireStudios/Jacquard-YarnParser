@@ -48,7 +48,7 @@ SHORTCUT_END : '\u001E' ;
 
 TEXT : LETTER_NUMBER (~[:\r\n<>[\]] | NOT_SPECIAL_MARKER)* ;
 
-HASHTAG : '#' ~[\r\n]+ ;
+HASHTAG : '#' ~[\r\n\u001D\u001E]+ ;
 
 WS : [ \t] -> skip ;
 NEWLINE : '\r'? '\n' -> skip;
