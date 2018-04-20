@@ -420,10 +420,28 @@
                 
                 <li><a
                   href='#location'
-                  class="">
+                  class=" toggle-sibling">
                   Location
-                  
+                  <span class='icon'>▸</span>
                 </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#locationsinglecharacter'
+                        class='regular pre-open'>
+                        #singleCharacter
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
                 
                 </li>
               
@@ -487,6 +505,18 @@
                       </a></li>
                     
                       <li><a
+                        href='#statementgroup'
+                        class='regular pre-open'>
+                        .Group
+                      </a></li>
+                    
+                      <li><a
+                        href='#statementlinegroup'
+                        class='regular pre-open'>
+                        .LineGroup
+                      </a></li>
+                    
+                      <li><a
                         href='#statementlink'
                         class='regular pre-open'>
                         .Link
@@ -499,9 +529,21 @@
                       </a></li>
                     
                       <li><a
+                        href='#statementoptiongroup'
+                        class='regular pre-open'>
+                        .OptionGroup
+                      </a></li>
+                    
+                      <li><a
                         href='#statementshortcut'
                         class='regular pre-open'>
                         .Shortcut
+                      </a></li>
+                    
+                      <li><a
+                        href='#statementshortcutgroup'
+                        class='regular pre-open'>
+                        .ShortcutGroup
                       </a></li>
                     
                       <li><a
@@ -516,6 +558,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#returnoutput'
+                  class="">
+                  returnOutput
+                  
+                </a>
                 
                 </li>
               
@@ -4359,6 +4411,58 @@ If start and end are null, this location is for a given file.</p>
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='locationsinglecharacter'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>singleCharacter</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Is this location one character wide?</p>
+
+
+  <div class='pre p1 fill-light mt0'>singleCharacter</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
 
   
 </section>
@@ -5058,7 +5162,7 @@ If test is null or undefined, the statements should be exeuted if this clause is
 
   
 
-  <p>Represents an expression to execute in the node body</p>
+  <p>Represents an expression to execute in the node body.</p>
 
 
   <div class='pre p1 fill-light mt0'>new Evaluate()</div>
@@ -5314,6 +5418,171 @@ If test is null or undefined, the statements should be exeuted if this clause is
     </div>
   
 </div>
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementgroup'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new Group()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents a group of statements</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Group()</div>
+  
+  
+    <p>
+      Extends
+      
+        Statement.Base
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='statementgroupstatements'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>statements</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>statements</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;Statement.Base></code>:
+        the statements that are part of this group
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementlinegroup'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new LineGroup()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents a line group statement (a set of statements grouped as a line of dialog)</p>
+
+
+  <div class='pre p1 fill-light mt0'>new LineGroup()</div>
+  
+  
+    <p>
+      Extends
+      
+        Statement.Group
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5600,11 +5869,11 @@ If test is null or undefined, the statements should be exeuted if this clause is
       </div>
     </div>
   
-    <div class='border-bottom' id='statementshortcut'>
+    <div class='border-bottom' id='statementoptiongroup'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>new Shortcut()</span>
+            <span class='code strong strong truncate'>new OptionGroup()</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -5612,16 +5881,16 @@ If test is null or undefined, the statements should be exeuted if this clause is
 
   
 
-  <p>Represents a shortcut statement (a set of statements grouped as an option)</p>
+  <p>Represents a group of options (or statements that decide if options appear)</p>
 
 
-  <div class='pre p1 fill-light mt0'>new Shortcut()</div>
+  <div class='pre p1 fill-light mt0'>new OptionGroup()</div>
   
   
     <p>
       Extends
       
-        Statement.Base
+        Statement.Group
       
     </p>
   
@@ -5646,14 +5915,18 @@ If test is null or undefined, the statements should be exeuted if this clause is
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
+
   
-    <div class='border-bottom' id='statementshortcutstatements'>
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementshortcut'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>statements</span>
+            <span class='code strong strong truncate'>new Shortcut()</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -5661,31 +5934,31 @@ If test is null or undefined, the statements should be exeuted if this clause is
 
   
 
-  
+  <p>Represents a shortcut statement (a set of statements grouped as an option)</p>
 
-  <div class='pre p1 fill-light mt0'>statements</div>
-  
-  
 
+  <div class='pre p1 fill-light mt0'>new Shortcut()</div>
   
   
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;Statement.Base></code>:
-        the statements that are part of this shortcut
-
+    <p>
+      Extends
       
-    
+        Statement.Group
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
   
 
   
@@ -5702,7 +5975,50 @@ If test is null or undefined, the statements should be exeuted if this clause is
       </div>
     </div>
   
-</div>
+    <div class='border-bottom' id='statementshortcutgroup'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new ShortcutGroup()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents a group of shortcuts (or statements that decide if options appear)</p>
+
+
+  <div class='pre p1 fill-light mt0'>new ShortcutGroup()</div>
+  
+  
+    <p>
+      Extends
+      
+        Statement.Group
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5878,6 +6194,60 @@ If test is null or undefined, the statements should be exeuted if this clause is
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='returnoutput'>
+      returnOutput
+    </h3>
+    
+    
+  </div>
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>returnOutput</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        if this evaluation should return the value for display
+
+      
+    
+  
+
+  
+
+  
 
   
 
