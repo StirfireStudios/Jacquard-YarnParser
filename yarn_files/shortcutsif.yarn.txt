@@ -77,8 +77,9 @@ Here we have an if statement that's not really involved in the option grouping
 -> Option 2
    You picked option 2!
 
-Different Sets of Options
+These should be normal if statements with option groups inside them.
 <<if $variable>>
+Here is some text that should only show if $variable
 -> Option 1
    You Picked Option 1! (this had no tabs)
 -> Option 2

@@ -28,8 +28,10 @@ If at the end
 [[ Option Text C | OptionLinkC ]]
 <<endif>>
 
-Different Sets of Options
+These should be normal if statements with option groups inside them.
 <<if $variable>>
+	I am dialog here
+
 	[[ Option Text A | OptionLinkA ]]
 	[[ Option Text B | OptionLinkB ]]
 <<elsif $variable2>>
@@ -37,6 +39,7 @@ Different Sets of Options
 	[[ Option Text C | OptionLinkC ]]
 	[[ Option Text D | OptionLinkD ]]
 <<elsif $variable3>>
+  I am more dialog 
 	[[ Option Text E | OptionLinkE ]]
 	[[ Option Text F | OptionLinkF ]]
 <<else>>
