@@ -5,7 +5,8 @@ const Base = require('./base');
 const privateProps = new WeakMap();
 
 /**
- * Represents an expression to execute in the node body
+ * Represents an expression to execute in the node body.
+ * The result of this evaluation should be displayed on screen as part of a text line.
  * @memberof Statement
  * @augments Base
  * @class Evaluate

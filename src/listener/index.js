@@ -22,6 +22,7 @@ const addEvaluateStatementListener = require('./evaluate');
 const addFunctionStatementListener = require('./function');
 const addOptionLinkStatementListener = require('./option');
 const addTextStatementListener = require('./text');
+const addSetStatementListener = require('./set');
 const addShortcutStatementListener = require('./shortcut');
 
 function YarnListener() {
@@ -68,9 +69,10 @@ addConditionalStatementListener(YarnListener.prototype);
 addCommandStatementListener(YarnListener.prototype);
 addEvaluateStatementListener(YarnListener.prototype);
 addFunctionStatementListener(YarnListener.prototype);
-addTextStatementListener(YarnListener.prototype);
 addOptionLinkStatementListener(YarnListener.prototype);
+addSetStatementListener(YarnListener.prototype);
 addShortcutStatementListener(YarnListener.prototype);
+addTextStatementListener(YarnListener.prototype);
 
 function process(data, isBodyOnly, fileID) {
   if (isBodyOnly) {
