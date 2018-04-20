@@ -3,10 +3,10 @@ title: Set
 << set $variable to true >>
 
 // set is optional
-<< $variable = true >>
+<< $variable = true && true >>
 
-<< $variable += 2 >>
-<< $variable -= 2 >>
+<< $variable += 2 - 1 >>
+<< $variable -= 2 + 1 * 2 >>
 << $variable *= 2 >>
 << $variable /= 2 >>
 << $variable %= 2 >>

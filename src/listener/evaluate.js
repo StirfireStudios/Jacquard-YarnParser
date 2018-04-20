@@ -9,7 +9,7 @@ function exit(ctx) {
 	location.fileID = this._fileID;
 	const expression = expressionGenerator(ctx.getChild(1), this._fileID);
 	
-	this._statements.push(new EvaluateStatement(expression, location));
+	this._statements.push(new EvaluateStatement(expression, true, location));
 }
 
 function addToPrototype(prototype) {
