@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "a JS parser for Yarn into an intermediate format",
   "main": "src/index.js",
-  "repository": "https://github.com/StirfireStudios/Jacquard-yarnparser",
+  "repository": "https://github.com/StirfireStudios/Jacquard-YarnParser",
   "author": "Stirfire Studios",
   "license": "MIT",
   "devDependencies": {
