@@ -3,7 +3,6 @@
 const ParserMessage = require('./parser/message');
 const preprocessor = require('./preprocessor')
 const antlrProcessor = require('./listener')
-const optionGroupProcessor = require('./optionGroupProcessor')
 
 /**
  * parser configuration
@@ -35,7 +34,6 @@ function processMessages(parsedData, fileID) {
 	const privates = privateProps.get(this);
 
 	['errors', 'warnings'].forEach((type) => {
-		parsedData[type].forEach((item) => { item.location.fileID = fileID; });
 		privates[type] = privates[type].concat(parsedData[type]);
 	});
 }
@@ -82,7 +80,7 @@ function processNodes(parsedData, fileID) {
 class Parser {
   constructor(config) {
 		const privates = { 
-			config: Object.assign(defaultConfig),
+			config: Object.assign({}, defaultConfig),
 		}
 
 		resetState(privates);
@@ -107,20 +105,20 @@ class Parser {
 
 		const errorCount = privates.errors.length;
 		try {
-			privates.processedString = preprocessor(yarnString, privates.preprocessDebug);
+			privates.processedString = preprocessor(yarnString, privates.config.preprocessDebug);
 		} catch(err) {
 			privates.errors.push({message: err.toString()});
 			return true;
 		}
 	
-		if (this.preprocessOnly) return false;
+		if (privates.config.preprocessOnly || privates.config.preprocessDebug) 
+			return false;
 	
-		const parsedData = antlrProcessor(privates.processedString, bodyOnly);
-		processMessages.call(this, parsedData);
+		const parsedData = antlrProcessor(privates.processedString, bodyOnly, fileID);
+		processMessages.call(this, parsedData, fileID);
 		if (bodyOnly) delete(privates.nodesByName["bodyParsed"]);
-		processNodes.call(this, parsedData);
+		processNodes.call(this, parsedData, fileID);
 
-	//	optionGroupProcessor(Object.values(this.nodesByName), this.errors);
 		return privates.errors.length != errorCount;
 	}
 

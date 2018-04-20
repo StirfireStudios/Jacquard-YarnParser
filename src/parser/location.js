@@ -19,6 +19,21 @@ class Location {
     this.end = {line: 0, column: 1}
   }
 
+  toString() {
+    let output = "";
+    if (this.fileID != null) output = `${this.fileID}: `;
+    output += `${this.start.line}:${this.start.column}`;
+    if (this.singleCharacter) return output;
+    return `${output} - ${this.end.line}:${this.end.column}`;
+  }
+
+  /**
+   * Is this location one character wide?
+   */
+  get singleCharacter() {
+    return this.start.line == this.end.line && this.start.column == this.end.column;
+  }
+
   static FromANTLRNode(node) {
     const obj = new Location();
     obj.start = { line: node.start.line, column: node.start.column };

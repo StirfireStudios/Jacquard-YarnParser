@@ -1,0 +1,23 @@
+title: Commands
+---
+<< simple command >>
+
+<<test command with arguments>>
+
+<<func functionName(1 + 2 * 3 / 4 % 5) >>
+
+<<func functionName(1+2*3/4%5) >>
+
+<<func functionName(1, 2, 3) >>
+
+<< {$henchman} pull the lever >>
+
+<< change score to {(1 + 1)} >>
+<< change score {to(1 + 1)} >>
+
+<< change score to {funcCall()} >>
+
+<< do the thing if called on >>
+
+<<func true(1, 2) >>
+===

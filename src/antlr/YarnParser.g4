@@ -1,113 +1,118 @@
-// Basic Parser grammar for Yarn
-
 parser grammar YarnParser;
 
 options { tokenVocab=YarnLexer; }
 
-dialogue : node+ EOF;
+dialogue : node* EOF;
 
-node: header body NEWLINE*;
+node : header+ body ;
 
-// this is wrong, this means you have to have a title (correct)
-// but can have any number (including 0) of the others (also correct)
-// we only want 0-1 of each in any order but to do this means writing them out
-// or doing it with some code, the in code option seems the best here
-// at least according to https://stackoverflow.com/questions/14934081/antlr4-matching-all-input-alternatives-exaclty-once
-header : header_title (header_tag | header_line)* ;
-header_title : HEADER_TITLE TITLE_TEXT TITLE_TAG_END ;
-header_tag_name : TAG_TEXT TAG_DELIMIT? ;
-header_tag : HEADER_TAGS header_tag_name* HEADER_TAG_END ;
-header_line : HEADER_NAME ':' HEADER_TEXT HEADER_END ;
+header : headerName=TEXT SEPARATOR headerValue=TEXT? ;
 
-body : BODY_ENTER statement* BODY_CLOSE ;
+body : BODY_START (option_group | statement)* BODY_END ;
 
 statement
-    : shortcut
-    | if_statement
-    | set_statement
-    | option_statement
-	| func_call_statement
-    | action_statement
-    | line_statement
-	| blank_statement
+    : if_statement NEWLINE? # if
+    | NEWLINE # blank
+    | (text | command_statement | eval_statement)+? NEWLINE? #part
     ;
 
-shortcut : SHORTCUT_ENTER INDENT statement* DEDENT ;
-
-if_statement : if_clause (else_if_clause)* (else_clause)? COMMAND_ENDIF (hashtag_block)? ;
-if_clause : COMMAND_IF expression COMMAND_CLOSE statement* ;
-else_if_clause : COMMAND_ELSE_IF expression COMMAND_CLOSE statement* ;
-else_clause : COMMAND_ELSE statement* ;
-
-// this is a hack until I can work out exactly what the rules for setting are
-set_statement
-    : COMMAND_SET variable KEYWORD_TO* expression COMMAND_CLOSE
-    | COMMAND_SET expression COMMAND_CLOSE
+ostatement
+    : option_with_text NEWLINE? # option
+    | of_statement NEWLINE? # optionIf
+    | shortcut_statement NEWLINE? # shortcut
     ;
 
-option_statement
-	: ('[[' OPTION_TEXT '|' OPTION_LINK ']]'
-	| '[[' OPTION_TEXT ']]')
-	(hashtag_block)? ;
+eval_statement : EVAL_START expression EVAL_END ;
 
-func_call : FUNC_ID '(' expression? (COMMA expression)* ')' ;
-// this is messy
-func_call_statement : COMMAND_FUNC expression (COMMA expression)* ')' COMMAND_CLOSE ;
-// this isn't ideal but works quite well
-action_statement : ACTION ;
+shortcut_statement : SHORTCUT_START (option_group | statement)* SHORTCUT_END ;
 
-text : TEXT | TEXT_STRING ;
-line_statement : (text (hashtag_block)?) ;
-blank_statement : BLANK_STATEMENT ;
+option_group : (ostatement+ | option_link) ;
+option_link : OPTION_START link=TEXT OPTION_END ;
+option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
 
-hashtag_block : hashtag+ ;
-hashtag : HASHTAG ;
+if_statement : if_clause else_if_clause*? else_clause? endif_clause;
+if_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=statement*?;
+else_if_clause : ELSEIF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=statement*?;
+else_clause : ELSE_COMMAND NEWLINE? statements=statement*?;
 
-// this feel a bit crude
-// need to work on this
+of_statement : of_clause else_of_clause*? oelse_clause? endif_clause ;
+of_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
+else_of_clause : ELSEIF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
+oelse_clause : ELSE_COMMAND NEWLINE? statements=ostatement*?;
+
+endif_clause : ENDIF_COMMAND NEWLINE? ;
+
+set_command : (COMMAND_START | SET_COMMAND_START) VARIABLE set_operands expression COMMAND_END ;
+
+function_command : FUNC_COMMAND_START function_call COMMAND_END ;
+
+command_statement
+    : set_command # set
+    | function_command # func
+    | COMMAND_START (TEXT | expression | keyword | operand | VARIABLE)+? COMMAND_END # command
+    ;
+
+function_call : (TEXT | keyword | operand) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
+
+text : TEXT hashtag=HASHTAG* ;
+
+set_operands
+    : KEYWORD_TO
+    | ADD_EQUALS
+    | MINUS_EQUALS
+    | MULTIPLY_EQUALS
+    | DIVIDE_EQUALS
+    | MODULO_EQUALS
+    ;
+
+keyword 
+    : KEYWORD_TO
+    | KEYWORD_TRUE
+    | KEYWORD_FALSE
+    | KEYWORD_NULL
+    ;
+
 expression
-	: '(' expression ')' #expParens
-	| <assoc=right>'-' expression #expNegative
-	| <assoc=right>OPERATOR_LOGICAL_NOT expression #expNot
-	| expression op=(
-		OPERATOR_MATHS_MULTIPLICATION | 
-		OPERATOR_MATHS_DIVISION |
-		OPERATOR_MATHS_MODULUS) expression #expMultDivMod
-	| expression op=(
-		OPERATOR_MATHS_ADDITION| 
-		OPERATOR_MATHS_SUBTRACTION) expression #expAddSub
-	| expression op=(
-		OPERATOR_LOGICAL_LESS_THAN_EQUALS | 
-		OPERATOR_LOGICAL_GREATER_THAN_EQUALS | 
-		OPERATOR_LOGICAL_LESS | 
-		OPERATOR_LOGICAL_GREATER) expression #expComparison
-	| expression op=(
-		OPERATOR_LOGICAL_EQUALS | 
-		OPERATOR_LOGICAL_NOT_EQUALS) expression #expEquality
-	| variable op=(
-		OPERATOR_MATHS_MULTIPLICATION_EQUALS | 
-		OPERATOR_MATHS_DIVISION_EQUALS | 
-		OPERATOR_MATHS_MODULUS_EQUALS) expression #expMultDivModEquals
-	| variable op=(
-		OPERATOR_MATHS_ADDITION_EQUALS | 
-		OPERATOR_MATHS_SUBTRACTION_EQUALS) expression #expPlusMinusEquals
-	| expression op=(
-		OPERATOR_LOGICAL_AND | 
-		OPERATOR_LOGICAL_OR | 
-		OPERATOR_LOGICAL_XOR) expression #expAndOrXor
-	| value #expValue
+    : value # valueExpression
+    | function_call # functionExpression
+    | EVAL_START expression EVAL_END # evaluatedExpression
+    | LBRACKET expression RBRACKET # groupedExpression
+    | MINUS expression # negativeExpression
+    | NOT expression # notExpression
+    | VARIABLE assignmentOperand expression #assignmentExpression
+    | left=expression operand right=expression #leftRightExpression
     ;
 
-// can add in support for more values in here
-value
-    : BODY_NUMBER	 #valueNumber
-    | KEYWORD_TRUE   #valueTrue
-    | KEYWORD_FALSE  #valueFalse
-	| variable		 #valueVar
-	| COMMAND_STRING #valueString
-	| func_call		 #valueFunc
-    | KEYWORD_NULL   #valueNull
+operand
+    : PLUS
+    | MINUS
+    | MULTIPLY
+    | DIVIDE
+    | MODULO
+    | EQ
+    | GT
+    | LT
+    | NEQ
+    | GTE
+    | LTE
+    | AND
+    | OR
+    | XOR
     ;
-variable
-    : VAR_ID
+
+assignmentOperand
+    : ADD_EQUALS
+    | MINUS_EQUALS
+    | MULTIPLY_EQUALS
+    | DIVIDE_EQUALS
+    | MODULO_EQUALS
+    ;
+
+value
+    : NUMBER # number
+    | STRING # string
+    | VARIABLE # variable
+    | KEYWORD_TRUE # trueConstant
+    | KEYWORD_FALSE # falseConstant
+    | KEYWORD_NULL # nullConstant
     ;

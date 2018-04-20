@@ -10,8 +10,7 @@ function enter(ctx) {
 		clauseStatements: [],
 		clauses: [],
 		previousStatements: this._statements,
-		previousConditional: this._conditional,
-		location: Location.FromANTLRNode(ctx),
+		previousConditional: this._conditional
 	}
 
 	this._conditional = conditionalParts;
@@ -23,6 +22,7 @@ function enterTestedClause(ctx) {
 
 function exitTestedClause(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const test = expressionGenerator(ctx.getChild(1));
 
 	this._conditional.clauses.push(new Clause(
@@ -40,6 +40,7 @@ function enterClause(ctx) {
 
 function exitClause(ctx) {
 	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 
 	this._conditional.clauses.push(new Clause(
 		this._conditional.clauseStatements,
@@ -50,13 +51,15 @@ function exitClause(ctx) {
 }
 
 function exit(ctx) {
+	const location = Location.FromANTLRNode(ctx);
+	location.fileID = this._fileID;
 	const conditionalParts = this._conditional;
   this._statements = conditionalParts.previousStatements;
   this._conditional = conditionalParts.previousConditional;
 
 	this._statements.push(new ConditionalStatement(
 		conditionalParts.clauses,
-		conditionalParts.location,
+		location,
 	));
 }
 
@@ -69,6 +72,15 @@ function addToPrototype(prototype) {
 	prototype.enterElse_clause = enterClause;
 	prototype.exitElse_clause = exitClause;
 	prototype.exitIf_statement = exit;
+
+	prototype.enterOf_statement = enter;
+	prototype.enterOf_clause = enterTestedClause;
+	prototype.exitOf_clause = exitTestedClause;
+	prototype.enterElse_of_clause = enterTestedClause;
+	prototype.exitElse_of_clause = enterTestedClause;
+	prototype.enterOelse_clause = enterClause;
+	prototype.exitOelse_clause = exitClause;
+	prototype.exitOf_statement = exit;
 }
 
 module.exports = addToPrototype;

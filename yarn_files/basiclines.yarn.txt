@@ -1,9 +1,12 @@
 title: Basic Lines
+tags: junk, thing is thing, thing is bad
+novalue:
+otherAttr: place, thing
 ---
 This is a single line.
 
-This is a
-multiline.
+This should be
+two lines.
 
 This <<has>> commands <<in>> it.
 

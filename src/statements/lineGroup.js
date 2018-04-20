@@ -5,13 +5,13 @@ const Group = require('./group');
 const privateProps = new WeakMap();
 
 /**
- * Represents a shortcut statement (a set of statements grouped as an option)
+ * Represents a line group statement (a set of statements grouped as a line of dialog)
  * @memberof Statement
  * @augments Statement.Group
- * @class Shortcut
+ * @class LineGroup
  */
-class Shortcut extends Group {
+class LineGroup extends Group {
 	constructor(statements, location) { super(statements, location); }
 }
 
-module.exports = Shortcut;
+module.exports = LineGroup;

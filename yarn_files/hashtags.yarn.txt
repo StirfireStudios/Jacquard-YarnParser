@@ -10,6 +10,6 @@ Choice A #line:e11124
 Choice B #line:034796
 <<endif>>
 
-->{ Shortcut #line:83062d
-    To the front of the line. #line:e90da9}
+-> Shortcut #line:83062d
+    To the front of the line. #line:e90da9
 ===

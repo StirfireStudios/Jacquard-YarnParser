@@ -6,3 +6,9 @@ title: Options
 // This should be a new option group
 [[OptionLink]]
 ===
+title: Options with blank line
+---
+[[ Option Text 1 | OptionLink1 ]]
+
+[[ Option Text 2 | OptionLink2 ]]
+===

@@ -1,0 +1,5 @@
+title: Options and shortcuts mixed
+---
+[[Option1|Foo]]
+-> Bar
+===

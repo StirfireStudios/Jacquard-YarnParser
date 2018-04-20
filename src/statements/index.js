@@ -11,7 +11,11 @@ module.exports = {
 	Conditional: require('./conditional'),
 	Evaluate: require('./evaluate'),
 	Function: require('./function'),
+	LineGroup: require('./lineGroup'),
 	Link: require('./link'),
 	Option: require('./option'),
+	OptionGroup: require('./options'),
+	Shortcut: require('./shortcut'),
+	ShortcutGroup: require('./shortcuts'),
 	Text: require('./text'),
 }

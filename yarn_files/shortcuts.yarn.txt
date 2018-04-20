@@ -1,0 +1,8 @@
+title: Shortcuts
+---
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+-> Option 2
+	You picked Option 2! (this had tabs)
+-> <<flying man>> he flies! <<no more flyingman>>
+===

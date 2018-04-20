@@ -1,8 +1,4 @@
-// Grammar file for the Yarn lexer
-
 lexer grammar YarnLexer;
-
-// Fragments so we can have mIxEdCaSe
 
 fragment A : [aA]; // match either an 'a' or 'A'
 fragment B : [bB];
@@ -31,191 +27,113 @@ fragment X : [xX];
 fragment Y : [yY];
 fragment Z : [zZ];
 
-fragment LOWERCASE  : [a-z] ;
-fragment UPPERCASE  : [A-Z] ;
+fragment LOWERCASE : [a-z] ;
+fragment UPPERCASE : [A-Z] ;
+fragment DIGIT : [0-9] ;
+fragment LETTER : [a-zA-Z] ;
+fragment LETTER_NUMBER : LETTER | NUMBER | [_] ;
+fragment NOT_SPECIAL_MARKER : '<' ~'<' | '>' ~'>' | '[' ~'[' | ']' ~']' | '/' ~[*/] ;
 
-// ----------------------
-// Default mode
-// handles headers and pushes into body mode
+OPTION_START : '[[' ;
+OPTION_END : ']]' ;
 
-BODY_ENTER : '---' -> pushMode(Body) ;
+COMMAND_START : '<<' ;
+COMMAND_END : '>>' ;
 
-// the two predetermined and important headers
-HEADER_TITLE : 'title:' -> pushMode(Title) ;
-HEADER_TAGS : 'tags:' -> pushMode(Tags) ;
-// the catchall for all other headers, anything except spaces ending in a :
-HEADER_NAME : ~(':' | ' ' | '\n')+ ;
+EVAL_START : '{' ;
+EVAL_END : '}' ;
 
-HEADER_SEPARATOR : ':' -> pushMode(HeaderText);
+SHORTCUT_START : '->' [ \t]* '\u001D' ;
+SHORTCUT_END : '\u001E' ;
 
-// this should allow normal "programming style" strings
-STRING : '"' .*? '"';
-// format for identifiers used in numerous places
-ID : (([a-zA-Z0-9])|('_'))+ ;
+TEXT : LETTER_NUMBER (~[:\r\n<>[\]] | NOT_SPECIAL_MARKER)* ;
 
-NEWLINE : [\n]+ ;
+HASHTAG : '#' ~[\r\n\u001D\u001E]+ ;
 
-UNKNOWN : . ;
+WS : [ \t] -> skip ;
+NEWLINE : '\r'? '\n' -> skip;
+COMMENT : '//' ~[\r\n\u001D\u001E]* -> skip ;
+BLOCK_COMMENT : '/*' .*? '*/' -> skip ;
 
-// ----------------------
-// Title mode
-// for handling the title of the node
-// pops when it hits the end of the line
-// A title is allowed to be anything up to the newline
-mode Title;
-TITLE_TEXT : ~'\n'+ ;
-TITLE_TAG_END : '\n' -> popMode;
+SEPARATOR : ':' ;
 
-// ----------------------
-// Tag mode
-// for handling the tags of the node
-// pops when it hits the end of the line
-// currently this is just the same as the Header Text
-// but will likely change so better to set it up now
-mode Tags;
-TAG_TEXT : ~('\n' | ',')+ ;
-TAG_DELIMIT : ',' ;
-HEADER_TAG_END : '\n' -> popMode;
+VARIABLE : '$' LETTER_NUMBER+ ;
+NUMBER : '-'? DIGIT+('.'DIGIT+)? ;
+STRING : '"' ~[\r\n]*? '"' ;
 
-// ----------------------
-// Header Text mode
-// for grabbing all the non-title/tag header text
-// pops when it hits the end of a line
-mode HeaderText;
-HEADER_TEXT : ~('\n')+;
-HEADER_END : '\n' -> popMode;
+BODY_START : '---' WS* NEWLINE -> pushMode(Body);
 
-// ----------------------
-// Body mode
-// for handling normal dialogue lines and moving between modes
+mode Body ;
+BODY_WS : [ \t] -> skip ;
+BODY_NEWLINE : NEWLINE -> type(NEWLINE);
+BODY_END : '===' -> popMode ;
+BODY_COMMENT : COMMENT -> skip ;
+BODY_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
+BODY_HASHTAG : HASHTAG -> type(HASHTAG) ;
 
-mode Body;
+SET_COMMAND_START : COMMAND_START WS* S E T WS+ -> pushMode(Command) ;
+FUNC_COMMAND_START : COMMAND_START WS* F U N C WS+ -> pushMode(Command) ;
+IF_COMMAND_START : COMMAND_START WS* I F -> pushMode(Command) ;
+ELSEIF_COMMAND_START : COMMAND_START WS* E L S E? I F -> pushMode(Command) ;
+ELSE_COMMAND : COMMAND_START WS* E L S E WS* COMMAND_END;
+ENDIF_COMMAND : COMMAND_START WS* E N D I F WS* COMMAND_END;
 
-BLANK_STATEMENT : ('\n\n') ;
-WS_IN_BODY : (' ' | '\t' | '\n')+ -> skip ; // skip spaces, tabs, newlines
-COMMENT : '//' .*? '\n' -> skip ;
+BODY_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
+BODY_OPTION_START : OPTION_START -> type(OPTION_START), pushMode(Option) ;
 
-BODY_CLOSE : '===' -> popMode ;
+BODY_SHORTCUT_START : SHORTCUT_START -> type(SHORTCUT_START) ;
+BODY_SHORTCUT_END : SHORTCUT_END -> type(SHORTCUT_END) ;
 
-TEXT_STRING : '"' .*? '"' ;
+BODY_EVAL_START : EVAL_START -> type(EVAL_START), pushMode(Command) ;
 
-SHORTCUT_ENTER : '->' ' '* ;
+BODY_TEXT : (~[\r\n \t<>[\]#{}/\u001D\u001E] | NOT_SPECIAL_MARKER) (~[\r\n<>[\]#{}/\u001D\u001E] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 
-INDENT : '\u001D';
-DEDENT : '\u001E';
+mode Option ;
+BODY_OPTION_END : OPTION_END -> type(OPTION_END), popMode ;
+OPTION_WS : [ \t] -> skip ;
+OPTION_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
+OPTION_SEPARATOR : '|' ;
+OPTION_TEXT : LETTER_NUMBER (~[\r\n|<>[\]/] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+OPTION_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 
-COMMAND_IF : COMMAND_OPEN KEYWORD_IF -> pushMode(Command) ;
-//COMMAND_ELSE : COMMAND_OPEN KEYWORD_ELSE -> pushMode(Command) ;
-COMMAND_ELSE : COMMAND_OPEN KEYWORD_ELSE COMMAND_CLOSE | '<<' E L S E '>>' ;
-COMMAND_ELSE_IF : COMMAND_OPEN KEYWORD_ELSE_IF -> pushMode(Command) ;
-COMMAND_ENDIF : COMMAND_OPEN E N D I F '>>' ;
-COMMAND_SET : COMMAND_OPEN KEYWORD_SET -> pushMode(Command) ;
-COMMAND_FUNC : COMMAND_OPEN ID '(' -> pushMode(Command) ;
+mode Command ;
+COMMAND_COMMAND_END : COMMAND_END -> type(COMMAND_END), popMode ;
+COMMAND_EVAL_END : EVAL_END -> type(EVAL_END), popMode ;
+COMMAND_WS : [ \t] -> skip ;
+COMMAND_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
+COMMAND_EVAL_START : EVAL_START -> type(EVAL_START), pushMode(Command) ;
 
-ACTION_CMD : COMMAND_OPEN -> more, pushMode(Action) ;
-
-COMMAND_OPEN : '<<' ' '* ;
-
-OPTION_ENTER : '[[' -> pushMode(Option) ;
-
-HASHTAG : '#' TEXT ;
-
-BODY_GOBBLE : . -> more, pushMode(Text);
-
-// ----------------------
-// Text mode
-// for handling the raw lines of dialogue
-// goes until it hits a hashtag, or an indent/dedent and then pops
-// is zero or more as it will always have the first symbol passed by BODY_GOBBLE
-mode Text;
-
-TEXT : ( ~('\n'|'\u001D'|'\u001E'|'#'|'<') | '<' ~'<' )* -> popMode;
-
-//JUNK : ( ~'*' | ( '*'+ ~[/*]) )* '*'* ;
-
-// ----------------------
-// Command mode
-// for handling branching and expression
-
-mode Command;
-
-COMMAND_WS : (' ' | '\n' | '\t')+ -> skip ; // skip spaces, tabs, newlines
-
-COMMAND_CLOSE : '>>' -> popMode ;
-
-COMMAND_STRING : STRING ;
-
-// adding a space after the keywords to get around the issue of
-//<<iffy>> being detected as an if statement
-KEYWORD_IF : I F ' ' ;
-KEYWORD_ELSE : E L S E ' ' ;
-KEYWORD_ELSE_IF : E L S E I F ' ' ;
-//KEYWORD_FUNC : F U N C ;
-KEYWORD_SET : S E T ' ' ;
-
-KEYWORD_TRUE  : T R U E ;
-KEYWORD_FALSE : F A L S E;
-
-KEYWORD_NULL : N U L L | N I L ;
+LBRACKET : '(' ;
+RBRACKET : ')' ;
+COMMA : ',' ;
+PLUS : '+' ;
+MINUS : '-' ;
+MULTIPLY : '*' ;
+DIVIDE : '/' ;
+MODULO : '%' ;
+EQ : '==' | I S | E Q;
+GT : '>' | G T ;
+LT : '<' | L T ;
+NEQ : '!=' | N E Q;
+GTE : '>=' | G T E;
+LTE : '<=' | L T E;
+NOT : '!' | N O T;
+AND : '&&' | A N D ;
+OR : '||' | O R ;
+XOR : '^' | X O R ;
+ADD_EQUALS : '+=' ;
+MINUS_EQUALS : '-=' ;
+MULTIPLY_EQUALS : '*=' ;
+DIVIDE_EQUALS : '/=' ;
+MODULO_EQUALS : '%=' ;
 
 KEYWORD_TO : T O | '=' ;
-// All the operators YarnSpinner currently supports
-OPERATOR_LOGICAL_LESS_THAN_EQUALS : '<=' | L T E ;
-OPERATOR_LOGICAL_GREATER_THAN_EQUALS : '>=' | G T E ;
-OPERATOR_LOGICAL_EQUALS : '==' | I S | E Q ;
-OPERATOR_LOGICAL_LESS : '<' | L T ;
-OPERATOR_LOGICAL_GREATER : '>' | G T  ;
-OPERATOR_LOGICAL_NOT_EQUALS : '!=' | N E Q ;
-OPERATOR_LOGICAL_AND : A N D | '&&' ;
-OPERATOR_LOGICAL_OR : O R | '||' ;
-OPERATOR_LOGICAL_XOR : X O R | '^' ;
-OPERATOR_LOGICAL_NOT : N O T | '!' ;
-OPERATOR_MATHS_ADDITION_EQUALS : '+=' ;
-OPERATOR_MATHS_SUBTRACTION_EQUALS : '-=' ;
-OPERATOR_MATHS_MULTIPLICATION_EQUALS : '*=' ;
-OPERATOR_MATHS_MODULUS_EQUALS : '%=' ;
-OPERATOR_MATHS_DIVISION_EQUALS : '/=' ;
-OPERATOR_MATHS_ADDITION : '+' ;
-OPERATOR_MATHS_SUBTRACTION : '-' ;
-OPERATOR_MATHS_MULTIPLICATION : '*' ;
-OPERATOR_MATHS_DIVISION : '/' ;
-OPERATOR_MATHS_MODULUS : '%' ;
+KEYWORD_TRUE : T R U E ;
+KEYWORD_FALSE : F A L S E ;
+KEYWORD_NULL : N U L L | N I L ;
 
-LPAREN : '(' ;
-RPAREN : ')' ;
-COMMA : ',' ;
+COMMAND_VARIABLE : VARIABLE -> type(VARIABLE) ;
+COMMAND_NUMBER : NUMBER -> type(NUMBER) ;
+COMMAND_STRING : STRING -> type(STRING) ;
 
-VAR_ID : '$' ID ;
-
-// this should allow for 1, 1.1, and .1 all fine
-BODY_NUMBER : '-'? DIGIT+('.'DIGIT+)? ;
-fragment DIGIT : [0-9] ;
-
-FUNC_ID : ID ;
-
-COMMAND_UNKNOWN : . ;
-
-// ----------------------
-// Action mode
-// handles the <<anything you want>> command
-mode Action;
-ACTION : '>>' -> popMode ;
-IGNORE : . -> more ;
-
-//ACTION_TEXT : ID ;
-
-//WS_IN_COMMAND : (' ' | '\n' | '\t') -> skip ; // skip spaces, tabs, newlines
-
-// ----------------------
-// Option mode
-// For handling options
-// pops when hits ]]
-
-mode Option;
-
-OPTION_SEPARATOR: '|' -> pushMode(OptionLink) ;
-OPTION_TEXT : ~('|'|']')+ ;
-OPTION_CLOSE: ']]' -> popMode ;
-
-mode OptionLink;
-OPTION_LINK : ~(']')+ -> popMode ;
+COMMAND_TEXT : LETTER (~[\r\n \t<>[\]#{}()/\u001D\u001E])* -> type(TEXT) ;

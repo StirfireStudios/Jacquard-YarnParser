@@ -1,0 +1,17 @@
+title: Conditionals
+---
+<< if $variable is false >>
+  statement1
+	<< if $variable2 == false >>
+	  statement2
+	<<elseif $variable2 == null >>
+	  statement3
+	<<endif>>
+<< elseif $variable is null >>
+  statement2
+<< elsif $variable is 0 >>
+  statement3
+<<else>>
+  statement4
+<<endif>>
+===

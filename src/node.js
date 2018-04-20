@@ -7,6 +7,11 @@ const defaultNode = {
 	tags: [],
 	statements: [],
 	linkedNodeNames: [],
+	location: null,
+}
+
+function getDefaultNode() {
+	return Object.assign({}, defaultNode);
 }
 
 /**
@@ -18,7 +23,15 @@ class Node {
 	constructor(attrs) {
 		this.name = attrs.name;
 		delete(attrs.name);
-		const privates = Object.assign(defaultNode, attrs);
+		const privates = Object.assign(getDefaultNode(), attrs);
+
+		if (privates.linkedNodeNames.length > 1) {
+			const newlinkedNames = [];
+			privates.linkedNodeNames.forEach(nodeName => {
+				if (newlinkedNames.indexOf(nodeName) == -1) newlinkedNames.push(nodeName);
+			});
+			privates.linkedNodeNames = newlinkedNames;
+		}
 
 		privateProps.set(this, privates);
 	}

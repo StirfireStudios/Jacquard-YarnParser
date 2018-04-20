@@ -8,15 +8,18 @@ function enter(ctx) {
     addWarning(this, ctx, "entering without prior exit");
   }
   
+  const location = Location.FromANTLRNode(ctx);
+  location.fileID = this._fileID;
+
   this._nodeData = {
     title: null,
     attributes: {},
     tags: [],
     statements: [],
     linkedNodeNames: [],
-    location: Location.FromANTLRNode(ctx),
+    location: location,
   }
-
+  
   this._statements = this._nodeData.statements;
 }
 
@@ -30,6 +33,7 @@ function exit(ctx) {
   }
 
   this._nodeData = null;
+  this._statements = null;
 }
 
 function addToPrototype(prototype) {
