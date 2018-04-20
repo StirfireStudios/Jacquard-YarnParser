@@ -94,6 +94,7 @@ function process(data, isBodyOnly, fileID) {
   delete(listener._statements);
   delete(listener._conditional);
   delete(listener._shortcut);
+  delete(listener._statementGroup);
   return listener;
 }
 

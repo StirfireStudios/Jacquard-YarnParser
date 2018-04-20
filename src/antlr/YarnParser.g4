@@ -13,7 +13,7 @@ body : BODY_START (option_group | statement)* BODY_END ;
 statement
     : if_statement NEWLINE? # if
     | NEWLINE # blank
-    | (text | command_statement | eval_statement)+? NEWLINE? # line
+    | (text | command_statement | eval_statement)+? NEWLINE? #part
     ;
 
 ostatement

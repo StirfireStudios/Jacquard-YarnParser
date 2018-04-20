@@ -808,18 +808,18 @@ BlankContext.prototype.exitRule = function(listener) {
 };
 
 
-function LineContext(parser, ctx) {
+function PartContext(parser, ctx) {
 	StatementContext.call(this, parser);
     StatementContext.prototype.copyFrom.call(this, ctx);
     return this;
 }
 
-LineContext.prototype = Object.create(StatementContext.prototype);
-LineContext.prototype.constructor = LineContext;
+PartContext.prototype = Object.create(StatementContext.prototype);
+PartContext.prototype.constructor = PartContext;
 
-YarnParser.LineContext = LineContext;
+YarnParser.PartContext = PartContext;
 
-LineContext.prototype.text = function(i) {
+PartContext.prototype.text = function(i) {
     if(i===undefined) {
         i = null;
     }
@@ -830,7 +830,7 @@ LineContext.prototype.text = function(i) {
     }
 };
 
-LineContext.prototype.command_statement = function(i) {
+PartContext.prototype.command_statement = function(i) {
     if(i===undefined) {
         i = null;
     }
@@ -841,7 +841,7 @@ LineContext.prototype.command_statement = function(i) {
     }
 };
 
-LineContext.prototype.eval_statement = function(i) {
+PartContext.prototype.eval_statement = function(i) {
     if(i===undefined) {
         i = null;
     }
@@ -852,18 +852,18 @@ LineContext.prototype.eval_statement = function(i) {
     }
 };
 
-LineContext.prototype.NEWLINE = function() {
+PartContext.prototype.NEWLINE = function() {
     return this.getToken(YarnParser.NEWLINE, 0);
 };
-LineContext.prototype.enterRule = function(listener) {
+PartContext.prototype.enterRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
-        listener.enterLine(this);
+        listener.enterPart(this);
 	}
 };
 
-LineContext.prototype.exitRule = function(listener) {
+PartContext.prototype.exitRule = function(listener) {
     if(listener instanceof YarnParserListener ) {
-        listener.exitLine(this);
+        listener.exitPart(this);
 	}
 };
 
@@ -935,7 +935,7 @@ YarnParser.prototype.statement = function() {
         case YarnParser.TEXT:
         case YarnParser.SET_COMMAND_START:
         case YarnParser.FUNC_COMMAND_START:
-            localctx = new LineContext(this, localctx);
+            localctx = new PartContext(this, localctx);
             this.enterOuterAlt(localctx, 3);
             this.state = 100; 
             this._errHandler.sync(this);

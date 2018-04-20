@@ -65,12 +65,12 @@ YarnParserListener.prototype.exitBlank = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#line.
-YarnParserListener.prototype.enterLine = function(ctx) {
+// Enter a parse tree produced by YarnParser#part.
+YarnParserListener.prototype.enterPart = function(ctx) {
 };
 
-// Exit a parse tree produced by YarnParser#line.
-YarnParserListener.prototype.exitLine = function(ctx) {
+// Exit a parse tree produced by YarnParser#part.
+YarnParserListener.prototype.exitPart = function(ctx) {
 };
 
 
