@@ -1,8 +1,8 @@
 'use strict';
 
-const ParserMessage = require('./parser/message');
-const preprocessor = require('./preprocessor')
-const antlrProcessor = require('./listener')
+import ParserMessage from './parser/message';
+import preprocessor from './preprocessor';
+import antlrProcessor from './listener';
 
 /**
  * parser configuration
@@ -77,7 +77,7 @@ function processNodes(parsedData, fileID) {
  * Instances of this class are used to parse one or more yarn documents
  * @param {ParserConfig} config the configuration for this parser
  */
-class Parser {
+export class Parser {
   constructor(config) {
 		const privates = { 
 			config: Object.assign({}, defaultConfig),
@@ -179,11 +179,7 @@ class Parser {
 	}
 }
 
-module.exports = {
-	Parser,
-	Location: require('./parser/location'),
-	ParserMessage: require('./parser/message'),
-	Statement: require('./statements'),
-	Expression: require('./expression'),
-	Node: require('./node'),
-}
+export const Location = require('./parser/location');
+export const Statement = require('./statements');
+export const Expression = require('./expression');
+export const Node = require('./node');

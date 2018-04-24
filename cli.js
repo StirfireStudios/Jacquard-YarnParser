@@ -6,6 +6,7 @@ const FileIO = require('./FileIO');
 const package = require('./package.json')
 const program = require('commander');
 
+require("babel-register");
 const YarnParser = require('./src/index').Parser;
 
 program
