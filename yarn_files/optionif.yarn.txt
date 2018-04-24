@@ -12,15 +12,38 @@ If in the middle
 [[ Option Text A | OptionLinkA ]]
 <<if $variable>>
 [[ Option Text B | OptionLinkB ]]
-<<else>>
+<<elsif $variable2>>
 [[ Option Text C | OptionLinkC ]]
-<<endif>>
+<<elsif $variable3>>
 [[ Option Text D | OptionLinkD ]]
+<<else>>
+[[ Option Text E | OptionLinkE ]]
+<<endif>>
+[[ Option Text F | OptionLinkF ]]
 
 If at the end
 [[ Option Text A | OptionLinkA ]]
 [[ Option Text B | OptionLinkB ]]
 <<if $variable>>
 [[ Option Text C | OptionLinkC ]]
+<<endif>>
+
+These should be normal if statements with option groups inside them.
+<<if $variable>>
+	I am dialog here
+
+	[[ Option Text A | OptionLinkA ]]
+	[[ Option Text B | OptionLinkB ]]
+<<elsif $variable2>>
+  << screenEffect blurryAndGlitchy >>
+	[[ Option Text C | OptionLinkC ]]
+	[[ Option Text D | OptionLinkD ]]
+<<elsif $variable3>>
+  I am more dialog 
+	[[ Option Text E | OptionLinkE ]]
+	[[ Option Text F | OptionLinkF ]]
+<<else>>
+	[[ Option Text G | OptionLinkG ]]
+	[[ Option Text H | OptionLinkH ]]
 <<endif>>
 ===

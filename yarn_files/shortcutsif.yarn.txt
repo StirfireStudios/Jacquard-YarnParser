@@ -10,6 +10,22 @@ Here we have single nested options with an trailing if statement
 	You picked Option 3! (this had tabs)
 <<endif>>
 
+Here we have single nested options with an trailing if and multiple elseif statement
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+-> Option 2
+	You picked Option 2! (this had tabs)
+<<if $ifBranch >>
+-> Option 3
+	You picked Option 3! (this had tabs)
+<<elseif $ifBranch2>>
+-> Option 4
+  You picked Option 4!
+<<elseif $ifBranch3>>
+-> Option 5
+  You picked Option 5!
+<<endif>>
+
 Here we have single nested options with a leading if statement
 <<if $ifBranch >>
 -> Option 1
@@ -60,4 +76,30 @@ Here we have an if statement that's not really involved in the option grouping
 	    1b!
 -> Option 2
    You picked option 2!
+
+These should be normal if statements with option groups inside them.
+<<if $variable>>
+Here is some text that should only show if $variable
+-> Option 1
+   You Picked Option 1! (this had no tabs)
+-> Option 2
+	You picked Option 2! (this had tabs)
+<<elsif $variable2>>
+<< screenEffect blurryAndGlitchy >>
+-> Option 3
+   You Picked Option 3! (this had no tabs)
+-> Option 4
+	You picked Option 4! (this had tabs)
+<<elsif $variable3>>
+-> Option 5
+   You Picked Option 5! (this had no tabs)
+-> Option 6
+	You picked Option 6! (this had tabs)
+<<else>>
+-> Option 7
+   You Picked Option 7! (this had no tabs)
+-> Option 8
+	You picked Option 8! (this had tabs)
+<<endif>>
+
 ===

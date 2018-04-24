@@ -16,6 +16,8 @@
 ## Temp grun code
 tmp/
 
+## babel compiled stuff
+/dist/
 
 # Created by https://www.gitignore.io/api/node,macos,windows
 
