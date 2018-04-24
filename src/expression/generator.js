@@ -95,7 +95,7 @@ function generateLeftRightExpression(node, fileID) {
 }
 
 function generateNumberValue(expressionNode, fileID) {
-	const location = Location.FromANTLRSymbol(expressionNode.symbol);
+	const location = Location.FromANTLRNode(expressionNode);
 	location.fileID = fileID;
 	const numberAsString = expressionNode.getText();
 	if (numberAsString.indexOf('.') === -1) {
@@ -108,7 +108,7 @@ function generateNumberValue(expressionNode, fileID) {
 }
 
 function generateStringExpression(expressionNode, fileID) {
-	const location = Location.FromANTLRSymbol(expressionNode.symbol);
+	const location = Location.FromANTLRNode(expressionNode);
 	location.fileID = fileID;
 	let value = expressionNode.getText();
 	if (value.startsWith('"')) value = value.substr(1);
@@ -148,9 +148,9 @@ function generateValueExpression(expressionNode, fileID) {
 		location.fileID = fileID;
 	  return new ExpressionTypes.NullValue(location);
 	} else if (expressionNode instanceof YarnParser.StringContext) {
-	  return generateStringExpression(expressionNode.getChild(0), fileID);
+	  return generateStringExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.NumberContext) {
-	  return generateNumberValue(expressionNode.getChild(0), fileID);
+	  return generateNumberValue(expressionNode, fileID);
 	} else if (expressionNode.getChildCount() > 0) {
 			return generateValueExpression(expressionNode.getChild(0));
 	} else {
