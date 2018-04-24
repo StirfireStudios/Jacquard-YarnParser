@@ -13,10 +13,10 @@
  * @property {number} end.column - The column that this location ends on.
  */
 class Location {
-	constructor() {
-    this.fileID = null,
-    this.start = {line: 0, column: 1}
-    this.end = {line: 0, column: 1}
+  constructor() {
+    this.fileID = null;
+    this.start = {line: 0, column: 1};
+    this.end = {line: 0, column: 1};
   }
 
   toString() {
@@ -48,4 +48,4 @@ class Location {
   }
 }
 
-module.exports = Location
+module.exports = Location;
