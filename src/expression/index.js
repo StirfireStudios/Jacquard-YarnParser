@@ -24,7 +24,7 @@ module.exports = {
 	LessThanOperator: require('./operators/boolean/lessThan'),
 	LessThanOrEqualOperator: require('./operators/boolean/lessThanOrEqual'),
 	NotOperator: require('./operators/boolean/not'),
-	NotEqualityOperator: require('./operators/boolean/notequality'),
+	NotEqualityOperator: require('./operators/boolean/notEquality'),
 	OrOperator: require('./operators/boolean/or'),
 	XorOperator: require('./operators/boolean/xor'),
 	// Math Operators

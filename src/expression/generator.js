@@ -95,7 +95,7 @@ function generateLeftRightExpression(node, fileID) {
 }
 
 function generateNumberValue(expressionNode, fileID) {
-	const location = Location.FromANTLRNode(expressionNode);
+	const location = Location.FromANTLRSymbol(expressionNode.symbol);
 	location.fileID = fileID;
 	const numberAsString = expressionNode.getText();
 	if (numberAsString.indexOf('.') === -1) {
@@ -108,7 +108,7 @@ function generateNumberValue(expressionNode, fileID) {
 }
 
 function generateStringExpression(expressionNode, fileID) {
-	const location = Location.FromANTLRNode(expressionNode.symbol);
+	const location = Location.FromANTLRSymbol(expressionNode.symbol);
 	location.fileID = fileID;
 	let value = expressionNode.getText();
 	if (value.startsWith('"')) value = value.substr(1);
@@ -130,28 +130,29 @@ function generateFunctionExpression(expressionNode, fileID, isActual) {
 }
 
 function generateValueExpression(expressionNode, fileID) {
-	const actualValue = expressionNode.getChild(0);
-	if (actualValue instanceof YarnParser.VariableContext) {
+	if (expressionNode instanceof YarnParser.VariableContext) {
 		const location = Location.FromANTLRNode(expressionNode);
 		location.fileID = fileID;
-		const name = actualValue.getText().trim().substr(1);
+		const name = expressionNode.getText().trim().substr(1);
 	  return new ExpressionTypes.Variable(name, location);
-	} else if (actualValue instanceof YarnParser.FalseConstantContext) {
+	} else if (expressionNode instanceof YarnParser.FalseConstantContext) {
 		const location = Location.FromANTLRNode(expressionNode);
 		location.fileID = fileID;
 		return new ExpressionTypes.BooleanValue(false, location);
-	} else if (actualValue instanceof YarnParser.TrueConstantContext) {
+	} else if (expressionNode instanceof YarnParser.TrueConstantContext) {
 		const location = Location.FromANTLRNode(expressionNode);
 		location.fileID = fileID;
 		return new ExpressionTypes.BooleanValue(true, location);
-	} else if (actualValue instanceof YarnParser.NullConstantContext) {
+	} else if (expressionNode instanceof YarnParser.NullConstantContext) {
 		const location = Location.FromANTLRNode(expressionNode);
 		location.fileID = fileID;
 	  return new ExpressionTypes.NullValue(location);
 	} else if (expressionNode instanceof YarnParser.StringContext) {
 	  return generateStringExpression(expressionNode.getChild(0), fileID);
-	} else if (expressionNode instanceof YarnParser.ValueExpressionContext) {
+	} else if (expressionNode instanceof YarnParser.NumberContext) {
 	  return generateNumberValue(expressionNode.getChild(0), fileID);
+	} else if (expressionNode.getChildCount() > 0) {
+			return generateValueExpression(expressionNode.getChild(0));
 	} else {
 	  console.err("Unknown value expression!");
 	}
