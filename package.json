@@ -1,8 +1,8 @@
 {
   "name": "jacquard-yarnparser",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "a JS parser for Yarn into an intermediate format",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/StirfireStudios/Jacquard-YarnParser",
   "author": "Stirfire Studios",
   "license": "MIT",
@@ -16,7 +16,8 @@
     "antlr4": "^4.7.1"
   },
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "babel src -d dist",
+    "prepare": "yarn build",
     "antlr": "cd src/antlr && antlr4 *.g4 -Dlanguage=JavaScript -visitor",
     "antlr-compile": "cd src/antlr && antlr4 *.g4 -visitor -o ../../tmp && cd ../../tmp && javac *.java",
     "antlr-tokens": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -tokens",
