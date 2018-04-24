@@ -2,21 +2,24 @@
   "name": "jacquard-yarnparser",
   "version": "0.1.0",
   "description": "a JS parser for Yarn into an intermediate format",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/StirfireStudios/Jacquard-YarnParser",
   "author": "Stirfire Studios",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "commander": "^2.15.1"
   },
   "dependencies": {
     "antlr4": "^4.7.1"
   },
   "scripts": {
+    "build": "babel src -d lib",
     "antlr": "cd src/antlr && antlr4 *.g4 -Dlanguage=JavaScript -visitor",
-    "compile": "cd src/antlr && antlr4 *.g4 -visitor -o ../../tmp && cd ../../tmp && javac *.java",
-    "tokens": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -tokens",
-    "gui": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -gui",
+    "antlr-compile": "cd src/antlr && antlr4 *.g4 -visitor -o ../../tmp && cd ../../tmp && javac *.java",
+    "antlr-tokens": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -tokens",
+    "antlr-gui": "yarn compile && cd tmp && java org.antlr.v4.gui.TestRig Yarn dialogue -gui",
     "parse": "node cli.js",
     "preprocessTestFiles": "node cli.js yarn_files --preprocessOnly preprocessed_yarn_files",
     "serveDoc": "documentation serve --watch src/** -f html",
