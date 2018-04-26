@@ -2,7 +2,7 @@ title: Hashtags
 ---
 Hashtags can appear at the end of lines. #dialogRef:d68942
 
-Can have multiple hashtags at the end of lines. #dialogRef:d68942 #junkPart
+Can have multiple hashtags at the end of lines. #dialogRef:d68943 #junkPart
 
 [[Option|Link]] #dialogRef:088f6b
 
@@ -14,6 +14,10 @@ Choice B #dialogRef:034796
 
 Hashtags can be alone on a line
 #dialogRef:83062d #translationNote: and some of them should be allowed to be bare strings
--> Shortcut #dialogRef:83062d
+-> Shortcut #dialogRef:83062e
     To the front of the line. #line:e90da9
+
+-> #dialogRef:83062b
+   Shortcut text
+   More text #dialogRef:83062c
 ===
