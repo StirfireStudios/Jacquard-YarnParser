@@ -14,6 +14,7 @@ statement
     : if_statement NEWLINE? # if
     | NEWLINE # blank
     | (text | command_statement | eval_statement)+? NEWLINE? #part
+    | hashtag=HASHTAG+? #hashtag
     ;
 
 ostatement
@@ -54,7 +55,7 @@ command_statement
 
 function_call : (TEXT | keyword | operand) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
 
-text : TEXT hashtag=HASHTAG* ;
+text : TEXT hashtag=HASHTAG*? ;
 
 set_operands
     : KEYWORD_TO
