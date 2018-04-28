@@ -44,9 +44,17 @@ function exit(ctx) {
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
 	const variable = generateVariableExpression.call(this, ctx.getChild(1));
-	const valueExpression = expressionGenerator(ctx.getChild(3), this._fileID);
+	if (this.variables.indexOf(variable.name) === -1) this.variables.push(variable.name);
 
+	const valueExpression = expressionGenerator(ctx.getChild(3), this._fileID);
+	
 	const expression = generateAssignExpression(ctx.getChild(2), variable, valueExpression, location);
+	valueExpression.functions.forEach(funcName => {
+		if (this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+	});
+	valueExpression.variables.forEach(varName => {
+		if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+	});
 
 	if (expression == null) {
 		this.addError(ctx, "unknown assignment type");	

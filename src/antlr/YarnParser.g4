@@ -31,9 +31,9 @@ option_link : OPTION_START link=TEXT OPTION_END ;
 option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
 
 if_statement : if_clause else_if_clause*? else_clause? endif_clause;
-if_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=statement*?;
-else_if_clause : ELSEIF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=statement*?;
-else_clause : ELSE_COMMAND NEWLINE? statements=statement*?;
+if_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? (option_group | statement)*?;
+else_if_clause : ELSEIF_COMMAND_START predicate=expression COMMAND_END NEWLINE? (option_group | statement)*?;
+else_clause : ELSE_COMMAND NEWLINE? (option_group | statement)*?;
 
 of_statement : of_clause else_of_clause*? oelse_clause? endif_clause ;
 of_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? statements=ostatement*?;
