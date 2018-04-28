@@ -9,13 +9,20 @@ const expressionGenerator = require('../expression/generator');
 
 function childStringValue(child, args) {
   const location = Location.FromANTLRSymbol(child.symbol);
+  location.fileID = this._fileID;
   const arg = child.getText();
   args.push(new Expressions.StringValue(arg, location));
 }
 
 function childExpression(child, args) {
-  const location = Location.FromANTLRNode(child);
-  args.push(expressionGenerator(child));
+  const expression = expressionGenerator(child, this._fileID);
+  expression.functions.forEach(funcName => {
+    if ( this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+  });
+  expression.variables.forEach(varName => {
+    if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+  });  
+  args.push(expression);
 }
 
 function enter(ctx) {
@@ -30,13 +37,13 @@ function exit(ctx) {
   for (let index = 1; index < ctx.getChildCount() - 1; index++) {
     const child = ctx.getChild(index);
     if (child.getChildCount() == 0) {
-      childStringValue(child, args);
+      childStringValue.call(this, child, args);
     } else if (child instanceof YarnParser.KeywordContext) {
-      childStringValue(child.getChild(0), args);
+      childStringValue.call(this, child.getChild(0), args);
     } else if (child.getChildCount() == 3) {
-      childExpression(child.getChild(1), args);
+      childExpression.call(this, child.getChild(1), args);
     } else if (child.getChildCount() == 1) {
-      childExpression(child.getChild(0), args);
+      childExpression.call(this, child.getChild(0), args);
     } else {
       console.error("Could not handle command argument");
     }

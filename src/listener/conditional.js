@@ -23,7 +23,14 @@ function enterTestedClause(ctx) {
 function exitTestedClause(ctx) {
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
-	const test = expressionGenerator(ctx.getChild(1));
+	const expr = expressionGenerator(ctx.getChild(1));
+	const test = expr;
+  expr.functions.forEach(funcName => {
+    if ( this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+  });
+  expr.variables.forEach(varName => {
+    if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+  });  	
 
 	this._conditional.clauses.push(new Clause(
 		this._conditional.clauseStatements,

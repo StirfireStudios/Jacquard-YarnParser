@@ -1,6 +1,6 @@
 'use strict';
 
-const AssignmentOperator = require('./base');
+import AssignmentOperator from './base';
 
 const privateProps = new WeakMap();
 

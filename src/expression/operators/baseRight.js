@@ -15,7 +15,9 @@ class RightOperator extends Base {
 		super(location);
 
 		const privates = {
-			expression: right
+			expression: expression,
+			variables: findVars([expression]),
+			functions: findFuncs([expression]),
 		}
 
 		privateProps.set(this, privates);		
@@ -25,6 +27,18 @@ class RightOperator extends Base {
 	 * @instance 
 	 * @returns {Expression.Base} the expression this operator is performed on */
 	get expression() { return privateProps.get(this).expression; }
+
+	/** @memberof Expression.Variable
+	 * @instance
+	 * @returns {array[string] variable names involved in this expression}
+	 */
+	get variables() { return privateProps.get(this).variables; }
+
+	/** @memberof Expression.Variable
+	 * @instance
+	 * @returns {array[string] function names involved in this expression}
+	 */
+	get functions() { return privateProps.get(this).functions; }
 }
 
 module.exports = RightOperator;

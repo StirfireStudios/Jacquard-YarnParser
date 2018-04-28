@@ -19,7 +19,7 @@
 			"name": "Process One Test Yarn",
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
-				"yarn_files/commands.yarn.txt"
+				"yarn_files/expressions.yarn.txt"
 			]
 		},	
 		{
