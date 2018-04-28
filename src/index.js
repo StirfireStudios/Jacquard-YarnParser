@@ -82,7 +82,12 @@ function processNodes(parsedData, fileID) {
 }
 
 function linkNodes() {
+	const privates = privateProps.get(this);
 
+	Object.keys(privates.nodesByName).forEach(nodeName => {
+		const node = privates.nodesByName[nodeName];
+		node.actualizeLinks(privates.nodesByName);
+	});
 }
 
 /**
