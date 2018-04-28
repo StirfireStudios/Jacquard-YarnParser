@@ -30,6 +30,8 @@ function YarnListener() {
 	this.warnings = [];
   this.nodesByName = {};
   this._fileID = null;
+  this.variables = [];
+  this.functions = [];
   this._node = null;
   this._statements = null;
   this._conditional = null;

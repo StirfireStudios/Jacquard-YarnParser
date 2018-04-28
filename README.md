@@ -81,3 +81,5 @@ Using your command line, navigate to the directory you've cloned this repo into.
 
   1. Execute a `yarn install`. This will download all the necessary libraries you need.
   2. To run the parser on the command line execute `yarn parse`. This will list help.
+  
+If you wish to rebuild the documentation, you'll need to have [documentation.js](http://documentation.js.org/) installed, which you can do via `npm install -g documentation` - then you can run `yarn serveDoc` to serve the docs locally or `yarn buildDoc` to build the docs directory

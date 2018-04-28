@@ -1,6 +1,7 @@
 'use strict';
 
-const Base = require('../base');
+import Base from '../base';
+import {findFuncs, findVars} from '../util';
 
 const privateProps = new WeakMap();
 
@@ -16,7 +17,9 @@ class LeftRightOperator extends Base {
 
 		const privates = {
 			leftExpression: left,
-			rightExpression: right
+			rightExpression: right,
+			variables: findVars([left, right]),
+			functions: findFuncs([left, right]),
 		}
 
 		privateProps.set(this, privates);
@@ -31,6 +34,18 @@ class LeftRightOperator extends Base {
 	 * @instance 
 	 * @returns {Expression.Base} the right expression for this operator */
 	get right() { return privateProps.get(this).rightExpression; }
+
+	/** @memberof Expression.Variable
+	 * @instance
+	 * @returns {array[string] variable names involved in this expression}
+	 */
+	get variables() { return privateProps.get(this).variables; }
+
+	/** @memberof Expression.Variable
+	 * @instance
+	 * @returns {array[string] function names involved in this expression}
+	 */
+	get functions() { return privateProps.get(this).functions; }
 }
 
 module.exports = LeftRightOperator;

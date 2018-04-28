@@ -9,14 +9,22 @@ function exit(ctx) {
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
 	const actual = ctx.getChild(1);
-	const funcText = actual.getChild(0).getText()
+	const funcName = actual.getChild(0).getText()
+	this.functions.push(funcName.trim());
 	const args = [];
 	actual.args.forEach((arg) => {
-		args.push(expressionGenerator(arg));
+		const expr = expressionGenerator(arg);
+		args.push(expr);
+		expr.functions.forEach(funcName => {
+			if ( this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+		});
+		expr.variables.forEach(varName => {
+			if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+		});
 	});
 
 	this._statements.push(new FunctionStatement(
-		funcText.trim(),
+		funcName.trim(),
 		args,
 		location,
 	));
