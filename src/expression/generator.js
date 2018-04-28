@@ -47,7 +47,6 @@ function getExpressionClassFor(node) {
 		case YarnParser.MODULO_EQUALS:
 			return ExpressionTypes.ModulusAssignOperator;
 	}
-
 }
 
 function generateAssignmentExpression(node, fileID) {

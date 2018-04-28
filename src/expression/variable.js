@@ -25,6 +25,18 @@ class Variable extends Base {
 	 * @instance 
 	 * @returns {string} Variable name */
 	get name() { return privateProps.get(this).name; }
+
+	/** @memberof Expression.Variable
+	 * @instance
+	 * @returns {array[string] variable names}
+	 */
+	get variables() { return [privateProps.get(this).name]; }
+
+	/** @memberof Expression.Variable
+	 * @instance
+	 * @returns {array[string] function names}
+	 */
+	get functions() { return []; }
 }
 
 module.exports = Variable;

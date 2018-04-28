@@ -28,6 +28,8 @@ function resetState(privates) {
 	privates.nodeNames = [];
 	privates.nodesByName = {};
 	privates.nodesByTag = {};
+	privates.variables = [];
+	privates.functions = [];
 }
 
 function processMessages(parsedData, fileID) {
@@ -35,6 +37,13 @@ function processMessages(parsedData, fileID) {
 
 	['errors', 'warnings'].forEach((type) => {
 		privates[type] = privates[type].concat(parsedData[type]);
+	});
+}
+
+function processList(parsedData, field) {
+	const privateList = privateProps.get(this)[field];
+	parsedData[field].forEach(name => {
+		if (privateList.indexOf(name) === -1) privateList.push(name);
 	});
 }
 
@@ -69,8 +78,11 @@ function processNodes(parsedData, fileID) {
 			if (privates.nodesByTag[tag] == null) privates.nodesByTag[tag] = {};
 			privates.nodesByTag[tag][nodeName] = node;
 		});
-	})
-	
+	})	
+}
+
+function linkNodes() {
+
 }
 
 /**
@@ -116,8 +128,12 @@ export class Parser {
 	
 		const parsedData = antlrProcessor(privates.processedString, bodyOnly, fileID);
 		processMessages.call(this, parsedData, fileID);
+		processList.call(this, parsedData, "variables");
+		processList.call(this, parsedData, "functions");
+
 		if (bodyOnly) delete(privates.nodesByName["bodyParsed"]);
 		processNodes.call(this, parsedData, fileID);
+		linkNodes.call(this);
 
 		return privates.errors.length != errorCount;
 	}
@@ -169,7 +185,17 @@ export class Parser {
 	get warnings() {
 		return privateProps.get(this).warnings;
 	}
-	
+
+	/** Get the list of functions
+	 * @return {string[]} the list of function names.
+	 */
+	get functionNames() { return privateProps.get(this).functions; }
+
+	/** Get the list of variables
+	 * @return {string[]} the list of function names.
+	 */
+	get variableNames() { return privateProps.get(this).variables; }	
+
 	/**
 	 * Reset this parser, removing all parsed information
 	 */
