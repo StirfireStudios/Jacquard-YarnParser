@@ -174,7 +174,9 @@ function generateExpression(expressionNode, fileID) {
 		return generateAssignmentExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.LeftRightExpressionContext) {
 		return generateLeftRightExpression(expressionNode, fileID);
-	} 
+	} else if (expressionNode instanceof YarnParser.StringContext) {
+		return generateStringExpression(expressionNode, fileID);
+	}
 	console.error("UNHANDLED EXPRESSION!");
 }
 
