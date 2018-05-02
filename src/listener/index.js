@@ -1,29 +1,30 @@
 'use strict';
 
+import antlr4 from 'antlr4';
 
-const antlr4 = require('antlr4/index');
+import { YarnParserListener } from '../antlr/YarnParserListener';
 
-const BaseListener = require('../antlr/YarnParserListener').YarnParserListener;
-const ParserMessage = require('../parser/message');
-const YarnLexer = require('../antlr/YarnLexer');
-const YarnParser = require('../antlr/YarnParser');
+import Location from '../parser/location';
+import ParserMessage from '../parser/message';
+import YarnLexer from '../antlr/YarnLexer';
+import YarnParser from '../antlr/YarnParser';
 
-const addNodeListeners = require('./node');
+import addNodeListeners from './node';
 
-const addHeaderListener = require('./header');
+import addHeaderListener from './header';
 
-const addStatementGroupListener = require('./statement');
-const addOptionGroupListener = require('./group');
+import addStatementGroupListener from './statement';
+import addOptionGroupListener from './group';
 
-const addBlankStatementListener = require('./blank');
-const addConditionalStatementListener = require('./conditional');
-const addCommandStatementListener = require('./command');
-const addEvaluateStatementListener = require('./evaluate');
-const addFunctionStatementListener = require('./function');
-const addOptionLinkStatementListener = require('./option');
-const addTextStatementListener = require('./text');
-const addSetStatementListener = require('./set');
-const addShortcutStatementListener = require('./shortcut');
+import addBlankStatementListener from './blank';
+import addConditionalStatementListener from './conditional';
+import addCommandStatementListener from './command';
+import addEvaluateStatementListener from './evaluate';
+import addFunctionStatementListener from './function';
+import addOptionLinkStatementListener from './option';
+import addTextStatementListener from './text';
+import addSetStatementListener from './set';
+import addShortcutStatementListener from './shortcut';
 
 function YarnListener() {
 	this.errors = [];
@@ -35,10 +36,10 @@ function YarnListener() {
   this._node = null;
   this._statements = null;
   this._conditional = null;
-	BaseListener.call(this);
+	YarnParserListener.call(this);
 }
 
-YarnListener.prototype = Object.create(BaseListener.prototype);
+YarnListener.prototype = Object.create(YarnParserListener.prototype);
 
 YarnListener.prototype.addError = function(ctx, string) {
   const message = ParserMessage.FromANTLRContext(ctx, string);
@@ -91,7 +92,14 @@ function process(data, isBodyOnly, fileID) {
 
   tree = parser.dialogue();
 
-  antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
+  try {
+    antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
+  } catch (error) {
+    const location = new Location();
+    location.fileID = fileID;
+    const message = new ParserMessage("Unable to finish parsing", location);
+    listener.errors.push(message);
+  }
 
   delete(listener._fileID);
   delete(listener._nodeData);
