@@ -210,7 +210,7 @@ export class Parser {
 	}
 }
 
-export const Location = require('./parser/location');
-export const Statement = require('./statements');
-export const Expression = require('./expression');
-export const Node = require('./node');
+export { default as Location } from './parser/location'; 
+export { default as Statement } from './statements';
+export { default as Expression } from './expression';
+export { default as Node } from './node'; 
