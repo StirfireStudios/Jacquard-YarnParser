@@ -8,6 +8,8 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Process All Test Yarn",
+			"sourceMaps": true,
+			"outFiles": ["${workspaceRoot}/dist/**"],
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files"
@@ -17,6 +19,8 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Process One Test Yarn",
+			"sourceMaps": true,
+			"outFiles": ["${workspaceRoot}/dist/**"],
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files/expressions.yarn.txt"
@@ -26,6 +30,8 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Preprocess only  All Test Yarn",
+			"sourceMaps": true,
+			"outFiles": ["${workspaceRoot}/dist/**"],
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files",
@@ -37,6 +43,8 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Preprocess One Test Yarn",
+			"sourceMaps": true,
+			"outFiles": ["${workspaceRoot}/dist/**"],
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
 				"yarn_files/basiclines.yarn.txt",

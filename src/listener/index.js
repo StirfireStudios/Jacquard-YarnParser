@@ -44,12 +44,14 @@ YarnListener.prototype = Object.create(YarnParserListener.prototype);
 YarnListener.prototype.addError = function(ctx, string) {
   const message = ParserMessage.FromANTLRContext(ctx, string);
   message.location.fileID = this._fileID;
+  if (this._nodeData != null) message.location.nodeName = this._nodeData.name;
 	this.errors.push(message);
 }
 
 YarnListener.prototype.addWarning = function(ctx, string) {
   const message = ParserMessage.FromANTLRContext(ctx, string);
   message.location.fileID = this._fileID;
+  if (this._nodeData != null) message.location.nodeName = this._nodeData.name;
   this.warnings.push(message);
 }
 
