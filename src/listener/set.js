@@ -40,6 +40,10 @@ function generateVariableExpression(varNode) {
 }
 
 function exit(ctx) {
+	if (ctx.getChildCount() < 4) {
+		this.addError(ctx, "Invalid set expression");
+		return;
+	}
 	this._handleCommand = false;
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
