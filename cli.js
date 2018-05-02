@@ -7,7 +7,12 @@ const package = require('./package.json')
 const program = require('commander');
 
 require("babel-register");
+
 const YarnParser = require('./src/index').Parser;
+
+const ParserTest = require('./tests/parserTest');
+
+const test = new ParserTest();
 
 program
   .version(package.version)
@@ -107,6 +112,7 @@ parser = new YarnParser({
   preprocessDebug: config.preprocessDebug
 });
 
+
 for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
   const inputPath = config.inputFiles[fileIndex];
   let yarnText = null;
@@ -135,5 +141,7 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
     }
   }
 }
+
+test.runTest(parser);
 
 console.log("all parsed");
