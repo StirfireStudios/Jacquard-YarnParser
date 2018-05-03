@@ -33,10 +33,33 @@ function getNodes(parser) {
 function convertNodesToJSON(nodes) {
 	var map = new Map();
 	nodes.forEach(node => {
-		map.set(node.name, JSON.stringify(node, null, 4));
+		var json = '';
+
+		var props = listAllProperties(node);	
+
+		props.forEach(prop => {
+			console.log(node[prop]);
+			json += (JSON.stringify(node[prop], null, 4)) + "\n";
+		});
+
+		console.log(json);
+		
+
+		map.set(node.name, json);
 	});
 
 	return map;
+}
+
+function listAllProperties(o) {
+	var objectToInspect;     
+	var result = [];
+	
+	for(objectToInspect = o; objectToInspect !== null; objectToInspect = Object.getPrototypeOf(objectToInspect)) {  
+      result = result.concat(Object.getOwnPropertyNames(objectToInspect));  
+	}
+	
+	return result; 
 }
 
 /**
@@ -45,11 +68,13 @@ function convertNodesToJSON(nodes) {
  */
 function writeNodesToFile(nodes) {
 	const fs = require('fs');
+	var iCount = 0;
 
-	for (let name of nodes) {
-		let fileName = name + '.json';
+	for (var [nodeName, nodeData] of nodes) {
+		let fileName = 'node' + ++iCount + '.json';
 		let dir = './tests/out/' + fileName;
-		fs.writeFile(dir, nodes.get(name), (err) => {
+
+		fs.writeFile(dir, nodeData, (err) => {
 			if (err) {
 				console.error(err);
 				return;
@@ -64,8 +89,15 @@ class ParserTest {
 	runTest (parser) {
 		var nodes = getNodes(parser);
 
+		
+		
 		if (nodes != null) {
 			var mapedNodes = convertNodesToJSON(nodes);
+
+			// for (var [key, value] of mapedNodes) {
+			// 	console.log(key);
+			// }
+
 			writeNodesToFile(mapedNodes);
 		}
     }
