@@ -142,6 +142,6 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
   }
 }
 
-test.runTest(parser);
+test.getWorking(parser);
 
 console.log("all parsed");
