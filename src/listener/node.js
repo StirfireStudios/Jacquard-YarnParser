@@ -30,6 +30,7 @@ function exit(ctx) {
     this.addError(ctx, "title not in node");
   } else {
     this.nodesByName[node.name] = node;
+    this._nodesByLine[node.location.start.line] = node;
   }
 
   this._nodeData = null;

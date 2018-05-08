@@ -51,6 +51,10 @@ function exit(ctx) {
 	if (this.variables.indexOf(variable.name) === -1) this.variables.push(variable.name);
 
 	const valueExpression = expressionGenerator(ctx.getChild(3), this._fileID);
+	//TODO: better fix for this
+	if (valueExpression.isErrorNode != null) {
+		this.addError(ctx, "error in valueExpression");
+	}
 	
 	const expression = generateAssignExpression(ctx.getChild(2), variable, valueExpression, location);
 	valueExpression.functions.forEach(funcName => {

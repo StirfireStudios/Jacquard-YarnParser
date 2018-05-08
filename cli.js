@@ -122,6 +122,10 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
       console.error(`Error: ${error}`);
     })
   }
+  
+  parser.warnings.forEach((error) => {
+    console.error(`Warning: ${error}`);
+  })
 
   if (config.preprocessOutputFiles != null) {
     try {

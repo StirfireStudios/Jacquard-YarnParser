@@ -9,6 +9,8 @@ import ParserMessage from '../parser/message';
 import YarnLexer from '../antlr/YarnLexer';
 import YarnParser from '../antlr/YarnParser';
 
+import ErrorListener from './errors';
+
 import addNodeListeners from './node';
 
 import addHeaderListener from './header';
@@ -27,13 +29,14 @@ import addSetStatementListener from './set';
 import addShortcutStatementListener from './shortcut';
 
 function YarnListener() {
-	this.errors = [];
+  this.errors = [];
 	this.warnings = [];
   this.nodesByName = {};
   this._fileID = null;
   this.variables = [];
   this.functions = [];
   this._node = null;
+  this._nodesByLine = {};
   this._statements = null;
   this._conditional = null;
 	YarnParserListener.call(this);
@@ -55,14 +58,6 @@ YarnListener.prototype.addWarning = function(ctx, string) {
   this.warnings.push(message);
 }
 
-YarnListener.prototype.visitErrorNode = function(node) {
-  node.parentCtx.children.forEach((child) => {
-    if (child.isErrorNode === undefined) return;
-    if (!child.isErrorNode()) return;
-    this.addError(child, child.toString());
-  });
-};
-
 addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
 
@@ -79,6 +74,28 @@ addSetStatementListener(YarnListener.prototype);
 addShortcutStatementListener(YarnListener.prototype);
 addTextStatementListener(YarnListener.prototype);
 
+function findNodeByLine(nodesByLine, line) {
+  let node = null;
+  let matchingLine = 0;
+  for(let nodeStartLineString of Object.keys(nodesByLine)) {
+    const nodeStartLine = parseInt(nodeStartLineString, 10);
+    if (nodeStartLine < line && nodeStartLine > matchingLine) {
+      matchingLine = nodeStartLine;
+      node = nodesByLine[nodeStartLine];
+    }
+  }
+
+  return node;
+}
+
+function assignNodesToMessages(array, nodesByLine) {
+  for(let message of array) {
+    if (message.location.nodeName != null) return;
+    const node = findNodeByLine(nodesByLine, message.location.start.line);
+    if (node != null) { message.location.nodeName = node.name; }
+  }
+}
+
 function process(data, isBodyOnly, fileID) {
   if (isBodyOnly) {
     data = `title: bodyParsed\n---\n${data}\n===\n`
@@ -90,6 +107,7 @@ function process(data, isBodyOnly, fileID) {
   parser.buildParseTrees = true;
   let tree = null;
   const listener = new YarnListener();
+  parser.addErrorListener(new ErrorListener(listener));
   listener._fileID = fileID;
 
   tree = parser.dialogue();
@@ -103,8 +121,12 @@ function process(data, isBodyOnly, fileID) {
     listener.errors.push(message);
   }
 
+  assignNodesToMessages(listener.errors, listener._nodesByLine);
+  assignNodesToMessages(listener.warnings, listener._nodesByLine);
+
   delete(listener._fileID);
   delete(listener._nodeData);
+  delete(listener._nodesByLine);
   delete(listener._statements);
   delete(listener._conditional);
   delete(listener._shortcut);
