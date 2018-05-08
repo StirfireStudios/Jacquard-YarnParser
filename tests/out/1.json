@@ -1,0 +1,99 @@
+"otherattr""place, thing"{
+    "otherattr": "place, thing"
+}[
+    "junk",
+    "thing is thing",
+    "thing is bad"
+][
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+]"value""This is a single line.""text""This is a single line."{}[
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+]{}[
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+]"value""This should be""text""This should be"{}[
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+]"value""two lines.""text""two lines."{}[
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+]{}[
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+][
+    {},
+    {},
+    {},
+    {},
+    {}
+]"value""This""text""This"{}[
+    {},
+    {},
+    {},
+    {},
+    {}
+][
+    {}
+][][]{}{}[
+    {},
+    {},
+    {},
+    {},
+    {}
+]"value""commands""text""commands"{}[
+    {},
+    {},
+    {},
+    {},
+    {}
+][
+    {}
+][][]{}{}[
+    {},
+    {},
+    {},
+    {},
+    {}
+]"value""it.""text""it."{}{}[
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+]{}{}{}{
+    "name": "Basic Lines"
+}
