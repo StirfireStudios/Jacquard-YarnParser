@@ -9,6 +9,8 @@ import ParserMessage from '../parser/message';
 import YarnLexer from '../antlr/YarnLexer';
 import YarnParser from '../antlr/YarnParser';
 
+import ErrorListener from './errors';
+
 import addNodeListeners from './node';
 
 import addHeaderListener from './header';
@@ -55,13 +57,13 @@ YarnListener.prototype.addWarning = function(ctx, string) {
   this.warnings.push(message);
 }
 
-YarnListener.prototype.visitErrorNode = function(node) {
+/*YarnListener.prototype.visitErrorNode = function(node) {
   node.parentCtx.children.forEach((child) => {
     if (child.isErrorNode === undefined) return;
     if (!child.isErrorNode()) return;
     this.addError(child, child.toString());
   });
-};
+};*/
 
 addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
@@ -90,6 +92,7 @@ function process(data, isBodyOnly, fileID) {
   parser.buildParseTrees = true;
   let tree = null;
   const listener = new YarnListener();
+  parser.addErrorListener(new ErrorListener(listener));
   listener._fileID = fileID;
 
   tree = parser.dialogue();
