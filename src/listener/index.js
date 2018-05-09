@@ -107,6 +107,7 @@ function process(data, isBodyOnly, fileID) {
   parser.buildParseTrees = true;
   let tree = null;
   const listener = new YarnListener();
+  parser.removeErrorListeners();
   parser.addErrorListener(new ErrorListener(listener));
   listener._fileID = fileID;
 
