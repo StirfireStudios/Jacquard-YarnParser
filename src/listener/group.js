@@ -1,8 +1,14 @@
 'use strict';
 
-const OptionGroup = require('../statements/options');
-const ShortcutGroup = require('../statements/shortcuts');
-const Location = require('../parser/location');
+import OptionGroup from '../statements/options';
+import ShortcutGroup from '../statements/shortcuts';
+import Location from '../parser/location';
+import LinkStatement from '../statements/link';
+
+function warningRequired(group) {
+	if (group.statements.length !== 1) return;
+	 return !(group.statements[0] instanceof LinkStatement);
+}
 
 function enter(ctx) {
 	const groupParts = {
@@ -35,7 +41,9 @@ function exit(ctx) {
 	if (groupParts.isOption) groupClass = OptionGroup;
 	if (groupParts.isShortcut) groupClass = ShortcutGroup;
 	if (groupClass == null) {
-		this.addWarning(ctx, "No option found, just adding statements");
+		if (warningRequired(groupParts)) {
+			this.addWarning(ctx, "No option found, just adding statements");
+		}
 		groupParts.statements.forEach((statement) => {
 			this._statements.push(statement);
 		});

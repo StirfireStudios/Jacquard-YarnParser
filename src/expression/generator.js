@@ -151,7 +151,9 @@ function generateValueExpression(expressionNode, fileID) {
 	} else if (expressionNode instanceof YarnParser.NumberContext) {
 	  return generateNumberValue(expressionNode, fileID);
 	} else if (expressionNode.getChildCount() > 0) {
-			return generateValueExpression(expressionNode.getChild(0));
+		return generateValueExpression(expressionNode.getChild(0));
+	} else if (expressionNode.isErrorNode()) {
+		return expressionNode;
 	} else {
 	  console.err("Unknown value expression!");
 	}

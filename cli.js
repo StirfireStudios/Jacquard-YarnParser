@@ -6,9 +6,7 @@ const FileIO = require('./FileIO');
 const package = require('./package.json')
 const program = require('commander');
 
-require("babel-register");
-
-const YarnParser = require('./src/index').Parser;
+const YarnParser = require('./dist/index').Parser;
 
 const ParserTest = require('./tests/parserTest');
 
@@ -129,6 +127,10 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
       console.error(`Error: ${error}`);
     })
   }
+  
+  parser.warnings.forEach((error) => {
+    console.error(`Warning: ${error}`);
+  })
 
   if (config.preprocessOutputFiles != null) {
     try {
