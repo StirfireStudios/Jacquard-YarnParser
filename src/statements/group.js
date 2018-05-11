@@ -18,6 +18,8 @@ class Group extends Base {
 			statements: statements,
 		}
 
+		this.hasStatements = true;
+
 		privateProps.set(this, privates);
 	}
 

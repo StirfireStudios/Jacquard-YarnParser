@@ -19,6 +19,8 @@ class Clause {
 
 		if (test != null) privates.test = test;
 
+		this.publicProperties = true;
+
 		privateProps.set(this, privates);
 	}
 

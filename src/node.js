@@ -36,6 +36,8 @@ class Node {
 		}
 
 		privateProps.set(this, privates);
+
+		this.publicProperties = true;//["attributes", "tags", "statements", "location", "hasStatements", "outgoingLinks", "incomingLinks"];
 	}
 
 	/** turn the text linked names into actual node links.

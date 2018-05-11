@@ -13,6 +13,8 @@ class Base {
 			location: location,
 		}
 
+		this.publicProperties = true;
+
 		privateProps.set(this, privates);
 	}
 
