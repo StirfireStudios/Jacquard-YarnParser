@@ -40,14 +40,13 @@ function checkObjectProperties(instance) {
 		
 		let publicProperties = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
 
-		// for(let property of instance.publicProperties) {
 		publicProperties.forEach(property =>{
 			jsonable[property] = checkObjectProperties(instance[property]);
 		});
 
 		if (instance.hasStatements != null) {
 			jsonable["statements"] = checkObjectProperties(instance["statements"]);
-		}
+		}		
 
 		return jsonable;
 	} else if (instance instanceof Array) {	
@@ -80,7 +79,7 @@ function writeJSONToFile(json, fileName) {
 
 
 class ParserTest {
-	nodesTest (parser) {
+	nodesTest(parser) {
 		var nodes = getNodes(parser);
 
 		convertNodesToJSON(nodes);
