@@ -1,0 +1,233 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [
+        {
+            "className": "Function",
+            "location": {
+                "fileID": "yarn_files/func.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 26
+                }
+            },
+            "name": "do",
+            "arguments": [
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 11
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 11
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 1
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 14
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 14
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "the text"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/func.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 4,
+                    "column": 0
+                },
+                "end": {
+                    "line": 4,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Function",
+            "location": {
+                "fileID": "yarn_files/func.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 27
+                }
+            },
+            "name": "do",
+            "arguments": [
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 6
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 6
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 2
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 9
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "the other text"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/func.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Conditional",
+            "location": {
+                "fileID": "yarn_files/func.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 9,
+                    "column": 9
+                }
+            },
+            "clauses": [
+                {
+                    "className": "Clause",
+                    "test": {
+                        "className": "Function",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 7,
+                                "column": 5
+                            },
+                            "end": {
+                                "line": 7,
+                                "column": 20
+                            }
+                        },
+                        "variables": [],
+                        "functions": [
+                            "visited"
+                        ],
+                        "name": "visited",
+                        "args": [
+                            {
+                                "className": "StringValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 7,
+                                        "column": 13
+                                    },
+                                    "end": {
+                                        "line": 7,
+                                        "column": 13
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": "Start"
+                            }
+                        ]
+                    },
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/func.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 8,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 2
+                                }
+                            },
+                            "value": "We have visited \"Start\"",
+                            "text": "We have visited \"Start\""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/func.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 10,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

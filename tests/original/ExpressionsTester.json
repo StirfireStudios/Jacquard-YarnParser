@@ -1,0 +1,663 @@
+{
+    "className": "Node",
+    "attributes": {
+        "colorid": "0",
+        "position": "545,274"
+    },
+    "tags": [
+        "expressions"
+    ],
+    "statements": [
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 0
+                }
+            },
+            "value": "Set a variable to an integer via \"to\"",
+            "text": "Set a variable to an integer via \"to\""
+        },
+        {
+            "className": "Evaluate",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 18
+                }
+            },
+            "expression": {
+                "className": "AssignOperator",
+                "location": {
+                    "fileID": "yarn_files/expressions.yarn.txt",
+                    "nodeName": null,
+                    "start": {
+                        "line": 7,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "column": 18
+                    }
+                },
+                "variables": [
+                    "junk"
+                ],
+                "functions": [],
+                "variable": {
+                    "className": "Variable",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 7,
+                            "column": 7
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 7
+                        }
+                    },
+                    "variables": [
+                        "junk"
+                    ],
+                    "functions": [],
+                    "name": "junk"
+                },
+                "expression": {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 7,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 16
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 1
+                }
+            },
+            "returnOutput": false
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 8,
+                    "column": 0
+                },
+                "end": {
+                    "line": 8,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 9,
+                    "column": 0
+                },
+                "end": {
+                    "line": 9,
+                    "column": 0
+                }
+            },
+            "value": "Set a variable to an integer via \"=\"",
+            "text": "Set a variable to an integer via \"=\""
+        },
+        {
+            "className": "Evaluate",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 10,
+                    "column": 0
+                },
+                "end": {
+                    "line": 10,
+                    "column": 17
+                }
+            },
+            "expression": {
+                "className": "AssignOperator",
+                "location": {
+                    "fileID": "yarn_files/expressions.yarn.txt",
+                    "nodeName": null,
+                    "start": {
+                        "line": 10,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "column": 17
+                    }
+                },
+                "variables": [
+                    "junk"
+                ],
+                "functions": [],
+                "variable": {
+                    "className": "Variable",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 10,
+                            "column": 7
+                        },
+                        "end": {
+                            "line": 10,
+                            "column": 7
+                        }
+                    },
+                    "variables": [
+                        "junk"
+                    ],
+                    "functions": [],
+                    "name": "junk"
+                },
+                "expression": {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 10,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 10,
+                            "column": 15
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 1
+                }
+            },
+            "returnOutput": false
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 11,
+                    "column": 0
+                },
+                "end": {
+                    "line": 11,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 12,
+                    "column": 0
+                },
+                "end": {
+                    "line": 12,
+                    "column": 0
+                }
+            },
+            "value": "Set a variable to an integer without \"set\"",
+            "text": "Set a variable to an integer without \"set\""
+        },
+        {
+            "className": "Evaluate",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 13,
+                    "column": 0
+                },
+                "end": {
+                    "line": 13,
+                    "column": 36
+                }
+            },
+            "expression": {
+                "className": "AssignOperator",
+                "location": {
+                    "fileID": "yarn_files/expressions.yarn.txt",
+                    "nodeName": null,
+                    "start": {
+                        "line": 13,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 13,
+                        "column": 36
+                    }
+                },
+                "variables": [
+                    "junk"
+                ],
+                "functions": [
+                    "aFuncCall"
+                ],
+                "variable": {
+                    "className": "Variable",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 3
+                        }
+                    },
+                    "variables": [
+                        "junk"
+                    ],
+                    "functions": [],
+                    "name": "junk"
+                },
+                "expression": {
+                    "className": "Function",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 11
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 34
+                        }
+                    },
+                    "variables": [],
+                    "functions": [
+                        "aFuncCall"
+                    ],
+                    "name": "aFuncCall",
+                    "args": [
+                        {
+                            "className": "AddOperator",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 13,
+                                    "column": 21
+                                },
+                                "end": {
+                                    "line": 13,
+                                    "column": 23
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "left": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 13,
+                                        "column": 21
+                                    },
+                                    "end": {
+                                        "line": 13,
+                                        "column": 21
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 1
+                            },
+                            "right": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 13,
+                                        "column": 23
+                                    },
+                                    "end": {
+                                        "line": 13,
+                                        "column": 23
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 1
+                            }
+                        },
+                        {
+                            "className": "StringValue",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 13,
+                                    "column": 26
+                                },
+                                "end": {
+                                    "line": 13,
+                                    "column": 26
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "value": "string"
+                        }
+                    ]
+                }
+            },
+            "returnOutput": false
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 14,
+                    "column": 0
+                },
+                "end": {
+                    "line": 14,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Evaluate",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 15,
+                    "column": 0
+                },
+                "end": {
+                    "line": 15,
+                    "column": 37
+                }
+            },
+            "expression": {
+                "className": "AddAssignOperator",
+                "location": {
+                    "fileID": "yarn_files/expressions.yarn.txt",
+                    "nodeName": null,
+                    "start": {
+                        "line": 15,
+                        "column": 0
+                    },
+                    "end": {
+                        "line": 15,
+                        "column": 37
+                    }
+                },
+                "variables": [
+                    "junk"
+                ],
+                "functions": [
+                    "aFuncCall"
+                ],
+                "variable": {
+                    "className": "Variable",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 15,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 3
+                        }
+                    },
+                    "variables": [
+                        "junk"
+                    ],
+                    "functions": [],
+                    "name": "junk"
+                },
+                "expression": {
+                    "className": "Function",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 15,
+                            "column": 12
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 35
+                        }
+                    },
+                    "variables": [],
+                    "functions": [
+                        "aFuncCall"
+                    ],
+                    "name": "aFuncCall",
+                    "args": [
+                        {
+                            "className": "AddOperator",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 15,
+                                    "column": 22
+                                },
+                                "end": {
+                                    "line": 15,
+                                    "column": 24
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "left": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 15,
+                                        "column": 22
+                                    },
+                                    "end": {
+                                        "line": 15,
+                                        "column": 22
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 1
+                            },
+                            "right": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 15,
+                                        "column": 24
+                                    },
+                                    "end": {
+                                        "line": 15,
+                                        "column": 24
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 1
+                            }
+                        },
+                        {
+                            "className": "StringValue",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 15,
+                                    "column": 27
+                                },
+                                "end": {
+                                    "line": 15,
+                                    "column": 27
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "value": "string"
+                        }
+                    ]
+                }
+            },
+            "returnOutput": false
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 16,
+                    "column": 0
+                },
+                "end": {
+                    "line": 16,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/expressions.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 17,
+                    "column": 15
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 17,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 3
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "i"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 17,
+                            "column": 5
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 5
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "am"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 17,
+                            "column": 8
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 8
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "a"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/expressions.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 17,
+                            "column": 10
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 10
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "frog"
+                }
+            ]
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/expressions.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 18,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

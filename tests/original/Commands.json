@@ -1,0 +1,1308 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 18
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 3
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "simple"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 10
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 10
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "command"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 4,
+                    "column": 0
+                },
+                "end": {
+                    "line": 4,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 29
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 2
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "test"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 7
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 7
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "command"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 15
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "with"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 20
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "arguments"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Function",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 39
+                }
+            },
+            "name": "functionName",
+            "arguments": [
+                {
+                    "className": "ModulusOperator",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 7,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 36
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "left": {
+                        "className": "DivideOperator",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 7,
+                                "column": 20
+                            },
+                            "end": {
+                                "line": 7,
+                                "column": 32
+                            }
+                        },
+                        "variables": [],
+                        "functions": [],
+                        "left": {
+                            "className": "MultiplyOperator",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 28
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "left": {
+                                "className": "AddOperator",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 7,
+                                        "column": 20
+                                    },
+                                    "end": {
+                                        "line": 7,
+                                        "column": 24
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "left": {
+                                    "className": "IntegerValue",
+                                    "location": {
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 20
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 20
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": 1
+                                },
+                                "right": {
+                                    "className": "IntegerValue",
+                                    "location": {
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 24
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 24
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": 2
+                                }
+                            },
+                            "right": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 7,
+                                        "column": 28
+                                    },
+                                    "end": {
+                                        "line": 7,
+                                        "column": 28
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 3
+                            }
+                        },
+                        "right": {
+                            "className": "IntegerValue",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 32
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 32
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "value": 4
+                        }
+                    },
+                    "right": {
+                        "className": "IntegerValue",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 7,
+                                "column": 36
+                            },
+                            "end": {
+                                "line": 7,
+                                "column": 36
+                            }
+                        },
+                        "variables": [],
+                        "functions": [],
+                        "value": 5
+                    }
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 8,
+                    "column": 0
+                },
+                "end": {
+                    "line": 8,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Function",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 9,
+                    "column": 0
+                },
+                "end": {
+                    "line": 9,
+                    "column": 31
+                }
+            },
+            "name": "functionName",
+            "arguments": [
+                {
+                    "className": "ModulusOperator",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 9,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 9,
+                            "column": 28
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "left": {
+                        "className": "DivideOperator",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 9,
+                                "column": 20
+                            },
+                            "end": {
+                                "line": 9,
+                                "column": 26
+                            }
+                        },
+                        "variables": [],
+                        "functions": [],
+                        "left": {
+                            "className": "MultiplyOperator",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 9,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 9,
+                                    "column": 24
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "left": {
+                                "className": "AddOperator",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 9,
+                                        "column": 20
+                                    },
+                                    "end": {
+                                        "line": 9,
+                                        "column": 22
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "left": {
+                                    "className": "IntegerValue",
+                                    "location": {
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 9,
+                                            "column": 20
+                                        },
+                                        "end": {
+                                            "line": 9,
+                                            "column": 20
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": 1
+                                },
+                                "right": {
+                                    "className": "IntegerValue",
+                                    "location": {
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 9,
+                                            "column": 22
+                                        },
+                                        "end": {
+                                            "line": 9,
+                                            "column": 22
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": 2
+                                }
+                            },
+                            "right": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 9,
+                                        "column": 24
+                                    },
+                                    "end": {
+                                        "line": 9,
+                                        "column": 24
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 3
+                            }
+                        },
+                        "right": {
+                            "className": "IntegerValue",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 9,
+                                    "column": 26
+                                },
+                                "end": {
+                                    "line": 9,
+                                    "column": 26
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "value": 4
+                        }
+                    },
+                    "right": {
+                        "className": "IntegerValue",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 9,
+                                "column": 28
+                            },
+                            "end": {
+                                "line": 9,
+                                "column": 28
+                            }
+                        },
+                        "variables": [],
+                        "functions": [],
+                        "value": 5
+                    }
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 10,
+                    "column": 0
+                },
+                "end": {
+                    "line": 10,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Function",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 11,
+                    "column": 0
+                },
+                "end": {
+                    "line": 11,
+                    "column": 29
+                }
+            },
+            "name": "functionName",
+            "arguments": [
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 11,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 20
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 1
+                },
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 11,
+                            "column": 23
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 23
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 2
+                },
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 11,
+                            "column": 26
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 26
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 12,
+                    "column": 0
+                },
+                "end": {
+                    "line": 12,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 13,
+                    "column": 0
+                },
+                "end": {
+                    "line": 13,
+                    "column": 30
+                }
+            },
+            "arguments": [
+                {
+                    "className": "Variable",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 4
+                        }
+                    },
+                    "variables": [
+                        "henchman"
+                    ],
+                    "functions": [],
+                    "name": "henchman"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 15
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "pull"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 20
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "the"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 24
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "lever"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 14,
+                    "column": 0
+                },
+                "end": {
+                    "line": 14,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 15,
+                    "column": 0
+                },
+                "end": {
+                    "line": 15,
+                    "column": 29
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 15,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 3
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "change"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 15,
+                            "column": 10
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 10
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "score"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 15,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 16
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "to"
+                },
+                {
+                    "className": "AddOperator",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 15,
+                            "column": 21
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 25
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "left": {
+                        "className": "IntegerValue",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 15,
+                                "column": 21
+                            },
+                            "end": {
+                                "line": 15,
+                                "column": 21
+                            }
+                        },
+                        "variables": [],
+                        "functions": [],
+                        "value": 1
+                    },
+                    "right": {
+                        "className": "IntegerValue",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 15,
+                                "column": 25
+                            },
+                            "end": {
+                                "line": 15,
+                                "column": 25
+                            }
+                        },
+                        "variables": [],
+                        "functions": [],
+                        "value": 1
+                    }
+                }
+            ]
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 16,
+                    "column": 0
+                },
+                "end": {
+                    "line": 16,
+                    "column": 28
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 16,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 16,
+                            "column": 3
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "change"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 16,
+                            "column": 10
+                        },
+                        "end": {
+                            "line": 16,
+                            "column": 10
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "score"
+                },
+                {
+                    "className": "Function",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 16,
+                            "column": 17
+                        },
+                        "end": {
+                            "line": 16,
+                            "column": 25
+                        }
+                    },
+                    "variables": [],
+                    "functions": [
+                        "to"
+                    ],
+                    "name": "to",
+                    "args": [
+                        {
+                            "className": "AddOperator",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 16,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 16,
+                                    "column": 24
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "left": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 16,
+                                        "column": 20
+                                    },
+                                    "end": {
+                                        "line": 16,
+                                        "column": 20
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 1
+                            },
+                            "right": {
+                                "className": "IntegerValue",
+                                "location": {
+                                    "nodeName": null,
+                                    "start": {
+                                        "line": 16,
+                                        "column": 24
+                                    },
+                                    "end": {
+                                        "line": 16,
+                                        "column": 24
+                                    }
+                                },
+                                "variables": [],
+                                "functions": [],
+                                "value": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 17,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 18,
+                    "column": 0
+                },
+                "end": {
+                    "line": 18,
+                    "column": 32
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 18,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 18,
+                            "column": 3
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "change"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 18,
+                            "column": 10
+                        },
+                        "end": {
+                            "line": 18,
+                            "column": 10
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "score"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 18,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 18,
+                            "column": 16
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "to"
+                },
+                {
+                    "className": "Function",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 18,
+                            "column": 20
+                        },
+                        "end": {
+                            "line": 18,
+                            "column": 29
+                        }
+                    },
+                    "variables": [],
+                    "functions": [
+                        "funcCall"
+                    ],
+                    "name": "funcCall",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 19,
+                    "column": 0
+                },
+                "end": {
+                    "line": 19,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Command",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 20,
+                    "column": 0
+                },
+                "end": {
+                    "line": 20,
+                    "column": 29
+                }
+            },
+            "arguments": [
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 20,
+                            "column": 3
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 3
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "do"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 20,
+                            "column": 6
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 6
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "the"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 20,
+                            "column": 10
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 10
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "thing"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 20,
+                            "column": 16
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 16
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "if"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 20,
+                            "column": 19
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 19
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "called"
+                },
+                {
+                    "className": "StringValue",
+                    "location": {
+                        "fileID": "yarn_files/commands.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 20,
+                            "column": 26
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 26
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": "on"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 21,
+                    "column": 0
+                },
+                "end": {
+                    "line": 21,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Function",
+            "location": {
+                "fileID": "yarn_files/commands.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 22,
+                    "column": 0
+                },
+                "end": {
+                    "line": 22,
+                    "column": 18
+                }
+            },
+            "name": "true",
+            "arguments": [
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 22,
+                            "column": 12
+                        },
+                        "end": {
+                            "line": 22,
+                            "column": 12
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 1
+                },
+                {
+                    "className": "IntegerValue",
+                    "location": {
+                        "nodeName": null,
+                        "start": {
+                            "line": 22,
+                            "column": 15
+                        },
+                        "end": {
+                            "line": 22,
+                            "column": 15
+                        }
+                    },
+                    "variables": [],
+                    "functions": [],
+                    "value": 2
+                }
+            ]
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/commands.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 23,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

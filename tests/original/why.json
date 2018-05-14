@@ -1,0 +1,224 @@
+{
+    "className": "Node",
+    "attributes": {
+        "colorid": "0",
+        "position": "-1240,3150"
+    },
+    "tags": [],
+    "statements": [
+        {
+            "className": "Conditional",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 10,
+                    "column": 0
+                }
+            },
+            "clauses": [
+                {
+                    "className": "Clause",
+                    "test": {
+                        "className": "Variable",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 6,
+                                "column": 6
+                            },
+                            "end": {
+                                "line": 6,
+                                "column": 6
+                            }
+                        },
+                        "variables": [
+                            "variable1"
+                        ],
+                        "functions": [],
+                        "name": "variable1"
+                    },
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/twonodes.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 0
+                                }
+                            },
+                            "value": "Why?",
+                            "text": "Why?"
+                        }
+                    ]
+                },
+                {
+                    "className": "Clause",
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/twonodes.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 9,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 9,
+                                    "column": 0
+                                }
+                            },
+                            "value": "Why Not?",
+                            "text": "Why Not?"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 10,
+                    "column": 9
+                },
+                "end": {
+                    "line": 10,
+                    "column": 9
+                }
+            },
+            "value": ">\n===",
+            "text": ">\n==="
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 12,
+                    "column": 0
+                },
+                "end": {
+                    "line": 12,
+                    "column": 0
+                }
+            },
+            "value": "title: laternode",
+            "text": "title: laternode"
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 13,
+                    "column": 0
+                },
+                "end": {
+                    "line": 13,
+                    "column": 0
+                }
+            },
+            "value": "tags:",
+            "text": "tags:"
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 14,
+                    "column": 0
+                },
+                "end": {
+                    "line": 14,
+                    "column": 0
+                }
+            },
+            "value": "colorID: 0",
+            "text": "colorID: 0"
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 15,
+                    "column": 0
+                },
+                "end": {
+                    "line": 15,
+                    "column": 0
+                }
+            },
+            "value": "position: -1543,3512",
+            "text": "position: -1543,3512"
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 16,
+                    "column": 0
+                },
+                "end": {
+                    "line": 16,
+                    "column": 0
+                }
+            },
+            "value": "---",
+            "text": "---"
+        },
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/twonodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 17,
+                    "column": 0
+                }
+            },
+            "value": "This node should parse as a seperate node",
+            "text": "This node should parse as a seperate node"
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/twonodes.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 18,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

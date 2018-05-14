@@ -1,0 +1,196 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [
+        {
+            "className": "LineGroup",
+            "location": {
+                "fileID": null,
+                "nodeName": null,
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 49
+                }
+            },
+            "statements": [
+                {
+                    "className": "Text",
+                    "location": {
+                        "fileID": "yarn_files/eval.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 0
+                        }
+                    },
+                    "value": "Kronk: are you sure it's the",
+                    "text": "Kronk: are you sure it's the"
+                },
+                {
+                    "className": "Evaluate",
+                    "location": {
+                        "fileID": "yarn_files/eval.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 29
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 41
+                        }
+                    },
+                    "expression": {
+                        "className": "Variable",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 3,
+                                "column": 30
+                            },
+                            "end": {
+                                "line": 3,
+                                "column": 30
+                            }
+                        },
+                        "variables": [
+                            "leverColor"
+                        ],
+                        "functions": [],
+                        "name": "leverColor"
+                    },
+                    "returnOutput": true
+                },
+                {
+                    "className": "Text",
+                    "location": {
+                        "fileID": "yarn_files/eval.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 43
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 43
+                        }
+                    },
+                    "value": "lever?",
+                    "text": "lever?"
+                }
+            ]
+        },
+        {
+            "className": "LineGroup",
+            "location": {
+                "fileID": null,
+                "nodeName": null,
+                "start": {
+                    "line": 4,
+                    "column": 0
+                },
+                "end": {
+                    "line": 4,
+                    "column": 29
+                }
+            },
+            "statements": [
+                {
+                    "className": "Text",
+                    "location": {
+                        "fileID": "yarn_files/eval.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 4,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 4,
+                            "column": 0
+                        }
+                    },
+                    "value": "it's the",
+                    "text": "it's the"
+                },
+                {
+                    "className": "Evaluate",
+                    "location": {
+                        "fileID": "yarn_files/eval.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 4,
+                            "column": 9
+                        },
+                        "end": {
+                            "line": 4,
+                            "column": 22
+                        }
+                    },
+                    "expression": {
+                        "className": "Function",
+                        "location": {
+                            "fileID": "yarn_files/eval.yarn.txt",
+                            "nodeName": null,
+                            "start": {
+                                "line": 4,
+                                "column": 10
+                            },
+                            "end": {
+                                "line": 4,
+                                "column": 21
+                            }
+                        },
+                        "variables": [],
+                        "functions": [
+                            "leverColor"
+                        ],
+                        "name": "leverColor",
+                        "args": []
+                    },
+                    "returnOutput": true
+                },
+                {
+                    "className": "Text",
+                    "location": {
+                        "fileID": "yarn_files/eval.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 4,
+                            "column": 24
+                        },
+                        "end": {
+                            "line": 4,
+                            "column": 24
+                        }
+                    },
+                    "value": "lever",
+                    "text": "lever"
+                }
+            ]
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/eval.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 5,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

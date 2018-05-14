@@ -1,0 +1,39 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/multiplenodes.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 0
+                }
+            },
+            "value": "I'm the other text",
+            "text": "I'm the other text"
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/multiplenodes.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 5,
+            "column": 0
+        },
+        "end": {
+            "line": 8,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

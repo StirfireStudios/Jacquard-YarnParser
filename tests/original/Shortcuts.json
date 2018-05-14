@@ -1,0 +1,282 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [
+        {
+            "className": "ShortcutGroup",
+            "location": {
+                "fileID": "yarn_files/shortcuts.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 53
+                }
+            },
+            "statements": [
+                {
+                    "className": "Shortcut",
+                    "location": {
+                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 3,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 4,
+                            "column": 44
+                        }
+                    },
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/shortcuts.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 3,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 3,
+                                    "column": 5
+                                }
+                            },
+                            "value": "Option 1",
+                            "text": "Option 1"
+                        },
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/shortcuts.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 4,
+                                    "column": 3
+                                },
+                                "end": {
+                                    "line": 4,
+                                    "column": 3
+                                }
+                            },
+                            "value": "You Picked Option 1! (this had no tabs)",
+                            "text": "You Picked Option 1! (this had no tabs)"
+                        }
+                    ]
+                },
+                {
+                    "className": "Shortcut",
+                    "location": {
+                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 6,
+                            "column": 39
+                        }
+                    },
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/shortcuts.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 5,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 5
+                                }
+                            },
+                            "value": "Option 2",
+                            "text": "Option 2"
+                        }
+                    ]
+                },
+                {
+                    "className": "Shortcut",
+                    "location": {
+                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 7,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 53
+                        }
+                    },
+                    "statements": [
+                        {
+                            "className": "Command",
+                            "location": {
+                                "fileID": "yarn_files/shortcuts.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 17
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "className": "StringValue",
+                                    "location": {
+                                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 7
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 7
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": "flying"
+                                },
+                                {
+                                    "className": "StringValue",
+                                    "location": {
+                                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 14
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 14
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": "man"
+                                }
+                            ]
+                        },
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/shortcuts.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 20
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 20
+                                }
+                            },
+                            "value": "he flies!",
+                            "text": "he flies!"
+                        },
+                        {
+                            "className": "Command",
+                            "location": {
+                                "fileID": "yarn_files/shortcuts.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 30
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 49
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "className": "StringValue",
+                                    "location": {
+                                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 32
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 32
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": "no"
+                                },
+                                {
+                                    "className": "StringValue",
+                                    "location": {
+                                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 35
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 35
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": "more"
+                                },
+                                {
+                                    "className": "StringValue",
+                                    "location": {
+                                        "fileID": "yarn_files/shortcuts.yarn.txt",
+                                        "nodeName": null,
+                                        "start": {
+                                            "line": 7,
+                                            "column": 40
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 40
+                                        }
+                                    },
+                                    "variables": [],
+                                    "functions": [],
+                                    "value": "flyingman"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/shortcuts.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 8,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {},
+    "incomingLinks": {}
+}

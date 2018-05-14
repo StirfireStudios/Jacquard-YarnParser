@@ -1,0 +1,271 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [
+        {
+            "className": "Text",
+            "location": {
+                "fileID": "yarn_files/hashtags.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 41
+                }
+            },
+            "value": "Hashtags can appear at the end of lines. \n#line:d68942",
+            "text": "Hashtags can appear at the end of lines. \n#line:d68942"
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/hashtags.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 4,
+                    "column": 0
+                },
+                "end": {
+                    "line": 4,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "OptionGroup",
+            "location": {
+                "fileID": "yarn_files/hashtags.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 28
+                }
+            },
+            "statements": [
+                {
+                    "className": "Option",
+                    "location": {
+                        "fileID": "yarn_files/hashtags.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 16
+                        }
+                    },
+                    "text": "Option",
+                    "destination": "Link"
+                }
+            ]
+        },
+        {
+            "className": "Blank",
+            "location": {
+                "fileID": "yarn_files/hashtags.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 0
+                }
+            }
+        },
+        {
+            "className": "Conditional",
+            "location": {
+                "fileID": "yarn_files/hashtags.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 11,
+                    "column": 9
+                }
+            },
+            "clauses": [
+                {
+                    "className": "Clause",
+                    "test": {
+                        "className": "EqualityOperator",
+                        "location": {
+                            "nodeName": null,
+                            "start": {
+                                "line": 7,
+                                "column": 5
+                            },
+                            "end": {
+                                "line": 7,
+                                "column": 13
+                            }
+                        },
+                        "variables": [
+                            "var"
+                        ],
+                        "functions": [],
+                        "left": {
+                            "className": "Variable",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 5
+                                }
+                            },
+                            "variables": [
+                                "var"
+                            ],
+                            "functions": [],
+                            "name": "var"
+                        },
+                        "right": {
+                            "className": "BooleanValue",
+                            "location": {
+                                "nodeName": null,
+                                "start": {
+                                    "line": 7,
+                                    "column": 13
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 13
+                                }
+                            },
+                            "variables": [],
+                            "functions": [],
+                            "value": true
+                        }
+                    },
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/hashtags.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 8,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 9
+                                }
+                            },
+                            "value": "Choice A \n#line:e11124",
+                            "text": "Choice A \n#line:e11124"
+                        }
+                    ]
+                },
+                {
+                    "className": "Clause",
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/hashtags.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 10,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 10,
+                                    "column": 9
+                                }
+                            },
+                            "value": "Choice B \n#line:034796",
+                            "text": "Choice B \n#line:034796"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "className": "ShortcutGroup",
+            "location": {
+                "fileID": "yarn_files/hashtags.yarn.txt",
+                "nodeName": null,
+                "start": {
+                    "line": 13,
+                    "column": 0
+                },
+                "end": {
+                    "line": 14,
+                    "column": 44
+                }
+            },
+            "statements": [
+                {
+                    "className": "Shortcut",
+                    "location": {
+                        "fileID": "yarn_files/hashtags.yarn.txt",
+                        "nodeName": null,
+                        "start": {
+                            "line": 13,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 14,
+                            "column": 44
+                        }
+                    },
+                    "statements": [
+                        {
+                            "className": "Text",
+                            "location": {
+                                "fileID": "yarn_files/hashtags.yarn.txt",
+                                "nodeName": null,
+                                "start": {
+                                    "line": 13,
+                                    "column": 5
+                                },
+                                "end": {
+                                    "line": 13,
+                                    "column": 14
+                                }
+                            },
+                            "value": "Shortcut \n#line:83062d",
+                            "text": "Shortcut \n#line:83062d"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": {
+        "fileID": "yarn_files/hashtags.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 15,
+            "column": 0
+        }
+    },
+    "hasStatements": true,
+    "outgoingLinks": {
+        "Link": null
+    },
+    "incomingLinks": {}
+}

@@ -1,0 +1,23 @@
+{
+    "className": "Node",
+    "attributes": {},
+    "tags": [],
+    "statements": [],
+    "location": {
+        "fileID": "yarn_files/optionshortcutmix.yarn.txt",
+        "nodeName": null,
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 5,
+            "column": 0
+        }
+    },
+    "hasStatements": false,
+    "outgoingLinks": {
+        "Foo": null
+    },
+    "incomingLinks": {}
+}
