@@ -143,7 +143,7 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
     }
   }
 }
-
-test.nodesTest(parser);
-
 console.log("all parsed");
+
+test.generateFiles(parser);
+// test.compareFiles();
