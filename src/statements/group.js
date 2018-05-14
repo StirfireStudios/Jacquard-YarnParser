@@ -18,7 +18,7 @@ class Group extends Base {
 			statements: statements,
 		}
 
-		this.hasStatements = true;
+		this.serializableProperties.push("statements");
 
 		privateProps.set(this, privates);
 	}

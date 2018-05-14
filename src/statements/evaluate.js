@@ -19,6 +19,8 @@ class Evaluate extends Base {
 			returnOutput: returnOutput,
 		}
 
+		this.serializableProperties.push("expression", "returnOutput");
+
 		privateProps.set(this, privates);
 	}
 

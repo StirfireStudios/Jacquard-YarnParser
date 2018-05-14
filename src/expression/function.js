@@ -25,6 +25,8 @@ class Function extends Base {
 			functions: funcNames,
 		}
 
+		this.serializableProperties.push("name", "args");
+
 		privateProps.set(this, privates);		
 	}
 

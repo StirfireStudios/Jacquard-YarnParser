@@ -19,6 +19,8 @@ class Function extends Base {
 			args: args,
 		}
 
+		this.serializableProperties.push("name", "arguments");
+
 		privateProps.set(this, privates);
 	}
 

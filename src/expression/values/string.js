@@ -18,6 +18,8 @@ class StringValue extends Base {
 			value: value,
 		}
 
+		this.serializableProperties.push("value");
+
 		privateProps.set(this, privates);		
 	}
 

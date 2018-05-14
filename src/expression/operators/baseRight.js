@@ -20,6 +20,8 @@ class RightOperator extends Base {
 			functions: findFuncs([expression]),
 		}
 
+		this.serializableProperties.push("expression");
+
 		privateProps.set(this, privates);		
 	}
 

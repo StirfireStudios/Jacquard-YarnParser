@@ -19,7 +19,7 @@ class Clause {
 
 		if (test != null) privates.test = test;
 
-		this.publicProperties = true;
+		this.serializableProperties = ["test", "statements"];
 
 		privateProps.set(this, privates);
 	}
@@ -53,6 +53,8 @@ class Conditional extends Base {
 		const privates = {
 			clauses: clauses,
 		}
+
+		this.serializableProperties.push("clauses", "location");
 
 		privateProps.set(this, privates);
 	}

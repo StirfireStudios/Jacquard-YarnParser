@@ -18,6 +18,8 @@ class Command extends Base {
 			args: args,
 		}
 
+		this.serializableProperties.push("arguments");
+
 		privateProps.set(this, privates);
 	}
 

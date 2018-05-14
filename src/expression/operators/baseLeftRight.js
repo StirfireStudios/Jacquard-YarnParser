@@ -22,6 +22,8 @@ class LeftRightOperator extends Base {
 			functions: findFuncs([left, right]),
 		}
 
+		this.serializableProperties.push("left", "right");
+		
 		privateProps.set(this, privates);
 	}
 

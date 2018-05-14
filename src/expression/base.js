@@ -13,7 +13,7 @@ class Base {
 			location: location,
 		}
 
-		this.publicProperties = true;
+		this.serializableProperties = ["location", "variables", "functions"];		
 
 		privateProps.set(this, privates);
 	}

@@ -19,6 +19,8 @@ class Option extends Base {
 			destination: destination
 		}
 
+		this.serializableProperties.push("text", "destination");
+
 		privateProps.set(this, privates);
 	}
 

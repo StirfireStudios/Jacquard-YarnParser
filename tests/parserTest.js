@@ -18,7 +18,6 @@ function getNodes(parser) {
  * Write the nodes into their own seperate files and save those files using the name of the current node.
  * @param {Map} nodes key value pairs of JSON versions of the nodes as values and their names as the respective keys.
  */
-
 function convertNodesToJSON(nodes) {
 	nodes.forEach(node => {
 		let object = checkObjectProperties(node);
@@ -34,27 +33,23 @@ function convertNodesToJSON(nodes) {
  * @return {Object} the object data.
  */
 function checkObjectProperties(instance) {
-	if(instance.publicProperties != null) {
+	if (instance != null) {
+		if(instance.serializableProperties != null) {
+			
+			const jsonable = {className: instance.constructor.name};
 		
-		const jsonable = {className: instance.constructor.name};
-		
-		let publicProperties = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
+			instance.serializableProperties.forEach(property =>{
+				jsonable[property] = checkObjectProperties(instance[property]);
+			});		
 
-		publicProperties.forEach(property =>{
-			jsonable[property] = checkObjectProperties(instance[property]);
-		});
-
-		if (instance.hasStatements != null) {
-			jsonable["statements"] = checkObjectProperties(instance["statements"]);
-		}		
-
-		return jsonable;
-	} else if (instance instanceof Array) {	
-		return instance.map((item) => {return checkObjectProperties(item)});
-	} else if (typeof instance === "object") {
-		return Object.assign({}, instance);
-	} else {
-		return instance;
+			return jsonable;
+		} else if (instance instanceof Array) {	
+			return instance.map((item) => {return checkObjectProperties(item)});
+		} else if (typeof instance === "object") {
+			return Object.assign({}, instance);
+		} else {
+			return instance;
+		}
 	}
 }
 
@@ -73,22 +68,26 @@ function writeJSONToFile(json, fileName) {
 			console.error(err);
 			return;
 		};
-		console.log("File has been created");
+		console.log("File " + fileName +" has been created!");
 	});
 }
 
 
 class ParserTest {
+	/**
+	 * Take the given parser, get all the parsed nodes and convert those nodes to a JSON format.
+	 * @param {Parser} parser the parser to be tested.
+	 */
 	nodesTest(parser) {
 		var nodes = getNodes(parser);
 
 		convertNodesToJSON(nodes);
 	}
 
-	getWorking(parser) {
-		var nodes = [parser.nodeNamed("Basic Lines")];
-		convertNodesToJSON(nodes);
-	}
+	// getWorking(parser) {
+	// 	var nodes = [parser.nodeNamed("Basic Lines")];
+	// 	convertNodesToJSON(nodes);
+	// }
 }
 
 module.exports = ParserTest; 

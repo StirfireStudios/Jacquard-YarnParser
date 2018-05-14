@@ -25,6 +25,8 @@ class AssignmentOperator extends Base {
 			functions: findFuncs([expression]),			
 		}
 
+		this.serializableProperties.push("variable", "expression");
+
 		privateProps.set(this, privates);
 	}
 

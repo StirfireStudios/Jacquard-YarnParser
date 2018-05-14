@@ -18,6 +18,8 @@ class Link extends Base {
 			destination: destination
 		}
 
+		this.serializableProperties.push("destination");
+
 		privateProps.set(this, privates);
 	}
 

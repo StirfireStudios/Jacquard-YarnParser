@@ -18,6 +18,8 @@ class Variable extends Base {
 			name: name,
 		}
 
+		this.serializableProperties.push("name");
+
 		privateProps.set(this, privates);		
 	}
 

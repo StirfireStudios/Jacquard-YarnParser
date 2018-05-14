@@ -18,6 +18,8 @@ class Text extends Base {
 			value: text
 		}
 
+		this.serializableProperties.push("value", "text");
+
 		privateProps.set(this, privates);
 	}
 
