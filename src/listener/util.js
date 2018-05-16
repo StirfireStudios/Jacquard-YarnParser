@@ -1,32 +1,28 @@
 import DialogueSegment from '../statements/dialogueSegment';
 
 // Dialog segment utils!
-function dsStart() {
-  if (this._dialogSegment != null) {
-    finishDialogSegment.call(this);    
+function dsAddStatement(statement) {
+  if (this._dialogSegment == null) {
+    this._dialogSegment = { identifier: null, statements: [] }
   }
 
-  this._dialogSegment = {
-    identifier: null,
-    statements: [],
-  }
+  this._dialogSegment.statement.push(statement);
 }
 
-function dsAddStatement() {
-
-}
+function dsExist() { return this._dialogSegment != null; }
 
 function dsFinish() {
   if (this._dialogSegment == null) return;
-  if (this._dialogSegment.statements.length == 0) return;
   this._statements.push(new DialogueSegment(
     this._dialogSegment.statements,
     null,
     this._dialogSegment.identifier,
   ));
+  this._dialogSegment = null;
 }
 
 export const DialogueSegment = {
   AddStatement: dsAddStatement,
   Finish: dsFinish,
+  Exists: dsExist,
 }
