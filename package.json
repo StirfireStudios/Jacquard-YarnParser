@@ -18,7 +18,7 @@
   "scripts": {
     "build": "rm -Rf dist; babel src -d dist",
     "prepare": "yarn build",
-    "antlr": "node antlr.js --antlr",
+    "antlr-compile": "node antlr.js --compile",
     "antlr-tokens": "node antlr.js --tokens",
     "antlr-gui": "node antlr.js --gui",
     "parse": "node cli.js",
