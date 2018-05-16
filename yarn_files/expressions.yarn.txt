@@ -19,7 +19,7 @@ Test various operators!
 
 << $junk = !$junk >>
 
-<< $junk == $junk != true >>
+<< $junk = $junk != true >>
 
 << i am a frog >>
 ===

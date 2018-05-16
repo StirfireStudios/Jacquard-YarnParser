@@ -1,6 +1,7 @@
 'use strict';
 
-const Base = require('../base');
+import Base from '../base';
+import {findFuncs, findVars} from '../util';
 
 const privateProps = new WeakMap();
 
