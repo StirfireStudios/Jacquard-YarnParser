@@ -1,0 +1,19 @@
+title: DialogSegment - Line Breaks denoting
+---
+This should be one dialog segment.
+This should still be part of the dialog segment.
+
+this should be another dialog segment
+
+this should be a third << commandExec "woo" >> dialog segment
+With two lines in it and an engine command on the first line.
+
+-> This should be in a fourth segment
+   This should be a fourth segment
+
+   This should be in a fifth segment
+-> This should be a sixth segment
+   This should be a sixth segment
+
+   This should be in a seventh segment
+===
