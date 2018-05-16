@@ -6,14 +6,14 @@ const FileIO = require('./FileIO');
 const package = require('./package.json')
 const program = require('commander');
 
-require("babel-register");
-const YarnParser = require('./src/index').Parser;
+const YarnParser = require('./dist/index').Parser;
 
 program
   .version(package.version)
   .option("--preprocessOnly <filename/directory>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
   .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
   .option("--bodyOnly", "the specified file only contains a node body")
+  .option("--blankLinesForSegments", "blank lines denote dialog segments")
   .arguments('<infile/indir>')
   .parse(process.argv);
 
@@ -25,6 +25,7 @@ const config = {
   preprocessOutputFiles: null,
   preprocessDebug: program.debugPreprocess,
   bodyOnly: program.bodyOnly,
+  dialogSegmentPerLine: !program.blankLinesForSegments,
 }
 
 if (program.args.length < 1) {
@@ -104,7 +105,8 @@ if (!config.ready) {
 
 parser = new YarnParser({
   preprocessOnly: config.preprocessOutputFiles != null,
-  preprocessDebug: config.preprocessDebug
+  preprocessDebug: config.preprocessDebug != null,
+  dialogSegmentPerLine: config.dialogSegmentPerLine,
 });
 
 for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
@@ -123,6 +125,10 @@ for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
       console.error(`Error: ${error}`);
     })
   }
+  
+  parser.warnings.forEach((error) => {
+    console.error(`Warning: ${error}`);
+  })
 
   if (config.preprocessOutputFiles != null) {
     try {
