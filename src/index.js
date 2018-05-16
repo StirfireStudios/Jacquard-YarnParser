@@ -9,14 +9,28 @@ import antlrProcessor from './listener';
  * @class ParserConfig
  */
 const defaultConfig = {
-	/** Should this parser only preprocess files and then stop 
+	/** Should this parser only preprocess files and then stop.
+	 * Default is false
+	 * @type {boolean}
+	 * @defaultvalue {false}
 	 * @memberof ParserConfig
 	 */
 	preprocessOnly: false,
 	/** Should this parser output preprocessed files with visible option brackets
+	 * Default is false
+	 * @type {boolean}
+	 * @defaultvalue {false}
 	 * @memberof ParserConfig
 	 */
 	preprocessDebug: false,
+	/** Should the parser output a dialog segment for each line.
+	 * If this is false a blank line will split dialogue segments
+	 * Default is true
+	 * @type {boolean}
+	 * @defaultvalue {true}
+	 * @memberof ParserConfig
+	 */
+	dialogSegmentPerLine: true,
 };
 
 const privateProps = new WeakMap();
@@ -131,7 +145,9 @@ export class Parser {
 		if (privates.config.preprocessOnly || privates.config.preprocessDebug) 
 			return false;
 	
-		const parsedData = antlrProcessor(privates.processedString, bodyOnly, fileID);
+		const parsedData = antlrProcessor(
+			privates.processedString, bodyOnly, fileID, privates.config.dialogSegmentPerLine
+		);
 		processMessages.call(this, parsedData, fileID);
 		processList.call(this, parsedData, "variables");
 		processList.call(this, parsedData, "functions");

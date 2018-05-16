@@ -13,6 +13,7 @@ program
   .option("--preprocessOnly <filename/directory>", 'Only run the shortcut preprocessor. Write the preprocessed file to <filename>')
   .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
   .option("--bodyOnly", "the specified file only contains a node body")
+  .option("--blankLinesForSegments", "blank lines denote dialog segments")
   .arguments('<infile/indir>')
   .parse(process.argv);
 
@@ -103,7 +104,8 @@ if (!config.ready) {
 
 parser = new YarnParser({
   preprocessOnly: config.preprocessOutputFiles != null,
-  preprocessDebug: config.preprocessDebug
+  preprocessDebug: config.preprocessDebug != null,
+  dialogSegmentPerLine: config.blankLinesForSegments == null,
 });
 
 for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
