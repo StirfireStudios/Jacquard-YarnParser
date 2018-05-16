@@ -1,0 +1,11 @@
+title: DialogSegment - Single Lines
+---
+This should be one dialog segment
+this should be another dialog << commandExec "woo" >> segment
+this should be a third dialog segment
+
+-> This should be in a fourth segment
+   This should be a fifth segment
+-> This should be a sixth segment
+   This should be a seventh segment
+===

@@ -1,7 +1,8 @@
 'use strict';
 
-const Node = require('../node');
-const Location = require('../parser/location');
+import Node from '../node';
+import Location from '../parser/location';
+import * as Util from './util';
 
 function enter(ctx) {
 	if (this._nodeData != null) {
@@ -24,6 +25,7 @@ function enter(ctx) {
 }
 
 function exit(ctx) {
+  Util.DialogueSegment.Finish.call(this);
   const node = new Node(this._nodeData);
   if (!node.hasStatements) this.addWarning(ctx, "no statements in node");
   if (node.name == null) {
@@ -37,9 +39,7 @@ function exit(ctx) {
   this._statements = null;
 }
 
-function addToPrototype(prototype) {
+export default function addToPrototype(prototype) {
   prototype.enterNode = enter;
   prototype.exitNode = exit;
 }
-
-module.exports = addToPrototype;

@@ -1,8 +1,9 @@
 'use strict';
 
-const OptionStatement = require('../statements/option');
-const LinkStatement = require('../statements/link');
-const Location = require('../parser/location');
+import LinkStatement from '../statements/link';
+import Location from '../parser/location';
+import OptionStatement from '../statements/option';
+import * as Util from './util';
 
 function addLink(statement) {
 	this._statements.push(statement);

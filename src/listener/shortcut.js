@@ -1,9 +1,11 @@
 'use strict';
 
-const ShortcutStatement = require('../statements/shortcut');
-const Location = require('../parser/location');
+import ShortcutStatement from '../statements/shortcut';
+import Location from '../parser/location';
+import * as Util from './util';
 
 function enter(ctx) {
+	Util.DialogueSegment.Finish.call(this);
 	const shortcutParts = {
 		previousShortcut: this._shortcut,
 		previousStatements: this._statements,
@@ -15,6 +17,8 @@ function enter(ctx) {
 }
 
 function exit(ctx) {
+	Util.StatementGroup.End.call(this, ctx);
+	Util.DialogueSegment.Finish.call(this);
 	if (this._group != null) this._group.isShortcut = true;
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
