@@ -1,4 +1,4 @@
-title: DialogSegment - Line Breaks denoting
+title: DialogSegment - Line Breaks
 ---
 This should be one dialog segment.
 This should still be part of the dialog segment.

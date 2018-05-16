@@ -141,10 +141,10 @@ export class Parser {
 			privates.errors.push({message: err.toString()});
 			return true;
 		}
-	
+
 		if (privates.config.preprocessOnly || privates.config.preprocessDebug) 
 			return false;
-	
+
 		const parsedData = antlrProcessor(
 			privates.processedString, bodyOnly, fileID, privates.config.dialogSegmentPerLine
 		);

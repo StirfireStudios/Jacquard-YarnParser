@@ -25,6 +25,7 @@ const config = {
   preprocessOutputFiles: null,
   preprocessDebug: program.debugPreprocess,
   bodyOnly: program.bodyOnly,
+  dialogSegmentPerLine: !program.blankLinesForSegments,
 }
 
 if (program.args.length < 1) {
@@ -105,7 +106,7 @@ if (!config.ready) {
 parser = new YarnParser({
   preprocessOnly: config.preprocessOutputFiles != null,
   preprocessDebug: config.preprocessDebug != null,
-  dialogSegmentPerLine: config.blankLinesForSegments == null,
+  dialogSegmentPerLine: config.dialogSegmentPerLine,
 });
 
 for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {
