@@ -14,5 +14,12 @@ Set a variable to an integer without "set"
 
 << $junk += aFuncCall(1+1, "string") >>
 
+Test various operators!
+<< $junk = -$junk >>
+
+<< $junk = !$junk >>
+
+<< $junk == $junk != true >>
+
 << i am a frog >>
 ===
