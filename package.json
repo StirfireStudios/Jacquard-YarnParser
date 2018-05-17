@@ -16,7 +16,7 @@
     "antlr4": "^4.7.1"
   },
   "scripts": {
-    "build": "rm -Rf dist; babel src -d dist",
+    "build": "node build.js",
     "prepare": "yarn build",
     "antlr-compile": "node antlr.js --compile",
     "antlr-tokens": "node antlr.js --tokens",
