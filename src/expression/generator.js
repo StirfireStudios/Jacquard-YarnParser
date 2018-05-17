@@ -93,6 +93,25 @@ function generateLeftRightExpression(node, fileID) {
 	return new operatorClass(left, right, location);
 }
 
+function generateRightExpresssion(node, fileID) {
+	const location = Location.FromANTLRNode(node);
+	location.fileID = fileID;
+	if (node.getChildCount() != 2) {
+		console.error(`Right operator has ${node.getChildCount()} children and not 2!`);
+		return null;
+	}
+
+	const expression = generateExpression(node.getChild(1));
+	if (node instanceof YarnParser.NegativeExpressionContext) {
+		return new ExpressionTypes.NegativeOperator(expression, location);
+	} else if (node instanceof YarnParser.NotExpressionContext) {
+		return new ExpressionTypes.NotOperator(expression, location);
+	} else {
+		console.error(`Unknown Expression!`);
+		return null;		
+	}
+}
+
 function generateNumberValue(expressionNode, fileID) {
 	const location = Location.FromANTLRNode(expressionNode);
 	location.fileID = fileID;
@@ -160,6 +179,7 @@ function generateValueExpression(expressionNode, fileID) {
 }
 
 function generateExpression(expressionNode, fileID) {
+	console.log(expressionNode.constructor);
 	if (expressionNode instanceof YarnParser.ValueExpressionContext) {
 		return generateValueExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.FunctionExpressionContext) {
@@ -169,15 +189,17 @@ function generateExpression(expressionNode, fileID) {
 	} else if (expressionNode instanceof YarnParser.GroupedExpressionContext) {
 		return generateExpression(expressionNode.getChild(1), fileID);
 	} else if (expressionNode instanceof YarnParser.NegativeExpressionContext) {
-		return generateNegativeExpression(expressionNode, fileID);
+		return generateRightExpresssion(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.NotExpressionContext) {
-		return generateNotExpression(expressionNode, fileID);
+		return generateRightExpresssion(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.AssignmentExpressionContext) {
 		return generateAssignmentExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.LeftRightExpressionContext) {
 		return generateLeftRightExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.StringContext) {
 		return generateStringExpression(expressionNode, fileID);
+	} else if (expressionNode instanceof YarnParser.OperandContext) {
+		debugger;
 	}
 	console.error("UNHANDLED EXPRESSION!");
 }

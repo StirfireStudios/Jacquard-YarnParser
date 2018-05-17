@@ -1,6 +1,6 @@
 {
   "name": "jacquard-yarnparser",
-  "version": "0.3.10",
+  "version": "0.4.0",
   "description": "a JS parser for Yarn into an intermediate format",
   "main": "dist/index.js",
   "repository": "https://github.com/StirfireStudios/Jacquard-YarnParser",
@@ -16,9 +16,9 @@
     "antlr4": "^4.7.1"
   },
   "scripts": {
-    "build": "rm -Rf dist; babel src -d dist",
+    "build": "node build.js",
     "prepare": "yarn build",
-    "antlr": "node antlr.js --antlr",
+    "antlr-compile": "node antlr.js --compile",
     "antlr-tokens": "node antlr.js --tokens",
     "antlr-gui": "node antlr.js --gui",
     "parse": "node cli.js",
