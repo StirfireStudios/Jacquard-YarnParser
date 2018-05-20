@@ -80,7 +80,7 @@ expression
     | MINUS expression # negativeExpression
     | NOT expression # notExpression
     | VARIABLE assignmentOperand expression #assignmentExpression
-    | left=expression operand right=expression #leftRightExpression
+    | left=expression operand KEYWORD_IF? right=expression #leftRightExpression
     ;
 
 operand
