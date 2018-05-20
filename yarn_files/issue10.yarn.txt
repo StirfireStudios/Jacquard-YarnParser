@@ -1,0 +1,13 @@
+title: Issue-2
+---
+// From Twine docs https://twinery.org/wiki/if
+<<if $body is "wounded">>You are <<if $blood <= 5>>about to die<<else>>bleeding<<endif>>. Seek help!<<endif>>
+
+<< if $var1 + if $var2>>
+Example1
+<<endif>>
+
+<< if $variable2 == false or if $variable3 == true >>
+Example2
+<<endif>>
+===
