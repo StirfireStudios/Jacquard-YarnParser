@@ -92,8 +92,9 @@ mode Option ;
 BODY_OPTION_END : OPTION_END -> type(OPTION_END), popMode ;
 OPTION_WS : [ \t] -> skip ;
 OPTION_BLOCK_COMMENT : BLOCK_COMMENT -> skip ;
+OPTION_HASHTAG : '#' ~[#\r\n|\u001D\u001E]+ -> type(HASHTAG) ;
 OPTION_SEPARATOR : '|' ;
-OPTION_TEXT : LETTER_NUMBER (~[\r\n|<>[\]/] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
+OPTION_TEXT : LETTER_NUMBER (~[\r\n|<>[\]#/] | NOT_SPECIAL_MARKER)* -> type(TEXT) ;
 OPTION_COMMAND_START : COMMAND_START -> type(COMMAND_START), pushMode(Command) ;
 
 mode Command ;

@@ -29,7 +29,7 @@ shortcut_statement : SHORTCUT_START (option_group | statement)* SHORTCUT_END ;
 
 option_group : (ostatement+ | option_link) ;
 option_link : OPTION_START link=TEXT OPTION_END ;
-option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
+option_with_text : OPTION_START optionText=TEXT hashtag=HASHTAG* OPTION_SEPARATOR link=TEXT OPTION_END hashtag=HASHTAG*;
 
 if_statement : if_clause else_if_clause*? else_clause? endif_clause;
 if_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? (option_group | statement)*?;

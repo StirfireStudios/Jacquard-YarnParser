@@ -2,9 +2,11 @@ title: Hashtags
 ---
 Hashtags can appear at the end of lines. #dialogRef:d68942
 
-Can have multiple hashtags at the end of lines. #dialogRef:d68943 #junkPart
+Can have multiple hashtags at the end of lines. #dialogRef:d68943 #junkPart:junkValue
 
 [[Option|Link]] #dialogRef:088f6b
+
+[[i am text #dialogRef:abcdef|nodelink]]
 
 <<if $var is true>>
 Choice A #dialogRef:e11124
