@@ -4,6 +4,8 @@ const program = require('commander');
 const package = require('./package.json')
 const Path = require('path');
 
+const env = process.env;
+
 program
   .version(package.version)
   .option('--compile', 'Compile the antlr into JS')
@@ -12,7 +14,7 @@ program
   .parse(process.argv);
 
 if (program.compile) {
-  exec('antlr4 *.g4 -Dlanguage=JavaScript -listener', {cwd: 'src/antlr'});
+  exec('antlr4 *.g4 -Dlanguage=JavaScript -listener', {cwd: 'src/antlr', env: env});
 }
 
 if (program.tokens != null) {
@@ -26,9 +28,9 @@ if (program.gui != null) {
 }
 
 function grun(arg, path) { 
-  exec('antlr4 *.g4 -listener -o ../../tmp', {cwd: 'src/antlr'})
-    .then(_ => exec('javac *java', {cwd: 'tmp'})
-      .then(_ => exec('grun Yarn dialogue ' + arg + ' ' + path, {cwd: 'tmp'}, (error, stdout, stderr) => {
+  exec('antlr4 *.g4 -listener -o ../../tmp', {cwd: 'src/antlr', env: env})
+    .then(_ => exec('javac *java', {cwd: 'tmp', env: env})
+      .then(_ => exec('grun Yarn dialogue ' + arg + ' ' + path, {cwd: 'tmp', env: env}, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
           return;
