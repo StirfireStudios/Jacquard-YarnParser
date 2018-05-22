@@ -9,6 +9,7 @@ module.exports = {
 	Blank: require('./blank'),
 	Command: require('./command'),
 	Conditional: require('./conditional'),
+	DialogueSegment: require('./dialogueSegment'),
 	Evaluate: require('./evaluate'),
 	Function: require('./function'),
 	LineGroup: require('./lineGroup'),
