@@ -74,6 +74,15 @@ YarnParserListener.prototype.exitPart = function(ctx) {
 };
 
 
+// Enter a parse tree produced by YarnParser#hashtag.
+YarnParserListener.prototype.enterHashtag = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#hashtag.
+YarnParserListener.prototype.exitHashtag = function(ctx) {
+};
+
+
 // Enter a parse tree produced by YarnParser#option.
 YarnParserListener.prototype.enterOption = function(ctx) {
 };
