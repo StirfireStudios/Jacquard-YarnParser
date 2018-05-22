@@ -1,6 +1,7 @@
-import DialogueSegment from '../statements/dialogueSegment';
+import Statements from '../statements';
 import LineGroup from '../statements/lineGroup';
 import Location from '../parser/location';
+import { Statement } from '../../dist';
 
 // StatementGroup utils!
 function sgStart(ctx) {
@@ -43,20 +44,20 @@ const sgExternals = {
 
 // Dialog segment utils!
 function dsStatement(statement) {
-  switch(statement.constructor.name) {
-    case "Blank":
-    case "Conditional":
-    case "DialogueSegment":
-    case "Evaluate": 
-    case "Function":
-    case "Link":
-    case "Option":
-    case "OptionGroup":
-    case "Shortcut":
-    case "ShortcutGroup":
+  switch(statement.constructor) {
+    case Statements.Blank:
+    case Statements.Conditional:
+    case Statements.DialogueSegment:
+    case Statements.Evaluate:
+    case Statements.Function:
+    case Statements.Link:
+    case Statements.Option:
+    case Statements.OptionGroup:
+    case Statements.Shortcut:
+    case Statements.ShortcutGroup:
       return false;
-    case "LineGroup":
-    case "Text":
+    case Statements.LineGroup:
+    case Statements.Text:
       return true;
     default: 
       console.warn(`Unrecognized statement type: ${statement.constructor.name}`);
@@ -86,7 +87,7 @@ function dsExist() { return this._dialogSegment != null; }
 
 function dsFinish() {
   if (this._dialogSegment == null) return;
-  this._statements.push(new DialogueSegment(
+  this._statements.push(new Statements.DialogueSegment(
     this._dialogSegment.statements,
     null,
     this._dialogSegment.identifier,
