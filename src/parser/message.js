@@ -8,6 +8,10 @@ const Location = require('./location');
  * @property {Location} location The location of the message
  */
 class ParserMessage {
+  /**
+   * @property {string} message The message
+   * @property {Location} location The location of the message
+   */
 	constructor(message, location) {
     if (message !== undefined) this.message = message;
     if (location !== undefined) this.location = location;

@@ -1,15 +1,29 @@
 title: Hashtags
 ---
-Hashtags can appear at the end of lines. #line:d68942
+Hashtags can appear at the end of lines. #dialogRef:0001
+Can have multiple hashtags at the end of lines. #dialogRef:0003 #junkPart:junkValue
 
-[[Option|Link]] #line:088f6b
+[[Option|Link]] #dialogRef:0004
+
+[[i am text #dialogRef:0006|nodelink]]
 
 <<if $var is true>>
-Choice A #line:e11124
+Choice A #dialogRef:0005
 <<else>>
-Choice B #line:034796
+Choice B #dialogRef:0010
 <<endif>>
 
--> Shortcut #line:83062d
-    To the front of the line. #line:e90da9
+Hashtags can be alone on a line
+#dialogRef:0011 #translationNote: and some of them should be allowed to be bare strings
+
+Hashtags can preceed a line they should belong to
+#dialogRef:0100 #translationNote: woo is woo
+I should have the hashtags attached to me!
+
+-> Shortcut #dialogRef:0013
+    To the front of the line. #line:0012
+
+-> #dialogRef:0014
+   Shortcut text
+   More text #dialogRef:0015
 ===

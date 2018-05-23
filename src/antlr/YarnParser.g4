@@ -11,9 +11,11 @@ header : headerName=TEXT SEPARATOR headerValue=TEXT? ;
 body : BODY_START (option_group | statement)* BODY_END ;
 
 statement
-    : if_statement NEWLINE? # if
-    | NEWLINE # blank
-    | (text | command_statement | eval_statement)+? NEWLINE? #part
+    : if_statement # if
+    | NEWLINE NEWLINE # blank
+    | (text | command_statement | eval_statement)+? #lineGroup
+    | hashtag=HASHTAG+? #hashtag
+    | NEWLINE #endOfLine
     ;
 
 ostatement
@@ -28,7 +30,7 @@ shortcut_statement : SHORTCUT_START (option_group | statement)* SHORTCUT_END ;
 
 option_group : (ostatement+ | option_link) ;
 option_link : OPTION_START link=TEXT OPTION_END ;
-option_with_text : OPTION_START link=TEXT OPTION_SEPARATOR optionText=TEXT OPTION_END hashtag=HASHTAG*;
+option_with_text : OPTION_START optionText=TEXT hashtag=HASHTAG* OPTION_SEPARATOR link=TEXT OPTION_END hashtag=HASHTAG*;
 
 if_statement : if_clause else_if_clause*? else_clause? endif_clause;
 if_clause : IF_COMMAND_START predicate=expression COMMAND_END NEWLINE? (option_group | statement)*?;
@@ -54,7 +56,7 @@ command_statement
 
 function_call : (TEXT | keyword | operand) LBRACKET (args+=expression (COMMA args+=expression)*)? RBRACKET ;
 
-text : TEXT hashtag=HASHTAG* ;
+text : TEXT hashtag=HASHTAG*? ;
 
 set_operands
     : KEYWORD_TO

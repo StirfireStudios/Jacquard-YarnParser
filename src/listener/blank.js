@@ -4,7 +4,7 @@ import BlankStatement from '../statements/blank';
 import Location from '../parser/location';
 import * as Util from './util';
 
-function exit(ctx) {
+function exitBlankLine(ctx) {
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
 	Util.DialogueSegment.Finish.call(this);
@@ -16,8 +16,14 @@ function exit(ctx) {
 	this._statements.push(new BlankStatement(location));
 }
 
+function exitEndOfLine(ctx) {
+	if (this._dialogSegmentRequiresBlankspace) return;
+	Util.DialogueSegment.Finish.call(this);
+}
+
 function addToPrototype(prototype) {
-  prototype.exitBlank = exit;
+	prototype.exitBlank = exitBlankLine;
+	prototype.exitEndOfLine = exitEndOfLine;
 }
 
 module.exports = addToPrototype;

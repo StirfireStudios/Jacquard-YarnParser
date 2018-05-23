@@ -12,6 +12,7 @@ module.exports = {
 	DialogueSegment: require('./dialogueSegment'),
 	Evaluate: require('./evaluate'),
 	Function: require('./function'),
+	Hashtag: require('./hashtag'),
 	LineGroup: require('./lineGroup'),
 	Link: require('./link'),
 	Option: require('./option'),

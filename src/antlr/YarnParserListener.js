@@ -65,12 +65,30 @@ YarnParserListener.prototype.exitBlank = function(ctx) {
 };
 
 
-// Enter a parse tree produced by YarnParser#part.
-YarnParserListener.prototype.enterPart = function(ctx) {
+// Enter a parse tree produced by YarnParser#lineGroup.
+YarnParserListener.prototype.enterLineGroup = function(ctx) {
 };
 
-// Exit a parse tree produced by YarnParser#part.
-YarnParserListener.prototype.exitPart = function(ctx) {
+// Exit a parse tree produced by YarnParser#lineGroup.
+YarnParserListener.prototype.exitLineGroup = function(ctx) {
+};
+
+
+// Enter a parse tree produced by YarnParser#hashtag.
+YarnParserListener.prototype.enterHashtag = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#hashtag.
+YarnParserListener.prototype.exitHashtag = function(ctx) {
+};
+
+
+// Enter a parse tree produced by YarnParser#endOfLine.
+YarnParserListener.prototype.enterEndOfLine = function(ctx) {
+};
+
+// Exit a parse tree produced by YarnParser#endOfLine.
+YarnParserListener.prototype.exitEndOfLine = function(ctx) {
 };
 
 
