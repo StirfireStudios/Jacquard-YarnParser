@@ -1,9 +1,12 @@
 'use strict';
 
-const Location = require('../parser/location');
+import Location from '../parser/location';
+import HashtagStatement from '../statements/hashtag';
+import * as Util from './util';
 
 function getParts(hashtag) {
-  const parts1 = hashtag.trimLeft("#").split(":");
+  if (hashtag.startsWith("#")) hashtag = hashtag.substring(1);
+  const parts1 = hashtag.split(":");
   const retVal = parts1.splice(0,1);
   retVal.push(parts1.join(':'));
   return retVal;
@@ -12,11 +15,22 @@ function getParts(hashtag) {
 function exit(ctx) {
   const location = Location.FromANTLRNode(ctx);
   const parts = getParts(ctx.hashtag.text);
-  debugger;
+  let statement = null;
+  if (parts.length > 1) {
+    statement = new HashtagStatement(parts[0].trim(), parts[1].trim(), location);
+  } else {
+    statement = new HashtagStatement(parts[0].trim(), null, location);
+  }
+
+  if (Util.DialogueSegment.Exists.call(this)) {
+    Util.DialogueSegment.AddStatement.call(this, statement);
+  } else {
+    this._statements.push(statement);
+  }
+
 }
 
-function addToPrototype(prototype) {
+export default function addToPrototype(prototype) {
   prototype.exitHashtag = exit;
 }
 
-module.exports = addToPrototype;

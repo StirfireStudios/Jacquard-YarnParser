@@ -23,7 +23,7 @@
 			"outFiles": ["${workspaceRoot}/dist/**"],
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
-				"yarn_files/expressions.yarn.txt"
+				"yarn_files/hashtags.yarn.txt"
 			]
 		},	
 		{

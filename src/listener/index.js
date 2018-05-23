@@ -15,7 +15,7 @@ import addNodeListeners from './node';
 
 import addHeaderListener from './header';
 
-import addStatementGroupListener from './statement';
+import addLineGroupListener from './lineGroup';
 import addOptionGroupListener from './group';
 
 import addBlankStatementListener from './blank';
@@ -62,7 +62,7 @@ YarnListener.prototype.addWarning = function(ctx, string) {
 addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
 
-addStatementGroupListener(YarnListener.prototype);
+addLineGroupListener(YarnListener.prototype);
 addOptionGroupListener(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);

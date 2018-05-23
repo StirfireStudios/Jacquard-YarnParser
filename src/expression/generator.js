@@ -179,7 +179,6 @@ function generateValueExpression(expressionNode, fileID) {
 }
 
 function generateExpression(expressionNode, fileID) {
-	console.log(expressionNode.constructor);
 	if (expressionNode instanceof YarnParser.ValueExpressionContext) {
 		return generateValueExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.FunctionExpressionContext) {
