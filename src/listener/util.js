@@ -68,8 +68,19 @@ function dsStatement(statement) {
   }
 }
 
+function isDialogRef(statement) {
+  return statement.key.toLowerCase() === "dialogref";
+}
+
+function isTranslationNote(statement) {
+  const key = statement.key.toLowerCase();
+  if (key.startsWith("translationnote")) return true;
+  if (key.startsWith("translatornote")) return true;
+  return false;
+}
+
 function dsAddHashtagInfo(statement) {
-  if (statement.key.toLowerCase() === "dialogref") {
+  if (isDialogRef(statement)) {
     if (statement.value == null) return;
     if (this._dialogSegment.identifier !== null) {
       const message = new ParserMessage("Extra dialog reference id", statement.location)
@@ -78,7 +89,7 @@ function dsAddHashtagInfo(statement) {
       return;
     }
     this._dialogSegment.identifier = statement.value;
-  } else if (statement.key.toLowerCase() === "translationnote") {
+  } else if (isTranslationNote(statement)) {
     if (statement.value == null) return;
     this._dialogSegment.translationNotes.push(statement.value);
   }
