@@ -72,6 +72,7 @@ keyword
     | KEYWORD_TRUE
     | KEYWORD_FALSE
     | KEYWORD_NULL
+    | KEYWORD_IF
     ;
 
 expression

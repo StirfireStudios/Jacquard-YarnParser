@@ -128,11 +128,11 @@ MULTIPLY_EQUALS : '*=' ;
 DIVIDE_EQUALS : '/=' ;
 MODULO_EQUALS : '%=' ;
 
+// Keyword tokens must also be added to the 'keyword' parser rule
 KEYWORD_TO : T O | '=' ;
 KEYWORD_TRUE : T R U E ;
 KEYWORD_FALSE : F A L S E ;
 KEYWORD_NULL : N U L L | N I L ;
-
 KEYWORD_IF : I F ;
 
 COMMAND_VARIABLE : VARIABLE -> type(VARIABLE) ;
