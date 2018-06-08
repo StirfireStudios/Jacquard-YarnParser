@@ -84,7 +84,7 @@ function addToPrototype(prototype) {
 	prototype.enterOf_clause = enterTestedClause;
 	prototype.exitOf_clause = exitTestedClause;
 	prototype.enterElse_of_clause = enterTestedClause;
-	prototype.exitElse_of_clause = enterTestedClause;
+	prototype.exitElse_of_clause = exitTestedClause;
 	prototype.enterOelse_clause = enterClause;
 	prototype.exitOelse_clause = exitClause;
 	prototype.exitOf_statement = exit;
