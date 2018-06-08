@@ -15,7 +15,7 @@ import addNodeListeners from './node';
 
 import addHeaderListener from './header';
 
-import addStatementGroupListener from './statement';
+import addLineGroupListener from './lineGroup';
 import addOptionGroupListener from './group';
 
 import addBlankStatementListener from './blank';
@@ -23,6 +23,7 @@ import addConditionalStatementListener from './conditional';
 import addCommandStatementListener from './command';
 import addEvaluateStatementListener from './evaluate';
 import addFunctionStatementListener from './function';
+import addHashtagStatementListener from './hashtag';
 import addOptionLinkStatementListener from './option';
 import addTextStatementListener from './text';
 import addSetStatementListener from './set';
@@ -61,7 +62,7 @@ YarnListener.prototype.addWarning = function(ctx, string) {
 addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
 
-addStatementGroupListener(YarnListener.prototype);
+addLineGroupListener(YarnListener.prototype);
 addOptionGroupListener(YarnListener.prototype);
 
 addBlankStatementListener(YarnListener.prototype);
@@ -69,6 +70,7 @@ addConditionalStatementListener(YarnListener.prototype);
 addCommandStatementListener(YarnListener.prototype);
 addEvaluateStatementListener(YarnListener.prototype);
 addFunctionStatementListener(YarnListener.prototype);
+addHashtagStatementListener(YarnListener.prototype);
 addOptionLinkStatementListener(YarnListener.prototype);
 addSetStatementListener(YarnListener.prototype);
 addShortcutStatementListener(YarnListener.prototype);

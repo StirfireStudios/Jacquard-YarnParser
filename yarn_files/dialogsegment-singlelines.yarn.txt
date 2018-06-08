@@ -1,8 +1,8 @@
 title: DialogSegment - Single Lines
 ---
-This should be one dialog segment
-this should be another dialog << commandExec "woo" >> segment
-this should be a third dialog segment
+This should be one dialog segment #dialogRef:11
+this should be another dialog << commandExec "woo" >> segment #dialogRef:12
+this should be a third dialog segment #dialogRef:13
 
 -> This should be in a fourth segment
    This should be a fifth segment

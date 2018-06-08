@@ -10,12 +10,20 @@ const privates = new WeakMap();
  * @augments Statement.Group
  * @class DialogueSegment
  */
-export default class DialogueSegment extends Group {
-  constructor(statements, location, identifier) { 
+class DialogueSegment extends Group {
+  /**
+   * 
+   * @param {Statement[]} statements 
+   * @param {Location} location 
+   * @param {string} identifier 
+   * @param {string[]} translationNotes 
+   */
+  constructor(statements, location, identifier, translationNotes) { 
     super(statements, location); 
 
     const privs = {
       identifier: identifier,
+      notes: translationNotes,
     }
 
     privates.set(this, privs);
@@ -23,7 +31,15 @@ export default class DialogueSegment extends Group {
 
   /** @memberof Statement.DialogueSegment
    * @instance
-   * @returns the unique identifer of this segment
+   * @returns {string} the unique identifer of this segment
    */
   get identifier() { return privates.get(this).identifier; }
+
+  /** @memberof Statement.DialogueSegment
+   * @instance
+   * @returns {string[]} the translation notes
+   */
+  get translationNotes() { return privates.get(this).notes; }
 }
+
+module.exports = DialogueSegment;

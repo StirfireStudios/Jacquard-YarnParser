@@ -23,7 +23,8 @@
 			"outFiles": ["${workspaceRoot}/dist/**"],
 			"program": "${workspaceFolder}/cli.js",
 			"args": [
-				"yarn_files/expressions.yarn.txt"
+				"--blankLinesForSegments",
+				"yarn_files/dialogsegment-linebreaks.yarn.txt"
 			]
 		},	
 		{

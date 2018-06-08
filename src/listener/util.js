@@ -1,6 +1,8 @@
-import DialogueSegment from '../statements/dialogueSegment';
+import Statements from '../statements';
 import LineGroup from '../statements/lineGroup';
 import Location from '../parser/location';
+import ParserMessage from '../parser/message';
+import { Statement } from '../../dist';
 
 // StatementGroup utils!
 function sgStart(ctx) {
@@ -43,24 +45,53 @@ const sgExternals = {
 
 // Dialog segment utils!
 function dsStatement(statement) {
-  switch(statement.constructor.name) {
-    case "Blank":
-    case "Conditional":
-    case "DialogueSegment":
-    case "Evaluate": 
-    case "Function":
-    case "Link":
-    case "Option":
-    case "OptionGroup":
-    case "Shortcut":
-    case "ShortcutGroup":
+  switch(statement.constructor) {
+    case Statements.Blank:
+    case Statements.Conditional:
+    case Statements.DialogueSegment:
+    case Statements.Evaluate:
+    case Statements.Function:
+    case Statements.Link:
+    case Statements.Option:
+    case Statements.OptionGroup:
+    case Statements.Shortcut:
+    case Statements.ShortcutGroup:
       return false;
-    case "LineGroup":
-    case "Text":
+    case Statements.Command:
+    case Statements.LineGroup:
+    case Statements.Text:
+    case Statements.Hashtag:
       return true;
     default: 
       console.warn(`Unrecognized statement type: ${statement.constructor.name}`);
       return false;
+  }
+}
+
+function isDialogRef(statement) {
+  return statement.key.toLowerCase() === "dialogref";
+}
+
+function isTranslationNote(statement) {
+  const key = statement.key.toLowerCase();
+  if (key.startsWith("translationnote")) return true;
+  if (key.startsWith("translatornote")) return true;
+  return false;
+}
+
+function dsAddHashtagInfo(statement) {
+  if (isDialogRef(statement)) {
+    if (statement.value == null) return;
+    if (this._dialogSegment.identifier !== null) {
+      const message = new ParserMessage("Extra dialog reference id", statement.location)
+      message.location.fileID = this._fileID;
+      this.warning.push(message);
+      return;
+    }
+    this._dialogSegment.identifier = statement.value;
+  } else if (isTranslationNote(statement)) {
+    if (statement.value == null) return;
+    this._dialogSegment.translationNotes.push(statement.value);
   }
 }
 
@@ -71,13 +102,19 @@ function dsAddStatement(statement) {
     return;
   }
 
-  if (!this._dialogSegmentRequiresBlankspace) {
-    dsFinish.call(this);
+  if (this._dialogSegment == null) {
+    this._dialogSegment = { identifier: null, statements: [], translationNotes: [], }
   }
 
-  if (this._dialogSegment == null) {
-    this._dialogSegment = { identifier: null, statements: [] }
-  } 
+  if (statement instanceof Statements.Hashtag) {
+    dsAddHashtagInfo.call(this, statement);
+  }
+
+  let lastStatement = getLastStatement.call(this);
+  while(lastStatement instanceof Statements.Hashtag) {
+    dsAddStatement.call(this, this._statements.pop());
+    lastStatement = getLastStatement.call(this);
+  }
 
   this._dialogSegment.statements.push(statement);
 }
@@ -86,10 +123,11 @@ function dsExist() { return this._dialogSegment != null; }
 
 function dsFinish() {
   if (this._dialogSegment == null) return;
-  this._statements.push(new DialogueSegment(
+  this._statements.push(new Statements.DialogueSegment(
     this._dialogSegment.statements,
     null,
     this._dialogSegment.identifier,
+    this._dialogSegment.translationNotes,
   ));
   this._dialogSegment = null;
 }
@@ -99,6 +137,11 @@ const dsExternals = {
   AddStatement: dsAddStatement,
   Exists: dsExist,
   Finish: dsFinish,
+}
+
+export function getLastStatement() {
+  if (this._statements.length === 0) return null;
+  return this._statements[this._statements.length - 1];
 }
 
 export { dsExternals as DialogueSegment }

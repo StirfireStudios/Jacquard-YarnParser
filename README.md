@@ -75,6 +75,24 @@ If you want to modify the ANTLR definitions, you should setup ANTLR for your env
 
 ### Antlr Spinup
 
+#### macOS
+
+Install the Java SE Development Kit (either version 7 or 8) - check java.sun.com for downloads
+
+Ensure that `javac` and `java` executables are in your path: 
+  
+  1. Open a command prompt
+  2. try the command `java -version` (you should be greeted with a version number)
+  3. try the command `javac -version` (again, a version should be output)
+
+If either javac or java aren't present check your install (these should work by default on the command line on mac os x)
+
+Next - we need to get ANTLR itself and put it in your classpath. Check out the instructions [here](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md#unix)
+
+Unfortunatley aliases aren't accessible from node scripts (if you know how to fix this - let us know!), so you'll need to create shell scripts somewhere on your path
+
+Some suggested scripts are [here](https://gist.github.com/lordmortis/8eafe80394eca45f924a2157b924e3bf)
+
 #### Windows
 
 Install the Java SE Development Kit (either version 7 or 8) - check java.sun.com for downloads

@@ -4,6 +4,7 @@ import OptionGroup from '../statements/options';
 import ShortcutGroup from '../statements/shortcuts';
 import Location from '../parser/location';
 import LinkStatement from '../statements/link';
+import * as Util from './util';
 
 function warningRequired(group) {
 	if (group.statements.length !== 1) return;
@@ -11,6 +12,8 @@ function warningRequired(group) {
 }
 
 function enter(ctx) {
+	Util.StatementGroup.End.call(this, ctx);
+	Util.DialogueSegment.Finish.call(this);
 	const groupParts = {
 		previousGroup: this._group,
 		previousStatements: this._statements,
