@@ -103,7 +103,12 @@ function dsAddStatement(statement) {
   }
 
   if (this._dialogSegment == null) {
-    this._dialogSegment = { identifier: null, statements: [], translationNotes: [], }
+    this._dialogSegment = { 
+      identifier: null, 
+      statements: [], 
+      translationNotes: [], 
+      location: statement.location,
+    }
   }
 
   if (statement instanceof Statements.Hashtag) {
@@ -112,6 +117,7 @@ function dsAddStatement(statement) {
 
   let lastStatement = getLastStatement.call(this);
   while(lastStatement instanceof Statements.Hashtag) {
+    this._dialogSegment.location = lastStatement.location;
     dsAddStatement.call(this, this._statements.pop());
     lastStatement = getLastStatement.call(this);
   }
@@ -125,7 +131,7 @@ function dsFinish() {
   if (this._dialogSegment == null) return;
   this._statements.push(new Statements.DialogueSegment(
     this._dialogSegment.statements,
-    null,
+    this._dialogSegment.location,
     this._dialogSegment.identifier,
     this._dialogSegment.translationNotes,
   ));
