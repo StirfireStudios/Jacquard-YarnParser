@@ -6,6 +6,12 @@ this should be a third dialog segment #dialogRef:13
 
 -> This should be in a fourth segment
    This should be a fifth segment
--> This should be a sixth segment
-   This should be a seventh segment
+
+   -> This should be in a sixth segment
+      This should be in a seventh segment
+
+   -> this should be in an eighth segment
+      this should be in a ninth segment
+-> This should be a tenth segment
+   This should be a eleventh segment
 ===

@@ -17,9 +17,15 @@ With two lines in it and an engine command on the first line.
 -> This should be in a fourth segment
    This should be a fourth segment
 
-   This should be in a fifth segment
--> This should be a sixth segment
-   This should be a sixth segment
+   -> this should be in a fifth segment
+      this should stll be in fifth
 
-   This should be in a seventh segment
+      this should be in a sixth
+   -> this should be in a seventh segment
+      and this should be in a seventh
+
+-> This should be a eighth segment
+   This should be a eighth segment
+
+   This should be in a ninth segment
 ===
