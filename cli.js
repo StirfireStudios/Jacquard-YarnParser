@@ -3,7 +3,7 @@ const Path = require('path');
 
 const FileIO = require('./FileIO');
 
-const package = require('./package.json')
+const package = require('./package.json');
 const program = require('commander');
 
 const YarnParser = require('./dist/index').Parser;
