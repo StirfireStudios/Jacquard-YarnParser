@@ -31,6 +31,10 @@ const defaultConfig = {
 	 * @memberof ParserConfig
 	 */
 	dialogSegmentPerLine: true,
+	/** Should the parser interpret 
+	 * 
+	 */
+	characterSupport: false
 };
 
 const privateProps = new WeakMap();
