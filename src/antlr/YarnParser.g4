@@ -13,7 +13,7 @@ body : BODY_START (option_group | statement)* BODY_END ;
 statement
     : if_statement # if
     | NEWLINE NEWLINE # blank
-    | (text | command_statement | eval_statement)+? #lineGroup
+    | (text | command_statement | eval_statement)+ #lineGroup
     | hashtag=HASHTAG+? #hashtag
     | NEWLINE #endOfLine
     ;

@@ -2,7 +2,6 @@ import Statements from '../statements';
 import LineGroup from '../statements/lineGroup';
 import Location from '../parser/location';
 import ParserMessage from '../parser/message';
-import { Statement } from '../../dist';
 
 // StatementGroup utils!
 function sgStart(ctx) {
