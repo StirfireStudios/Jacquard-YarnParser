@@ -128,6 +128,14 @@ function dsExist() { return this._dialogSegment != null; }
 
 function dsFinish() {
   if (this._dialogSegment == null) return;
+  if (this._dialogSegment.statements.length == 1) {
+    const statement = this._dialogSegment.statements[0];
+    if (statement instanceof Statements.Command) {
+      this._statements.push(statement);
+      this._dialogSegment = null;
+      return;
+    }
+  } 
   this._statements.push(new Statements.DialogueSegment(
     this._dialogSegment.statements,
     this._dialogSegment.location,
