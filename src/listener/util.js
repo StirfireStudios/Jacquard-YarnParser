@@ -10,6 +10,7 @@ function sgStart(ctx) {
 		previousStatements: this._statements,
     statements: [],
     location: Location.FromANTLRNode(ctx),
+    character: null,
 	}
 
 	this._statementGroup = statementGroupParts;
@@ -25,15 +26,20 @@ function sgEnd(ctx) {
   if (statementGroupParts.statements.length == 0) {
     return;
   } else if (statementGroupParts.statements.length == 1) {
-    dsAddStatement.call(this, statementGroupParts.statements[0]);
+    dsAddStatement.call(this, 
+      statementGroupParts.statements[0], statementGroupParts.character
+    );
   } else {
     statementGroupParts.location.end.line = ctx.stop.line;
     statementGroupParts.location.end.column = ctx.stop.column;
 
-    dsAddStatement.call(this, new LineGroup(
-      statementGroupParts.statements,
-      statementGroupParts.location,
-    ));
+    dsAddStatement.call(this, 
+      new LineGroup(
+        statementGroupParts.statements,
+        statementGroupParts.location,
+      ), 
+      statementGroupParts.character
+    );
   }
 }
 
@@ -94,7 +100,7 @@ function dsAddHashtagInfo(statement) {
   }
 }
 
-function dsAddStatement(statement) {
+function dsAddStatement(statement, character) {
   if (!dsStatement(statement)) {
     dsFinish.call(this);
     this._statements.push(statement);
@@ -107,7 +113,10 @@ function dsAddStatement(statement) {
       statements: [], 
       translationNotes: [], 
       location: statement.location,
+      character: character,
     }
+  } else if (this._dialogSegment.character == null) {
+    this._dialogSegment.character = character;
   }
 
   if (statement instanceof Statements.Hashtag) {
@@ -141,6 +150,7 @@ function dsFinish() {
     this._dialogSegment.location,
     this._dialogSegment.identifier,
     this._dialogSegment.translationNotes,
+    this._dialogSegment.character,
   ));
   this._dialogSegment = null;
 }
