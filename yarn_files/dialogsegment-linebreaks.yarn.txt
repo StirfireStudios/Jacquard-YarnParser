@@ -4,6 +4,7 @@ title: DialogSegment - Line Breaks
 #translatorNotes:This is wunderbar
 This should be one dialog segment.
 This should still be part of the dialog segment.
+guy brush: this should be ignored
 This should have the ref "ff"
 
 #dialogRef:01
@@ -22,4 +23,8 @@ With two lines in it and an engine command on the first line.
    This should be a sixth segment
 
    This should be in a seventh segment
+
+le chuch: this is segment eight. 
+this is still << commandExec "Segment Eight" >>
+also still segment { 4+4 }
 ===

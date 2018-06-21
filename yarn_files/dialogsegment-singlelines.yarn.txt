@@ -4,8 +4,14 @@ This should be one dialog segment #dialogRef:11
 this should be another dialog << commandExec "woo" >> segment #dialogRef:12
 this should be a third dialog segment #dialogRef:13
 
--> This should be in a fourth segment
-   This should be a fifth segment
--> This should be a sixth segment
-   This should be a seventh segment
+guy brush : this is a thing that guybrush says (and a fourth segment) 
+le chuch : this is a thing that le chuch says (and a fifth segment)
+this has no character (and a sixth segment)
+guy brush : we ignore the guy brush: here (seventh) 
+le chuch : evaluate << commandExec "test" >> (eighth)
+
+-> This should be in a ninth segment
+   This should be a tenth segment
+-> This should be a eleventh segment
+   This should be a twelfth segment
 ===
