@@ -10,7 +10,10 @@ this has no character (and a sixth segment)
 guy brush : we ignore the guy brush: here (seventh) 
 le chuch : evaluate << commandExec "test" >> (eighth)
 
+<< this command shouldn't be part of a dialog segment >>
+
 -> This should be in a ninth segment
+
    This should be a tenth segment
 -> This should be a eleventh segment
    This should be a twelfth segment

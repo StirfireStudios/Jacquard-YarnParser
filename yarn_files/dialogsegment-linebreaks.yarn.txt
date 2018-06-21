@@ -10,6 +10,8 @@ This should have the ref "ff"
 #dialogRef:01
 this should be another dialog segment
 
+<< this command shouldn't be part of a dialog segment >>
+
 #dialogRef:02
 #translatorNotes:This is stale
 this should be a third << commandExec "woo" >> dialog segment
