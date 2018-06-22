@@ -14,6 +14,7 @@ program
   .option("--debugPreprocess", 'Output the debug preprocessed file (only works with --preprocessOnly)')
   .option("--bodyOnly", "the specified file only contains a node body")
   .option("--blankLinesForSegments", "blank lines denote dialog segments")
+  .option("--characterSupportEnabled", "enable character support")
   .arguments('<infile/indir>')
   .parse(process.argv);
 
@@ -26,6 +27,7 @@ const config = {
   preprocessDebug: program.debugPreprocess,
   bodyOnly: program.bodyOnly,
   dialogSegmentPerLine: !program.blankLinesForSegments,
+  characterSupport: program.characterSupportEnabled,
 }
 
 if (program.args.length < 1) {
@@ -107,6 +109,7 @@ parser = new YarnParser({
   preprocessOnly: config.preprocessOutputFiles != null,
   preprocessDebug: config.preprocessDebug != null,
   dialogSegmentPerLine: config.dialogSegmentPerLine,
+  characterSupport: config.characterSupport,
 });
 
 for(let fileIndex = 0; fileIndex < config.inputFiles.length; fileIndex++) {

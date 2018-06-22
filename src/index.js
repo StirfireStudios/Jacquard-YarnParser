@@ -151,7 +151,8 @@ export class Parser {
 			return false;
 
 		const parsedData = antlrProcessor(
-			privates.processedString, bodyOnly, fileID, privates.config.dialogSegmentPerLine
+			privates.processedString, bodyOnly, fileID, 
+			privates.config.dialogSegmentPerLine, privates.config.characterSupport,
 		);
 		processMessages.call(this, parsedData, fileID);
 		processList.call(this, parsedData, "variables");

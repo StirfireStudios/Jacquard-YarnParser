@@ -10,7 +10,7 @@ function exit(ctx) {
 		return textNode.toString();  
 	}).join("\n").trim();
 	
-	const parts = text.split(/:(.+)/);
+	const parts = this._characterSupportEnabled ? text.split(/:(.+)/) : [text];
 	if (parts.length > 1 && this._statementGroup.character == null) {
 		this._statementGroup.character = parts[0].trim()
 		this._statements.push(new TextStatement(parts[1].trim(), location));
