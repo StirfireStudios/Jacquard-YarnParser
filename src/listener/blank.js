@@ -3,6 +3,7 @@
 import BlankStatement from '../statements/blank';
 import Location from '../parser/location';
 import * as Util from './util';
+import { timingSafeEqual } from 'crypto';
 
 function exitBlankLine(ctx) {
 	const location = Location.FromANTLRNode(ctx);

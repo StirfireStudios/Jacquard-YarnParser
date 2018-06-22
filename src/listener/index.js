@@ -98,7 +98,7 @@ function assignNodesToMessages(array, nodesByLine) {
   }
 }
 
-export default function process(data, isBodyOnly, fileID, dialogSegmentPerLine) {
+export default function process(data, isBodyOnly, fileID, dialogSegmentPerLine, characterSupport) {
   if (isBodyOnly) {
     data = `title: bodyParsed\n---\n${data}\n===\n`
   }
@@ -113,6 +113,7 @@ export default function process(data, isBodyOnly, fileID, dialogSegmentPerLine) 
   parser.addErrorListener(new ErrorListener(listener));
   listener._fileID = fileID;
   listener._dialogSegmentRequiresBlankspace = !dialogSegmentPerLine;
+  listener._characterSupportEnabled = characterSupport;
 
   tree = parser.dialogue();
 

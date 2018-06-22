@@ -2,7 +2,6 @@ import Statements from '../statements';
 import LineGroup from '../statements/lineGroup';
 import Location from '../parser/location';
 import ParserMessage from '../parser/message';
-import { Statement } from '../../dist';
 
 // StatementGroup utils!
 function sgStart(ctx) {
@@ -11,6 +10,7 @@ function sgStart(ctx) {
 		previousStatements: this._statements,
     statements: [],
     location: Location.FromANTLRNode(ctx),
+    character: null,
 	}
 
 	this._statementGroup = statementGroupParts;
@@ -26,15 +26,20 @@ function sgEnd(ctx) {
   if (statementGroupParts.statements.length == 0) {
     return;
   } else if (statementGroupParts.statements.length == 1) {
-    dsAddStatement.call(this, statementGroupParts.statements[0]);
+    dsAddStatement.call(this, 
+      statementGroupParts.statements[0], statementGroupParts.character
+    );
   } else {
     statementGroupParts.location.end.line = ctx.stop.line;
     statementGroupParts.location.end.column = ctx.stop.column;
 
-    dsAddStatement.call(this, new LineGroup(
-      statementGroupParts.statements,
-      statementGroupParts.location,
-    ));
+    dsAddStatement.call(this, 
+      new LineGroup(
+        statementGroupParts.statements,
+        statementGroupParts.location,
+      ), 
+      statementGroupParts.character
+    );
   }
 }
 
@@ -95,7 +100,7 @@ function dsAddHashtagInfo(statement) {
   }
 }
 
-function dsAddStatement(statement) {
+function dsAddStatement(statement, character) {
   if (!dsStatement(statement)) {
     dsFinish.call(this);
     this._statements.push(statement);
@@ -108,6 +113,7 @@ function dsAddStatement(statement) {
       statements: [], 
       translationNotes: [], 
       location: statement.location,
+      character: character,
     }
   }
 
@@ -129,11 +135,20 @@ function dsExist() { return this._dialogSegment != null; }
 
 function dsFinish() {
   if (this._dialogSegment == null) return;
+  if (this._dialogSegment.statements.length == 1) {
+    const statement = this._dialogSegment.statements[0];
+    if (statement instanceof Statements.Command) {
+      this._statements.push(statement);
+      this._dialogSegment = null;
+      return;
+    }
+  } 
   this._statements.push(new Statements.DialogueSegment(
     this._dialogSegment.statements,
     this._dialogSegment.location,
     this._dialogSegment.identifier,
     this._dialogSegment.translationNotes,
+    this._dialogSegment.character,
   ));
   this._dialogSegment = null;
 }

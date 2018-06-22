@@ -31,6 +31,11 @@ const defaultConfig = {
 	 * @memberof ParserConfig
 	 */
 	dialogSegmentPerLine: true,
+	/** Should the parser interpret a dialog segment text fragment ending with ":" 
+	 * as a character name. 
+	 * e.g. "character name: i speak the thing"
+	 */
+	characterSupport: false
 };
 
 const privateProps = new WeakMap();
@@ -146,7 +151,8 @@ export class Parser {
 			return false;
 
 		const parsedData = antlrProcessor(
-			privates.processedString, bodyOnly, fileID, privates.config.dialogSegmentPerLine
+			privates.processedString, bodyOnly, fileID, 
+			privates.config.dialogSegmentPerLine, privates.config.characterSupport,
 		);
 		processMessages.call(this, parsedData, fileID);
 		processList.call(this, parsedData, "variables");
