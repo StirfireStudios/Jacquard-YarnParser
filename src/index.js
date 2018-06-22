@@ -31,6 +31,11 @@ const defaultConfig = {
 	 * @memberof ParserConfig
 	 */
 	dialogSegmentPerLine: true,
+	/** Should the parser interpret a dialog segment text fragment ending with ":" 
+	 * as a character name. 
+	 * e.g. "character name: i speak the thing"
+	 */
+	characterSupport: false
 };
 
 const privateProps = new WeakMap();

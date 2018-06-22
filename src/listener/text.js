@@ -8,9 +8,15 @@ function exit(ctx) {
 	location.fileID = this._fileID;
 	const text = ctx.children.map(function(textNode) {
 		return textNode.toString();  
-	}).join("\n");
+	}).join("\n").trim();
 	
-	this._statements.push(new TextStatement(text.trim(), location));
+	const parts = text.split(/:(.+)/);
+	if (parts.length > 1 && this._statementGroup.character == null) {
+		this._statementGroup.character = parts[0].trim()
+		this._statements.push(new TextStatement(parts[1].trim(), location));
+	} else {
+		this._statements.push(new TextStatement(text, location));
+	}
 }
 
 function addToPrototype(prototype) {
@@ -18,3 +24,4 @@ function addToPrototype(prototype) {
 }
 
 module.exports = addToPrototype;
+ 

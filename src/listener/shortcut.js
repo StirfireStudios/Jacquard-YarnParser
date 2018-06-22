@@ -18,6 +18,8 @@ function enter(ctx) {
 }
 
 function exit(ctx) {
+	Util.StatementGroup.End.call(this, ctx);
+	Util.DialogueSegment.Finish.call(this);
 	if (this._group != null) this._group.isShortcut = true;
 	Util.DialogueSegment.Finish.call(this);
 	const location = Location.FromANTLRNode(ctx);

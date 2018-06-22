@@ -12,18 +12,19 @@ const privates = new WeakMap();
  */
 class DialogueSegment extends Group {
   /**
-   * 
    * @param {Statement[]} statements 
    * @param {Location} location 
    * @param {string} identifier 
    * @param {string[]} translationNotes 
+   * @param {string} characterName 
    */
-  constructor(statements, location, identifier, translationNotes) { 
+  constructor(statements, location, identifier, translationNotes, characterName) { 
     super(statements, location); 
 
     const privs = {
       identifier: identifier,
       notes: translationNotes,
+      char: characterName, 
     }
 
     privates.set(this, privs);
@@ -40,6 +41,12 @@ class DialogueSegment extends Group {
    * @returns {string[]} the translation notes
    */
   get translationNotes() { return privates.get(this).notes; }
+
+  /** @memberof Statement.DialogueSegment
+   * @instance
+   * @returns {string} the character Name
+   */
+  get characterName() { return privates.get(this).char; }
 }
 
 module.exports = DialogueSegment;
