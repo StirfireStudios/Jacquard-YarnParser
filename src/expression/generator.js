@@ -197,8 +197,8 @@ function generateExpression(expressionNode, fileID) {
 		return generateLeftRightExpression(expressionNode, fileID);
 	} else if (expressionNode instanceof YarnParser.StringContext) {
 		return generateStringExpression(expressionNode, fileID);
-	} else if (expressionNode instanceof YarnParser.OperandContext) {
-		debugger;
+	} else if (expressionNode instanceof YarnParser.NumberContext) {
+		return generateNumberValue(expressionNode, fileID);
 	}
 	console.error("UNHANDLED EXPRESSION!");
 }
