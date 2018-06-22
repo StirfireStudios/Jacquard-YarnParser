@@ -115,8 +115,6 @@ function dsAddStatement(statement, character) {
       location: statement.location,
       character: character,
     }
-  } else if (this._dialogSegment.character == null) {
-    this._dialogSegment.character = character;
   }
 
   if (statement instanceof Statements.Hashtag) {

@@ -12,7 +12,6 @@ function exit(ctx) {
 	
 	const parts = text.split(/:(.+)/);
 	if (parts.length > 1 && this._statementGroup.character == null) {
-		console.log("CHARACTER: ", parts[0]);
 		this._statementGroup.character = parts[0].trim()
 		this._statements.push(new TextStatement(parts[1].trim(), location));
 	} else {
