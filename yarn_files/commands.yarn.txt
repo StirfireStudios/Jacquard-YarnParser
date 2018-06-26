@@ -10,6 +10,8 @@ title: Commands
 
 <<func functionName(1, 2, 3) >>
 
+<< command 2 >>
+
 << {$henchman} pull the lever >>
 
 << change score to {(1 + 1)} >>
