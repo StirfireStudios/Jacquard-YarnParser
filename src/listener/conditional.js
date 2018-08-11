@@ -7,6 +7,8 @@ const expressionGenerator = require('../expression/generator');
 import * as Util from './util';
 
 function enter(ctx) {
+	Util.DialogueSegment.Finish.call(this);
+
 	const conditionalParts = {
 		clauseStatements: [],
 		clauses: [],
