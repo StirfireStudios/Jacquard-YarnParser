@@ -12,6 +12,14 @@ this should be another dialog segment
 
 << this command shouldn't be part of a dialog segment >>
 
+#dialogRef:0010
+This is text in dialogRef 0010
+<< if $default_timer gt 0 >>
+This should be a dialog ref inside clause 0
+<<else>>
+This should also be a dialog ref inside clause 1
+<<endif>>
+
 #dialogRef:02
 #translatorNotes:This is stale
 this should be a third << commandExec "woo" >> dialog segment
