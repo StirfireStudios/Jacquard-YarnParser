@@ -3,6 +3,9 @@ tags: expressions
 colorID: 0
 position: 545,274
 ---
+Expression with multiple clauses
+<< set $junk to $variable == true && $variable2 == false >>
+
 Set a variable to an integer via "to"
 << set $junk to 1 >>
 
