@@ -4,8 +4,11 @@ const ConditionalStatement = require('../statements/conditional');
 const Clause = ConditionalStatement.Clause;
 const Location = require('../parser/location');
 const expressionGenerator = require('../expression/generator');
+import * as Util from './util';
 
 function enter(ctx) {
+	Util.DialogueSegment.Finish.call(this);
+
 	const conditionalParts = {
 		clauseStatements: [],
 		clauses: [],
@@ -32,6 +35,7 @@ function exitTestedClause(ctx) {
     if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
   });  	
 
+	Util.DialogueSegment.Finish.call(this);
 	this._conditional.clauses.push(new Clause(
 		this._conditional.clauseStatements,
 		location,
@@ -49,6 +53,7 @@ function exitClause(ctx) {
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
 
+	Util.DialogueSegment.Finish.call(this);
 	this._conditional.clauses.push(new Clause(
 		this._conditional.clauseStatements,
 		location,
@@ -64,6 +69,7 @@ function exit(ctx) {
   this._statements = conditionalParts.previousStatements;
   this._conditional = conditionalParts.previousConditional;
 
+	Util.DialogueSegment.Finish.call(this);
 	this._statements.push(new ConditionalStatement(
 		conditionalParts.clauses,
 		location,

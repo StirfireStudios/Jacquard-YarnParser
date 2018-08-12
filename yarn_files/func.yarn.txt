@@ -2,6 +2,10 @@ title: Functions
 ---
 << func do(1, "the text") >>
 
+<< funkyFunc("FunkyArg") >>
+
+<< func funkyFunc("FunkyArg") >>
+
 << do(2, "the other text") >>
 
 <<if visited("Start")>>
