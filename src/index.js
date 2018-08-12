@@ -34,6 +34,9 @@ const defaultConfig = {
 	/** Should the parser interpret a dialog segment text fragment ending with ":" 
 	 * as a character name. 
 	 * e.g. "character name: i speak the thing"
+	 * @type {boolean}
+	 * @defaultvalue {false}
+	 * @memberof ParserConfig
 	 */
 	characterSupport: false
 };
