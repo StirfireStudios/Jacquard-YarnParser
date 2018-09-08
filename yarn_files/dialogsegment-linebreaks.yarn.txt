@@ -43,4 +43,16 @@ With two lines in it and an engine command on the first line.
 le chuch: this is segment ten. 
 this is still << commandExec "Segment Ten" >>
 also still segment { 5+5 }
+
+#dialogRef:00ff
+You do a thing and this is you
+[Crying noises]
+[More crying noises]
+[Crying intensifies]
+congrats
+You
+Are silly
+[Laugh]
+
+<< command here >>
 ===
