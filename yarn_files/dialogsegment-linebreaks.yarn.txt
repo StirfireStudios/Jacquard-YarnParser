@@ -15,6 +15,10 @@ this should be another dialog segment
 << neither of these commands should be part of a >>
 << dialog segment >>
 
+<< none of these should be in a >>
+<< dialog segment >>
+<< either >>
+
 #dialogRef:0010
 This is text in dialogRef 0010
 << if $default_timer gt 0 >>
