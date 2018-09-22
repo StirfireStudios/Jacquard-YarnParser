@@ -90,7 +90,7 @@ function dsAddHashtagInfo(statement) {
     if (this._dialogSegment.identifier !== null) {
       const message = new ParserMessage("Extra dialog reference id", statement.location)
       message.location.fileID = this._fileID;
-      this.warning.push(message);
+      this.warnings.push(message);
       return;
     }
     this._dialogSegment.identifier = statement.value;
@@ -135,14 +135,27 @@ function dsExist() { return this._dialogSegment != null; }
 
 function dsFinish() {
   if (this._dialogSegment == null) return;
-  if (this._dialogSegment.statements.length == 1) {
-    const statement = this._dialogSegment.statements[0];
-    if (statement instanceof Statements.Command) {
-      this._statements.push(statement);
-      this._dialogSegment = null;
-      return;
-    }
-  } 
+  // check to see if there are line statements in the list
+  var containsText = false;
+  var statements = this._dialogSegment.statements;
+  for(let index = 0; index < statements.length; index++) {
+    const statement = statements[index];
+    if (statement instanceof Statements.Text) {
+      containsText = true;
+      break;
+    }    
+    if (statement instanceof Statements.LineGroup) {
+      containsText = true;
+      break;
+    }    
+  }
+
+  if (!containsText) {
+    statements.forEach((statement) => this._statements.push(statement));
+    this._dialogSegment = null;    
+    return;
+  }  
+
   this._statements.push(new Statements.DialogueSegment(
     this._dialogSegment.statements,
     this._dialogSegment.location,

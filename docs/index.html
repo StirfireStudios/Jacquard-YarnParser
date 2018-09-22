@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>jacquard-yarnparser 0.3.4 | Documentation</title>
+  <title>jacquard-yarnparser 0.6.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>jacquard-yarnparser</h3>
-          <div class='mb1'><code>0.3.4</code></div>
+          <div class='mb1'><code>0.6.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -268,12 +268,28 @@
                         .preprocessDebug
                       </a></li>
                     
+                      <li><a
+                        href='#parserconfigdialogsegmentperline'
+                        class='regular pre-open'>
+                        .dialogSegmentPerLine
+                      </a></li>
+                    
                     </ul>
                   
                   
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#charactersupport'
+                  class="">
+                  characterSupport
+                  
+                </a>
                 
                 </li>
               
@@ -511,6 +527,12 @@
                       </a></li>
                     
                       <li><a
+                        href='#statementdialoguesegment'
+                        class='regular pre-open'>
+                        .DialogueSegment
+                      </a></li>
+                    
+                      <li><a
                         href='#statementevaluate'
                         class='regular pre-open'>
                         .Evaluate
@@ -526,6 +548,12 @@
                         href='#statementgroup'
                         class='regular pre-open'>
                         .Group
+                      </a></li>
+                    
+                      <li><a
+                        href='#statementhashtag'
+                        class='regular pre-open'>
+                        .Hashtag
                       </a></li>
                     
                       <li><a
@@ -3737,10 +3765,16 @@ Each of these represents an expression encountered in a statement</p>
 
   
 
-  <p>Should this parser only preprocess files and then stop</p>
+  <p>Should this parser only preprocess files and then stop.
+Default is false</p>
 
 
   <div class='pre p1 fill-light mt0'>preprocessOnly</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
   
   
 
@@ -3783,10 +3817,69 @@ Each of these represents an expression encountered in a statement</p>
 
   
 
-  <p>Should this parser output preprocessed files with visible option brackets</p>
+  <p>Should this parser output preprocessed files with visible option brackets
+Default is false</p>
 
 
   <div class='pre p1 fill-light mt0'>preprocessDebug</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='parserconfigdialogsegmentperline'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>dialogSegmentPerLine</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Should the parser output a dialog segment for each line.
+If this is false a blank line will split dialogue segments
+Default is true</p>
+
+
+  <div class='pre p1 fill-light mt0'>dialogSegmentPerLine</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
   
   
 
@@ -3818,6 +3911,55 @@ Each of these represents an expression encountered in a statement</p>
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='charactersupport'>
+      characterSupport
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Should the parser interpret a dialog segment text fragment ending with ":"
+as a character name.
+e.g. "character name: i speak the thing"</p>
+
+
+  <div class='pre p1 fill-light mt0'>characterSupport</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -5884,6 +6026,224 @@ If test is null or undefined, the statements should be exeuted if this clause is
       </div>
     </div>
   
+    <div class='border-bottom' id='statementdialoguesegment'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new DialogueSegment()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents a dialog segment (a set of linegroups or text lines)</p>
+
+
+  <div class='pre p1 fill-light mt0'>new DialogueSegment()</div>
+  
+  
+    <p>
+      Extends
+      
+        Statement.Group
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='statementdialoguesegmentidentifier'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>identifier</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>identifier</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        the unique identifer of this segment
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementdialoguesegmenttranslationnotes'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>translationNotes</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>translationNotes</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></code>:
+        the translation notes
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementdialoguesegmentcharactername'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>characterName</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>characterName</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        the character Name
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='statementevaluate'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -6244,6 +6604,171 @@ If test is null or undefined, the statements should be exeuted if this clause is
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;Statement.Base></code>:
         the statements that are part of this group
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementhashtag'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>new Hashtag()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Represents a Hashtag in the node body</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Hashtag()</div>
+  
+  
+    <p>
+      Extends
+      
+        Statement.Base
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='statementhashtagvalue'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>value</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>value</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        the value of this hashtag (if present)
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statementhashtagkey'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>key</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>key</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        the key of this hashtag
 
       
     
