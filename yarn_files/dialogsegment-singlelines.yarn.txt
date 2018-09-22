@@ -4,6 +4,15 @@ This should be one dialog segment #dialogRef:11
 this should be another dialog << commandExec "woo" >> segment #dialogRef:12
 this should be a third dialog segment #dialogRef:13
 
+<< this command shouldn't be part of a dialog segment >>
+
+<< neither of these commands should be part of a >>
+<< dialog segment >>
+
+<< none of these should be in a >>
+<< dialog segment >>
+<< either >>
+
 guy brush : this is a thing that guybrush says (and a fourth segment) 
 le chuch : this is a thing that le chuch says (and a fifth segment)
 this has no character (and a sixth segment)
