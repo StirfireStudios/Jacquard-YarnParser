@@ -162,6 +162,7 @@ export class Parser {
 		);
 
 		processMessages.call(this, parsedData, fileID);
+		privates.lastNodesParsed = Object.keys(parsedData.nodesByName);	
 		processList.call(this, parsedData, "variables");
 		processList.call(this, parsedData, "functions");
 
