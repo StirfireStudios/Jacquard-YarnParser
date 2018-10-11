@@ -19,6 +19,7 @@ import addLineGroupListener from './lineGroup';
 import addOptionGroupListener from './group';
 
 import addBlankStatementListener from './blank';
+import addBodyListener from './body';
 import addConditionalStatementListener from './conditional';
 import addCommandStatementListener from './command';
 import addEvaluateStatementListener from './evaluate';
@@ -61,6 +62,7 @@ YarnListener.prototype.addWarning = function(ctx, string) {
 
 addNodeListeners(YarnListener.prototype);
 addHeaderListener(YarnListener.prototype);
+addBodyListener(YarnListener.prototype);
 
 addLineGroupListener(YarnListener.prototype);
 addOptionGroupListener(YarnListener.prototype);
