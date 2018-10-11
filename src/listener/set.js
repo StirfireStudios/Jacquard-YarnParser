@@ -5,6 +5,7 @@ const Location = require('../parser/location');
 const expressionGenerator = require('../expression/generator');
 const YarnParser = require('../antlr/YarnParser').YarnParser;
 const ExpressionTypes = require('../expression');
+import {recordReference as RecordReference} from './util';
 
 function getAssignClass(assignNode) {
 	switch(assignNode.getChild(0).symbol.type) {
@@ -48,7 +49,7 @@ function exit(ctx) {
 	const location = Location.FromANTLRNode(ctx);
 	location.fileID = this._fileID;
 	const variable = generateVariableExpression.call(this, ctx.getChild(1));
-	if (this.variables.indexOf(variable.name) === -1) this.variables.push(variable.name);
+	RecordReference(variable.name, this._nodeData.name, this._nodeData.variables, this.variables);
 
 	const valueExpression = expressionGenerator(ctx.getChild(3), this._fileID);
 	//TODO: better fix for this
@@ -58,10 +59,10 @@ function exit(ctx) {
 	
 	const expression = generateAssignExpression(ctx.getChild(2), variable, valueExpression, location);
 	valueExpression.functions.forEach(funcName => {
-		if (this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+		RecordReference(funcName, this._nodeData.name, this._nodeData.functions, this.functions);
 	});
 	valueExpression.variables.forEach(varName => {
-		if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+		RecordReference(varName, this._nodeData.name, this._nodeData.functions, this.functions);
 	});
 
 	if (expression == null) {

@@ -8,6 +8,7 @@ const defaultNode = {
 	statements: [],
 	linkedNodeNames: [],
 	location: null,
+	bodyLocation: null,
 }
 
 function getDefaultNode() {
@@ -65,6 +66,9 @@ class Node {
 
 	/** @returns {Location} the location of this node in the original file	 */
 	get location() { return privateProps.get(this).location; }
+
+	/** @returns {Location} the location of the body of this node in the original file */
+	get bodyLocation() { return privateProps.get(this).bodyLocation; }
 
 	/** @returns {boolean} does this node have any statements? */
 	get hasStatements() { return privateProps.get(this).statements.length > 0; }

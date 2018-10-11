@@ -166,7 +166,6 @@ function dsFinish() {
   this._dialogSegment = null;
 }
 
-
 const dsExternals = {
   AddStatement: dsAddStatement,
   Exists: dsExist,
@@ -176,6 +175,12 @@ const dsExternals = {
 export function getLastStatement() {
   if (this._statements.length === 0) return null;
   return this._statements[this._statements.length - 1];
+}
+
+export function recordReference(item, nodeName, nodeList, parserList) {
+  if (nodeList.indexOf(item) === -1) nodeList.push(item);
+  if (parserList[item] == null) parserList[item] = [];
+  if (parserList[item].indexOf(nodeName) === -1) parserList[item].push(nodeName);  
 }
 
 export { dsExternals as DialogueSegment }

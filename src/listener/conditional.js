@@ -29,10 +29,10 @@ function exitTestedClause(ctx) {
 	const expr = expressionGenerator(ctx.getChild(1));
 	const test = expr;
   expr.functions.forEach(funcName => {
-    if ( this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+		Util.recordReference(funcName, this._nodeData.name, this._nodeData.functions, this.functions);
   });
   expr.variables.forEach(varName => {
-    if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+		Util.recordReference(varName, this._nodeData.name, this._nodeData.variables, this.variables);
   });  	
 
 	Util.DialogueSegment.Finish.call(this);

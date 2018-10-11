@@ -6,6 +6,7 @@ const Location = require('../parser/location');
 const Expressions = require('../expression');
 const YarnParser = require('../antlr/YarnParser').YarnParser;
 const expressionGenerator = require('../expression/generator');
+import {recordReference as RecordReference} from './util';
 
 function childStringValue(child, args) {
   const location = Location.FromANTLRSymbol(child.symbol);
@@ -17,10 +18,10 @@ function childStringValue(child, args) {
 function childExpression(child, args) {
   const expression = expressionGenerator(child, this._fileID);
   expression.functions.forEach(funcName => {
-    if ( this.functions.indexOf(funcName) === -1) this.functions.push(funcName);
+    RecordReference(funcName, this._nodeData.name, this._nodeData.functions, this.functions);
   });
   expression.variables.forEach(varName => {
-    if (this.variables.indexOf(varName) === -1) this.variables.push(varName);
+    RecordReference(varName, this._nodeData.name, this._nodeData.variables, this.variables);
   });  
   args.push(expression);
 }
