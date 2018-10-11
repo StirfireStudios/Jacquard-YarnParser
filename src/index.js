@@ -52,6 +52,7 @@ function resetState(privates) {
 	privates.nodesByTag = {};
 	privates.variables = [];
 	privates.functions = [];
+	privates.lastNodesParsed = [];
 }
 
 function processMessages(parsedData, fileID) {
@@ -139,8 +140,10 @@ export class Parser {
 	 * @param {string} fileID an identifer for the source of the yarnString that is being passed in.
 	 * @return {boolean} if there was an additional parsing error.
 	 */
-	parse(yarnString, bodyOnly, fileID) {
+	parse(yarnString, bodyOnly, fileID) {		
 		const privates = privateProps.get(this);
+
+		privates.lastNodesParsed = [];
 
 		const errorCount = privates.errors.length;
 		try {
@@ -157,6 +160,7 @@ export class Parser {
 			privates.processedString, bodyOnly, fileID, 
 			privates.config.dialogSegmentPerLine, privates.config.characterSupport,
 		);
+
 		processMessages.call(this, parsedData, fileID);
 		processList.call(this, parsedData, "variables");
 		processList.call(this, parsedData, "functions");
@@ -225,6 +229,9 @@ export class Parser {
 	 * @return {string[]} the list of function names.
 	 */
 	get variableNames() { return privateProps.get(this).variables; }	
+
+	/** Get the list of nodes we parsed in the last call of "parse */
+	get lastNodesParsed() { return privateProps.get(this).lastNodesParsed; }
 
 	/**
 	 * Reset this parser, removing all parsed information
