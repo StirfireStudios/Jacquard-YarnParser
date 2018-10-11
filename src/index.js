@@ -244,18 +244,38 @@ export class Parser {
 		return privateProps.get(this).warnings;
 	}
 
+	/** Get the list of characters
+	 * @return {string[]} the list of function names.
+	 */
+	get characterNames() { return Object.keys(privateProps.get(this).characters); }
+
+	/** Get the list of functions and what nodes each function is in 
+	 * @return {Object.<string, Array>} - keys are function names, array is a list of nodes the function is in
+	*/
+	get charactersNodeMap() { return Object.assign({}, privateProps.get(this).characters); }
+
 	/** Get the list of functions
 	 * @return {string[]} the list of function names.
 	 */
-	get functionNames() { return privateProps.get(this).functions; }
+	get functionNames() { return Object.keys(privateProps.get(this).functions); }
+
+	/** Get the list of functions and what nodes each function is in 
+	 * @return {Object.<string, Array>} - keys are function names, array is a list of nodes the function is in
+	*/
+	get functionsNodeMap() { return Object.assign({}, privateProps.get(this).functions); }
 
 	/** Get the list of variables
 	 * @return {string[]} the list of function names.
 	 */
-	get variableNames() { return privateProps.get(this).variables; }	
+	get variableNames() { return Object.keys(privateProps.get(this).variables); }	
+
+	/** Get the list of variables and what nodes each variable is in 
+	 * @return {Object.<string, Array>} - keys are variable names, array is a list of nodes the variable is in
+	*/
+	get variablesNodeMap() { return Object.assign({}, privateProps.get(this).variables); }
 
 	/** Get the list of nodes we parsed in the last call of "parse */
-	get lastNodesParsed() { return privateProps.get(this).lastNodesParsed; }
+	get lastNodesParsed() { return Object.assign([], privateProps.get(this).lastNodesParsed); }
 
 	/**
 	 * Reset this parser, removing all parsed information
