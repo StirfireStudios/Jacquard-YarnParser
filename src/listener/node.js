@@ -19,6 +19,10 @@ function enter(ctx) {
     statements: [],
     linkedNodeNames: [],
     location: location,
+    bodyLocation: null,
+    functions: [],
+    variables: [],
+    characters: [],
   }
   
   this._statements = this._nodeData.statements;

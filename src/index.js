@@ -50,8 +50,10 @@ function resetState(privates) {
 	privates.nodeNames = [];
 	privates.nodesByName = {};
 	privates.nodesByTag = {};
-	privates.variables = [];
-	privates.functions = [];
+	privates.characters = {};
+	privates.variables = {};
+	privates.functions = {};
+	privates.lastNodesParsed = [];
 }
 
 function processMessages(parsedData, fileID) {
@@ -63,9 +65,25 @@ function processMessages(parsedData, fileID) {
 }
 
 function processList(parsedData, field) {
+	const parsedList = parsedData[field];
 	const privateList = privateProps.get(this)[field];
-	parsedData[field].forEach(name => {
-		if (privateList.indexOf(name) === -1) privateList.push(name);
+	Object.keys(parsedList).forEach(fieldItem => {
+		if (privateList[fieldItem] == null) {
+			privateList[fieldItem] = parsedList[fieldItem];
+			return;
+		}
+
+		parsedList[fieldItem].forEach(nodeName => {
+			if (privateList[fieldItem].indexOf(nodeName) >= 0) return;
+			privateList[fieldItem].push(nodeName);
+		});
+	});
+}
+
+function removeFromList(nodeList, field) {
+	const privateList = privateProps.get(this)[field];
+	Object.keys(privateList).forEach(fieldItem => {
+		privateList[fieldItem] = privateList[fieldItem].filter(nodeName => nodeList.indexOf(nodeName) === -1);
 	});
 }
 
@@ -139,8 +157,10 @@ export class Parser {
 	 * @param {string} fileID an identifer for the source of the yarnString that is being passed in.
 	 * @return {boolean} if there was an additional parsing error.
 	 */
-	parse(yarnString, bodyOnly, fileID) {
+	parse(yarnString, bodyOnly, fileID) {		
 		const privates = privateProps.get(this);
+
+		privates.lastNodesParsed = [];
 
 		const errorCount = privates.errors.length;
 		try {
@@ -157,7 +177,15 @@ export class Parser {
 			privates.processedString, bodyOnly, fileID, 
 			privates.config.dialogSegmentPerLine, privates.config.characterSupport,
 		);
+
 		processMessages.call(this, parsedData, fileID);
+		privates.lastNodesParsed = Object.keys(parsedData.nodesByName);
+
+		removeFromList.call(this, privates.lastNodesParsed, "characters");
+		removeFromList.call(this, privates.lastNodesParsed, "characters");
+		removeFromList.call(this, privates.lastNodesParsed, "characters");
+
+		processList.call(this, parsedData, "characters");
 		processList.call(this, parsedData, "variables");
 		processList.call(this, parsedData, "functions");
 
@@ -216,15 +244,38 @@ export class Parser {
 		return privateProps.get(this).warnings;
 	}
 
+	/** Get the list of characters
+	 * @return {string[]} the list of function names.
+	 */
+	get characterNames() { return Object.keys(privateProps.get(this).characters); }
+
+	/** Get the list of functions and what nodes each function is in 
+	 * @return {Object.<string, Array>} - keys are function names, array is a list of nodes the function is in
+	*/
+	get charactersNodeMap() { return Object.assign({}, privateProps.get(this).characters); }
+
 	/** Get the list of functions
 	 * @return {string[]} the list of function names.
 	 */
-	get functionNames() { return privateProps.get(this).functions; }
+	get functionNames() { return Object.keys(privateProps.get(this).functions); }
+
+	/** Get the list of functions and what nodes each function is in 
+	 * @return {Object.<string, Array>} - keys are function names, array is a list of nodes the function is in
+	*/
+	get functionsNodeMap() { return Object.assign({}, privateProps.get(this).functions); }
 
 	/** Get the list of variables
 	 * @return {string[]} the list of function names.
 	 */
-	get variableNames() { return privateProps.get(this).variables; }	
+	get variableNames() { return Object.keys(privateProps.get(this).variables); }	
+
+	/** Get the list of variables and what nodes each variable is in 
+	 * @return {Object.<string, Array>} - keys are variable names, array is a list of nodes the variable is in
+	*/
+	get variablesNodeMap() { return Object.assign({}, privateProps.get(this).variables); }
+
+	/** Get the list of nodes we parsed in the last call of "parse */
+	get lastNodesParsed() { return Object.assign([], privateProps.get(this).lastNodesParsed); }
 
 	/**
 	 * Reset this parser, removing all parsed information
