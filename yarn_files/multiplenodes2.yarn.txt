@@ -1,0 +1,29 @@
+title: ytc-Start
+tags: 
+colorID: 0
+position: 0,0
+parent: 
+---
+This is the Start node. Write the beginning of your Yarn story here.
+
+Test test!
+===
+title: ytc-NewNode3
+tags: 
+colorID: 0
+position: 0,0
+parent: 
+---
+Write stuff here. Test
+===
+title: ytc-Start_MoreExamples
+tags: 
+colorID: 0
+position: 0,0
+parent: 
+---
+This node is called Start_MoreExamples.
+The second way to do choices in Yarn is with 'shortcut options' like this:
+[[ytc-Start]]
+===
+
