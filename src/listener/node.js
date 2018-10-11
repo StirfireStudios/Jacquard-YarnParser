@@ -20,6 +20,9 @@ function enter(ctx) {
     linkedNodeNames: [],
     location: location,
     bodyLocation: null,
+    functions: [],
+    variables: [],
+    characters: [],
   }
   
   this._statements = this._nodeData.statements;

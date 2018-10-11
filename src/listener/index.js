@@ -35,8 +35,9 @@ function YarnListener() {
 	this.warnings = [];
   this.nodesByName = {};
   this._fileID = null;
-  this.variables = [];
-  this.functions = [];
+  this.characters = {};
+  this.variables = {};
+  this.functions = {};
   this._node = null;
   this._nodesByLine = {};
   this._statements = null;

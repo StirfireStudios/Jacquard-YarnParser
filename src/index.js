@@ -50,8 +50,9 @@ function resetState(privates) {
 	privates.nodeNames = [];
 	privates.nodesByName = {};
 	privates.nodesByTag = {};
-	privates.variables = [];
-	privates.functions = [];
+	privates.characters = {};
+	privates.variables = {};
+	privates.functions = {};
 	privates.lastNodesParsed = [];
 }
 
@@ -64,9 +65,25 @@ function processMessages(parsedData, fileID) {
 }
 
 function processList(parsedData, field) {
+	const parsedList = parsedData[field];
 	const privateList = privateProps.get(this)[field];
-	parsedData[field].forEach(name => {
-		if (privateList.indexOf(name) === -1) privateList.push(name);
+	Object.keys(parsedList).forEach(fieldItem => {
+		if (privateList[fieldItem] == null) {
+			privateList[fieldItem] = parsedList[fieldItem];
+			return;
+		}
+
+		parsedList[fieldItem].forEach(nodeName => {
+			if (privateList[fieldItem].indexOf(nodeName) >= 0) return;
+			privateList[fieldItem].push(nodeName);
+		});
+	});
+}
+
+function removeFromList(nodeList, field) {
+	const privateList = privateProps.get(this)[field];
+	Object.keys(privateList).forEach(fieldItem => {
+		privateList[fieldItem] = privateList[fieldItem].filter(nodeName => nodeList.indexOf(nodeName) === -1);
 	});
 }
 
@@ -162,7 +179,13 @@ export class Parser {
 		);
 
 		processMessages.call(this, parsedData, fileID);
-		privates.lastNodesParsed = Object.keys(parsedData.nodesByName);	
+		privates.lastNodesParsed = Object.keys(parsedData.nodesByName);
+
+		removeFromList.call(this, privates.lastNodesParsed, "characters");
+		removeFromList.call(this, privates.lastNodesParsed, "characters");
+		removeFromList.call(this, privates.lastNodesParsed, "characters");
+
+		processList.call(this, parsedData, "characters");
 		processList.call(this, parsedData, "variables");
 		processList.call(this, parsedData, "functions");
 
