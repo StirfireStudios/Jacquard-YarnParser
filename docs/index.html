@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>jacquard-yarnparser 0.6.0 | Documentation</title>
+  <title>jacquard-yarnparser 0.7.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>jacquard-yarnparser</h3>
-          <div class='mb1'><code>0.6.0</code></div>
+          <div class='mb1'><code>0.7.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -274,22 +274,18 @@
                         .dialogSegmentPerLine
                       </a></li>
                     
+                      <li><a
+                        href='#parserconfigcharactersupport'
+                        class='regular pre-open'>
+                        .characterSupport
+                      </a></li>
+                    
                     </ul>
                   
                   
                   
                   
                 </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#charactersupport'
-                  class="">
-                  characterSupport
-                  
-                </a>
                 
                 </li>
               
@@ -356,15 +352,45 @@
                       </a></li>
                       
                       <li><a
+                        href='#parsercharacternames'
+                        class='regular pre-open'>
+                        #characterNames
+                      </a></li>
+                      
+                      <li><a
+                        href='#parsercharactersnodemap'
+                        class='regular pre-open'>
+                        #charactersNodeMap
+                      </a></li>
+                      
+                      <li><a
                         href='#parserfunctionnames'
                         class='regular pre-open'>
                         #functionNames
                       </a></li>
                       
                       <li><a
+                        href='#parserfunctionsnodemap'
+                        class='regular pre-open'>
+                        #functionsNodeMap
+                      </a></li>
+                      
+                      <li><a
                         href='#parservariablenames'
                         class='regular pre-open'>
                         #variableNames
+                      </a></li>
+                      
+                      <li><a
+                        href='#parservariablesnodemap'
+                        class='regular pre-open'>
+                        #variablesNodeMap
+                      </a></li>
+                      
+                      <li><a
+                        href='#parserlastnodesparsed'
+                        class='regular pre-open'>
+                        #lastNodesParsed
                       </a></li>
                       
                       <li><a
@@ -423,6 +449,12 @@
                         href='#nodelocation'
                         class='regular pre-open'>
                         #location
+                      </a></li>
+                      
+                      <li><a
+                        href='#nodebodylocation'
+                        class='regular pre-open'>
+                        #bodyLocation
                       </a></li>
                       
                       <li><a
@@ -3910,29 +3942,16 @@ Default is true</p>
       </div>
     </div>
   
-</div>
+    <div class='border-bottom' id='parserconfigcharactersupport'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>characterSupport</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
 
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-            <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='charactersupport'>
-      characterSupport
-    </h3>
-    
-    
-  </div>
   
 
   <p>Should the parser interpret a dialog segment text fragment ending with ":"
@@ -3942,16 +3961,25 @@ e.g. "character name: i speak the thing"</p>
 
   <div class='pre p1 fill-light mt0'>characterSupport</div>
   
-  
-
-  
-  
-  
-  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+    </p>
   
   
 
   
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
 
   
 
@@ -3960,6 +3988,14 @@ e.g. "character name: i speak the thing"</p>
   
 
   
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
 
   
 
@@ -4523,6 +4559,114 @@ If the yarn is body only, the node will be called <code>bodyParsed</code> and an
       </div>
     </div>
   
+    <div class='border-bottom' id='parsercharacternames'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>characterNames</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the list of characters</p>
+
+
+  <div class='pre p1 fill-light mt0'>characterNames</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></code>:
+        the list of function names.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='parsercharactersnodemap'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>charactersNodeMap</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the list of functions and what nodes each function is in</p>
+
+
+  <div class='pre p1 fill-light mt0'>charactersNodeMap</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>></code>:
+        keys are function names, array is a list of nodes the function is in
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='parserfunctionnames'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -4558,6 +4702,60 @@ If the yarn is body only, the node will be called <code>bodyParsed</code> and an
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>></code>:
         the list of function names.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='parserfunctionsnodemap'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>functionsNodeMap</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the list of functions and what nodes each function is in</p>
+
+
+  <div class='pre p1 fill-light mt0'>functionsNodeMap</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>></code>:
+        keys are function names, array is a list of nodes the function is in
 
       
     
@@ -4615,6 +4813,106 @@ If the yarn is body only, the node will be called <code>bodyParsed</code> and an
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='parservariablesnodemap'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>variablesNodeMap</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the list of variables and what nodes each variable is in</p>
+
+
+  <div class='pre p1 fill-light mt0'>variablesNodeMap</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>></code>:
+        keys are variable names, array is a list of nodes the variable is in
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='parserlastnodesparsed'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>lastNodesParsed</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the list of nodes we parsed in the last call of "parse</p>
+
+
+  <div class='pre p1 fill-light mt0'>lastNodesParsed</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
   
 
   
@@ -4996,6 +5294,59 @@ must be run before outgoingLinks or incomingLinks will be valid</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="#location">Location</a></code>:
         the location of this node in the original file
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='nodebodylocation'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>bodyLocation</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>bodyLocation</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#location">Location</a></code>:
+        the location of the body of this node in the original file
 
       
     
